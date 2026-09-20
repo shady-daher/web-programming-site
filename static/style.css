@@ -27,7 +27,9 @@
 }
 
 
-/* Base */
+/* =========================
+   Base
+   ========================= */
 
 * {
     box-sizing: border-box;
@@ -38,18 +40,19 @@ html {
 }
 
 body {
-    margin: 0;
     min-width: 0;
+    margin: 0;
+    overflow-x: hidden;
     background: var(--background);
     color: var(--text);
     font-family: var(--font-main);
     font-size: 1rem;
     line-height: 1.7;
-    overflow-x: hidden;
 }
 
 img,
 video {
+    display: block;
     max-width: 100%;
     height: auto;
 }
@@ -63,21 +66,30 @@ a:hover {
     color: var(--primary-dark);
 }
 
+a:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 3px;
+}
 
-/* Header */
+
+/* =========================
+   Header
+   ========================= */
 
 header {
     padding: var(--space-xl) var(--space-md) var(--space-lg);
-    text-align: center;
     background: var(--surface);
     border-bottom: 1px solid var(--border);
+    text-align: center;
 }
 
 header h1 {
     margin: 0;
     color: var(--navy);
-    font-size: clamp(1.7rem, 7vw, 2.5rem);
+    font-size: clamp(1.7rem, 8vw, 2.5rem);
     line-height: 1.2;
+    letter-spacing: -0.02em;
+    overflow-wrap: anywhere;
 }
 
 header p {
@@ -88,14 +100,17 @@ header p {
 }
 
 
-/* Navigation */
+/* =========================
+   Navigation
+   ========================= */
 
 nav {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
     align-items: center;
-    gap: 0.35rem;
+    justify-content: center;
+    gap: var(--space-xs);
+    width: 100%;
     padding: var(--space-sm) var(--space-md);
     background: var(--surface);
     border-bottom: 1px solid var(--border);
@@ -104,7 +119,7 @@ nav {
 nav a {
     display: inline-block;
     max-width: 100%;
-    padding: 0.45rem 0.8rem;
+    padding: 0.45rem 0.7rem;
     border: 1px solid transparent;
     border-radius: var(--radius);
     color: var(--primary);
@@ -123,15 +138,19 @@ nav a:hover {
 }
 
 
-/* Main content */
+/* =========================
+   Main Content
+   ========================= */
 
 main {
-    width: min(calc(100% - 2rem), var(--content-width));
-    margin: 0 auto;
+    width: calc(100% - 2rem);
+    max-width: var(--content-width);
+    margin-inline: auto;
     padding: var(--space-xl) 0 var(--space-xxl);
 }
 
 main > section {
+    min-width: 0;
     margin-bottom: var(--space-xxl);
 }
 
@@ -142,16 +161,18 @@ main > section:last-child {
 main > section > header {
     margin: 0 0 var(--space-lg);
     padding: 0;
-    text-align: left;
     background: transparent;
     border: 0;
+    text-align: left;
 }
 
 main h2 {
     margin: 0 0 var(--space-lg);
     color: var(--navy);
-    font-size: clamp(1.5rem, 5vw, 2rem);
+    font-size: clamp(1.5rem, 6vw, 2rem);
     line-height: 1.3;
+    letter-spacing: -0.015em;
+    overflow-wrap: anywhere;
 }
 
 main > section > header h2 {
@@ -161,12 +182,15 @@ main > section > header h2 {
 main h3 {
     margin: 0 0 var(--space-sm);
     color: var(--charcoal);
-    font-size: clamp(1.15rem, 4vw, 1.4rem);
+    font-size: clamp(1.15rem, 5vw, 1.4rem);
     line-height: 1.4;
+    overflow-wrap: anywhere;
 }
 
 main p {
+    max-width: 75ch;
     margin: 0 0 var(--space-md);
+    overflow-wrap: break-word;
 }
 
 main p:last-child {
@@ -176,11 +200,13 @@ main p:last-child {
 main ul,
 main ol {
     margin: var(--space-md) 0;
-    padding-left: 1.35rem;
+    padding-left: 1.25rem;
 }
 
 main li {
+    min-width: 0;
     margin-bottom: var(--space-sm);
+    overflow-wrap: break-word;
 }
 
 main li:last-child {
@@ -188,9 +214,12 @@ main li:last-child {
 }
 
 
-/* Articles */
+/* =========================
+   Articles
+   ========================= */
 
 article {
+    min-width: 0;
     margin: var(--space-xl) 0;
     padding-bottom: var(--space-xl);
     border-bottom: 1px solid var(--border);
@@ -205,9 +234,9 @@ article:last-child {
 article header {
     margin-bottom: var(--space-md);
     padding: 0;
-    text-align: left;
     background: transparent;
     border: 0;
+    text-align: left;
 }
 
 article header h3 {
@@ -215,18 +244,26 @@ article header h3 {
 }
 
 
-/* Supporting content */
+/* =========================
+   Supporting Content
+   ========================= */
 
 aside {
-    margin: var(--space-md) 0;
+    min-width: 0;
+    margin: var(--space-lg) 0;
     padding: var(--space-md);
     background: var(--accent-background);
     border-left: 3px solid var(--primary);
     border-radius: var(--radius);
 }
 
+aside p {
+    margin-bottom: 0;
+}
+
 dl {
     margin: 0;
+    overflow-wrap: break-word;
 }
 
 dt {
@@ -241,22 +278,25 @@ dt:first-child {
 
 dd {
     margin: var(--space-xs) 0 0;
-    color: var(--text);
+    overflow-wrap: break-word;
 }
 
 
-/* Weekly Work */
+/* =========================
+   Weekly Work
+   ========================= */
 
-main > section:first-child ul {
+main > section:first-child > ul {
     display: grid;
     grid-template-columns: 1fr;
     gap: var(--space-md);
+    width: 100%;
     margin: var(--space-lg) 0 0;
     padding: 0;
     list-style: none;
 }
 
-main > section:first-child ul li {
+main > section:first-child > ul > li {
     min-width: 0;
     margin: 0;
     padding: var(--space-lg);
@@ -266,20 +306,23 @@ main > section:first-child ul li {
     box-shadow: var(--shadow-subtle);
 }
 
-main > section:first-child ul a {
+main > section:first-child > ul > li > a {
     display: block;
     color: var(--primary);
     font-weight: 600;
+    line-height: 1.5;
     text-decoration: none;
     overflow-wrap: anywhere;
 }
 
-main > section:first-child ul a:hover {
+main > section:first-child > ul > li > a:hover {
     color: var(--primary-dark);
 }
 
 
-/* Footer */
+/* =========================
+   Footer
+   ========================= */
 
 footer {
     padding: var(--space-xl) var(--space-md);
@@ -293,6 +336,7 @@ footer p {
     margin: 0 auto var(--space-sm);
     font-size: 0.9rem;
     line-height: 1.6;
+    overflow-wrap: break-word;
 }
 
 footer p:last-child {
@@ -300,15 +344,18 @@ footer p:last-child {
 }
 
 
-/* Tablet */
+/* =========================
+   Tablet
+   ========================= */
 
 @media (min-width: 600px) {
+
     header {
         padding: var(--space-xxl) var(--space-xl) var(--space-xl);
     }
 
     nav {
-        gap: var(--space-xs);
+        gap: var(--space-sm);
         padding: var(--space-md) var(--space-xl);
     }
 
@@ -317,35 +364,45 @@ footer p:last-child {
     }
 
     main {
-        width: min(calc(100% - 3rem), var(--content-width));
+        width: calc(100% - 3rem);
         padding-top: var(--space-xxl);
     }
 
-    main > section:first-child ul {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+    main > section:first-child > ul {
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: var(--space-lg);
     }
 }
 
 
-/* Desktop */
+/* =========================
+   Desktop
+   ========================= */
 
 @media (min-width: 900px) {
+
     header {
         padding-top: var(--space-xxl);
         padding-bottom: var(--space-xl);
     }
 
     nav {
+        justify-content: space-evenly;
         gap: var(--space-sm);
         padding-top: var(--space-md);
         padding-bottom: var(--space-md);
     }
 
-    main {
-        width: min(calc(100% - 4rem), var(--wide-content-width));
+    nav a {
+        white-space: nowrap;
     }
 
-    main > section:first-child ul {
+    main {
+        width: calc(100% - 4rem);
+        max-width: var(--wide-content-width);
+    }
+
+    main > section:first-child > ul {
         grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
     }
 }
