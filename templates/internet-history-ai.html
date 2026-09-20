@@ -1,222 +1,201 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Version - History of the Internet</title>
-</head>
-<body>
+{% extends "base.html" %}
 
-<header>
-    <h1>History of the Internet</h1>
-    <p>An AI-generated HTML version of the Internet history research.</p>
+{% block title %}
+AI Version - History of the Internet
+{% endblock %}
 
-    <nav>
-        <a href="/">Home</a> |
-        <a href="/internet-history">Part 2 Version</a> |
-        <a href="/web-history-ai">History of the Web</a>
-    </nav>
-</header>
+{% block content %}
 
-<main>
-    <section>
-        <header>
-            <h2>Introduction</h2>
-        </header>
-        <p>
-            The Internet developed gradually from research into computer networking.
-            Important developments included packet switching, ARPANET, TCP/IP, and
-            the connection of many networks into one network of networks.
-        </p>
-    </section>
+<section>
+    <header>
+        <h2>Introduction</h2>
+    </header>
+    <p>
+        The Internet developed gradually from research into computer networking.
+        Important developments included packet switching, ARPANET, TCP/IP, and
+        the connection of many networks into one network of networks.
+    </p>
+</section>
 
-    <section>
-        <header>
-            <h2>Internet Timeline</h2>
-            <p>Important events in the development of the Internet.</p>
-        </header>
+<section>
+    <header>
+        <h2>Internet Timeline</h2>
+        <p>Important events in the development of the Internet.</p>
+    </header>
 
-        <ol>
-            <li>
-                <article>
-                    <header>
-                        <h3>1969 - First ARPANET Message</h3>
-                    </header>
-                    <p>
-                        On October 29, 1969, the first message was sent over ARPANET
-                        between UCLA and the Stanford Research Institute. The first
-                        characters received were "LO"; the full word "LOGIN" was
-                        completed about an hour later.
-                    </p>
-                    <aside>
-                        <strong>Why it mattered:</strong>
-                        This was an important early demonstration of communication
-                        between computers over a network.
-                    </aside>
-                    <p>
-                        Source:
-                        <a href="https://www.lk.cs.ucla.edu/internet_first_words.html">
-                            UCLA - Internet First Words
-                        </a>
-                    </p>
-                </article>
-            </li>
+    <ol>
+        <li>
+            <article>
+                <header>
+                    <h3>1969 - First ARPANET Message</h3>
+                </header>
+                <p>
+                    On October 29, 1969, the first message was sent over ARPANET
+                    between UCLA and the Stanford Research Institute. The first
+                    characters received were "LO"; the full word "LOGIN" was
+                    completed about an hour later.
+                </p>
+                <aside>
+                    <strong>Why it mattered:</strong>
+                    This was an important early demonstration of communication
+                    between computers over a network.
+                </aside>
+                <p>
+                    Source:
+                    <a href="https://www.lk.cs.ucla.edu/internet_first_words.html">
+                        UCLA - Internet First Words
+                    </a>
+                </p>
+            </article>
+        </li>
 
-            <li>
-                <article>
-                    <header>
-                        <h3>1970s - TCP/IP Development</h3>
-                    </header>
-                    <p>
-                        During the 1970s, Vint Cerf, Robert Kahn, and other researchers
-                        worked on TCP/IP, a set of communication protocols designed
-                        to allow different networks to communicate.
-                    </p>
-                    <aside>
-                        <strong>Why it mattered:</strong>
-                        TCP/IP became the basic communication system that allowed
-                        different networks to work together.
-                    </aside>
-                    <p>
-                        Source:
-                        <a href="https://www.internetsociety.org/internet/history-internet/brief-history-internet/">
-                            Internet Society - Brief History of the Internet
-                        </a>
-                    </p>
-                </article>
-            </li>
+        <li>
+            <article>
+                <header>
+                    <h3>1970s - TCP/IP Development</h3>
+                </header>
+                <p>
+                    During the 1970s, Vint Cerf, Robert Kahn, and other researchers
+                    worked on TCP/IP, a set of communication protocols designed
+                    to allow different networks to communicate.
+                </p>
+                <aside>
+                    <strong>Why it mattered:</strong>
+                    TCP/IP became the basic communication system that allowed
+                    different networks to work together.
+                </aside>
+                <p>
+                    Source:
+                    <a href="https://www.internetsociety.org/internet/history-internet/brief-history-internet/">
+                        Internet Society - Brief History of the Internet
+                    </a>
+                </p>
+            </article>
+        </li>
 
-            <li>
-                <article>
-                    <header>
-                        <h3>1983 - ARPANET Adopts TCP/IP</h3>
-                    </header>
-                    <p>
-                        On January 1, 1983, ARPANET changed from the older NCP protocol
-                        to TCP/IP.
-                    </p>
-                    <aside>
-                        <strong>Why it mattered:</strong>
-                        This helped establish TCP/IP as the common protocol system
-                        for interconnected networks.
-                    </aside>
-                    <p>
-                        Source:
-                        <a href="https://www.internetsociety.org/ianatimeline/">
-                            Internet Society - IANA Timeline
-                        </a>
-                    </p>
-                </article>
-            </li>
+        <li>
+            <article>
+                <header>
+                    <h3>1983 - ARPANET Adopts TCP/IP</h3>
+                </header>
+                <p>
+                    On January 1, 1983, ARPANET changed from the older NCP protocol
+                    to TCP/IP.
+                </p>
+                <aside>
+                    <strong>Why it mattered:</strong>
+                    This helped establish TCP/IP as the common protocol system
+                    for interconnected networks.
+                </aside>
+                <p>
+                    Source:
+                    <a href="https://www.internetsociety.org/ianatimeline/">
+                        Internet Society - IANA Timeline
+                    </a>
+                </p>
+            </article>
+        </li>
 
-            <li>
-                <article>
-                    <header>
-                        <h3>1983 - DNS Introduced</h3>
-                    </header>
-                    <p>
-                        The Domain Name System (DNS) was introduced to make it easier
-                        for users to reach computers using names instead of numerical
-                        IP addresses.
-                    </p>
-                    <aside>
-                        <strong>Why it mattered:</strong>
-                        DNS made Internet addresses easier for people to remember and use.
-                    </aside>
-                    <p>
-                        Source:
-                        <a href="https://www.internetsociety.org/internet/history-internet/brief-history-internet/">
-                            Internet Society - Brief History of the Internet
-                        </a>
-                    </p>
-                </article>
-            </li>
+        <li>
+            <article>
+                <header>
+                    <h3>1983 - DNS Introduced</h3>
+                </header>
+                <p>
+                    The Domain Name System (DNS) was introduced to make it easier
+                    for users to reach computers using names instead of numerical
+                    IP addresses.
+                </p>
+                <aside>
+                    <strong>Why it mattered:</strong>
+                    DNS made Internet addresses easier for people to remember and use.
+                </aside>
+                <p>
+                    Source:
+                    <a href="https://www.internetsociety.org/internet/history-internet/brief-history-internet/">
+                        Internet Society - Brief History of the Internet
+                    </a>
+                </p>
+            </article>
+        </li>
 
-            <li>
-                <article>
-                    <header>
-                        <h3>1989 - ARPANET Retired</h3>
-                    </header>
-                    <p>
-                        By 1989, ARPANET was retired as networking continued to expand
-                        beyond the original research network.
-                    </p>
-                    <aside>
-                        <strong>Why it mattered:</strong>
-                        Internet networking had grown into a much larger system of
-                        interconnected networks.
-                    </aside>
-                    <p>
-                        Source:
-                        <a href="https://www.internetsociety.org/internet/history-internet/short-history-of-the-internet/">
-                            Internet Society - Short History of the Internet
-                        </a>
-                    </p>
-                </article>
-            </li>
-        </ol>
-    </section>
+        <li>
+            <article>
+                <header>
+                    <h3>1989 - ARPANET Retired</h3>
+                </header>
+                <p>
+                    By 1989, ARPANET was retired as networking continued to expand
+                    beyond the original research network.
+                </p>
+                <aside>
+                    <strong>Why it mattered:</strong>
+                    Internet networking had grown into a much larger system of
+                    interconnected networks.
+                </aside>
+                <p>
+                    Source:
+                    <a href="https://www.internetsociety.org/internet/history-internet/short-history-of-the-internet/">
+                        Internet Society - Short History of the Internet
+                    </a>
+                </p>
+            </article>
+        </li>
+    </ol>
+</section>
 
-    <section>
-        <header>
-            <h2>Three Key Internet Technologies</h2>
-        </header>
+<section>
+    <header>
+        <h2>Three Key Internet Technologies</h2>
+    </header>
 
-        <dl>
-            <dt><strong>1. Packet Switching</strong></dt>
-            <dd>
-                Packet switching divides data into smaller packets that can travel
-                through a network and be reassembled at the destination.
-            </dd>
+    <dl>
+        <dt><strong>1. Packet Switching</strong></dt>
+        <dd>
+            Packet switching divides data into smaller packets that can travel
+            through a network and be reassembled at the destination.
+        </dd>
 
-            <dt><strong>2. TCP/IP</strong></dt>
-            <dd>
-                IP provides addressing and routing, while TCP helps provide reliable
-                delivery of data between computers.
-            </dd>
+        <dt><strong>2. TCP/IP</strong></dt>
+        <dd>
+            IP provides addressing and routing, while TCP helps provide reliable
+            delivery of data between computers.
+        </dd>
 
-            <dt><strong>3. DNS</strong></dt>
-            <dd>
-                DNS translates human-readable domain names into IP addresses so
-                computers can locate the correct destination.
-            </dd>
-        </dl>
-    </section>
+        <dt><strong>3. DNS</strong></dt>
+        <dd>
+            DNS translates human-readable domain names into IP addresses so
+            computers can locate the correct destination.
+        </dd>
+    </dl>
+</section>
 
-    <section>
-        <header>
-            <h2>References</h2>
-        </header>
-        <ul>
-            <li>
-                <a href="https://www.internetsociety.org/internet/history-internet/brief-history-internet/">
-                    Internet Society - Brief History of the Internet
-                </a>
-            </li>
-            <li>
-                <a href="https://www.internetsociety.org/internet/history-internet/short-history-of-the-internet/">
-                    Internet Society - Short History of the Internet
-                </a>
-            </li>
-            <li>
-                <a href="https://www.internetsociety.org/ianatimeline/">
-                    Internet Society - IANA Timeline
-                </a>
-            </li>
-            <li>
-                <a href="https://www.lk.cs.ucla.edu/internet_first_words.html">
-                    UCLA - Internet First Words
-                </a>
-            </li>
-        </ul>
-    </section>
-</main>
+<section>
+    <header>
+        <h2>References</h2>
+    </header>
+    <ul>
+        <li>
+            <a href="https://www.internetsociety.org/internet/history-internet/brief-history-internet/">
+                Internet Society - Brief History of the Internet
+            </a>
+        </li>
+        <li>
+            <a href="https://www.internetsociety.org/internet/history-internet/short-history-of-the-internet/">
+                Internet Society - Short History of the Internet
+            </a>
+        </li>
+        <li>
+            <a href="https://www.internetsociety.org/ianatimeline/">
+                Internet Society - IANA Timeline
+            </a>
+        </li>
+        <li>
+            <a href="https://www.lk.cs.ucla.edu/internet_first_words.html">
+                UCLA - Internet First Words
+            </a>
+        </li>
+    </ul>
+</section>
 
-<footer>
-    <p>For educational purposes only.</p>
-    <p>GIN446 Web Programming - USEK</p>
-    <p>Fall 2026-2027</p>
-</footer>
-
-</body>
-</html>
+{% endblock %}
