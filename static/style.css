@@ -1,6 +1,7 @@
 /* =========================================================
    GIN446 WEB PROGRAMMING PORTFOLIO
    Formal Engineering / Modern Technology Design
+   CSS ONLY
    ========================================================= */
 
 :root {
@@ -282,26 +283,16 @@ body > nav {
 }
 
 
-/* Simple navigation accent */
+/*
+   CSS-only active-style behavior.
 
-body > nav::before {
-    content: "";
+   Because the HTML cannot be changed, CSS cannot know which
+   Flask route is currently open.
 
-    position: absolute;
-
-    left: 50%;
-    bottom: -1px;
-
-    width: min(160px, 28%);
-    height: 2px;
-
-    transform: translateX(-50%);
-
-    background: var(--primary);
-}
-
-
-/* Navigation links */
+   Therefore the blue indicator follows the link being
+   hovered or focused instead of remaining permanently
+   centered in the navigation.
+*/
 
 body > nav a {
     position: relative;
@@ -321,9 +312,9 @@ body > nav a {
 }
 
 
-/* Small active-style underline */
+/* Moving indicator */
 
-body > nav a::before {
+body > nav a::after {
     content: "";
 
     position: absolute;
@@ -338,10 +329,16 @@ body > nav a::before {
 
     background: var(--primary);
 
-    transition: width 180ms ease;
+    transition:
+        width 180ms ease,
+        background-color 180ms ease;
 }
 
-body > nav a:hover {
+
+/* Hover / focus treatment */
+
+body > nav a:hover,
+body > nav a:focus-visible {
     color: var(--primary);
 
     background: #f2f6fa;
@@ -354,7 +351,8 @@ body > nav a:hover {
     transform: translateY(-1px);
 }
 
-body > nav a:hover::before {
+body > nav a:hover::after,
+body > nav a:focus-visible::after {
     width: 18px;
 }
 
@@ -554,7 +552,7 @@ main article:hover::before {
 }
 
 
-/* Article headers remain open */
+/* Article headers */
 
 main article > header {
     margin: 0 0 0.85rem;
@@ -726,7 +724,7 @@ main > section:first-child > ul > li::before {
 }
 
 
-/* Very subtle corner shape */
+/* Very subtle corner */
 
 main > section:first-child > ul > li::after {
     content: "";
@@ -774,7 +772,6 @@ main > section:first-child > ul > li a {
 
 main > section:first-child > ul > li a:hover {
     color: var(--primary);
-
     transform: translateX(2px);
 }
 
@@ -837,7 +834,7 @@ body > footer {
 }
 
 
-/* Footer geometric details */
+/* Footer geometric detail */
 
 body > footer::before {
     content: "";
@@ -985,6 +982,7 @@ body > footer p:first-child::before {
 
     body > nav {
         gap: 0.8rem;
+
         padding:
             0.85rem
             2rem;
@@ -1105,6 +1103,7 @@ body > footer p:first-child::before {
 
     body > nav {
         gap: 0.3rem;
+
         padding:
             0.7rem
             0.5rem;
