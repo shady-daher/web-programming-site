@@ -1,20 +1,15 @@
 /* =========================================================
    GIN446 WEB PROGRAMMING PORTFOLIO
-   Formal Engineering / Futuristic Technology Design
-   CSS-only redesign
+   Formal Engineering / Modern Technology Design
    ========================================================= */
 
 :root {
-    /* Core palette */
     --primary: #2563eb;
     --primary-dark: #1d4ed8;
 
     --navy: #0b1628;
     --navy-soft: #14243a;
     --charcoal: #1e293b;
-
-    --secondary-accent: #1597a5;
-    --secondary-accent-soft: #e9f7f8;
 
     --text: #263548;
     --muted-text: #68788b;
@@ -26,9 +21,8 @@
     --border: #d7e0e8;
     --border-strong: #c2cfdb;
 
-    /* Restrained gradients */
     --gradient-header:
-        linear-gradient(135deg, #091522 0%, #0d1c30 68%, #132b43 100%);
+        linear-gradient(135deg, #091522 0%, #0d1c30 70%, #142b43 100%);
 
     --gradient-footer:
         linear-gradient(135deg, #091522 0%, #101d2e 100%);
@@ -37,9 +31,8 @@
         linear-gradient(145deg, #ffffff 0%, #f8fafc 100%);
 
     --gradient-accent:
-        linear-gradient(90deg, #2563eb, #1597a5);
+        linear-gradient(90deg, #2563eb, #4b83ed);
 
-    /* Typography */
     --font-main:
         "Avenir Next",
         "Century Gothic",
@@ -47,7 +40,6 @@
         "Segoe UI",
         sans-serif;
 
-    /* Spacing */
     --space-xs: 0.4rem;
     --space-sm: 0.75rem;
     --space-md: 1rem;
@@ -56,12 +48,10 @@
     --space-xxl: 3rem;
     --space-section: 4rem;
 
-    /* Shape */
     --radius-sm: 6px;
     --radius: 9px;
     --radius-lg: 13px;
 
-    /* Shadows */
     --shadow-subtle:
         0 2px 10px rgba(15, 23, 42, 0.045);
 
@@ -71,7 +61,6 @@
     --shadow-dark:
         0 14px 34px rgba(4, 12, 24, 0.22);
 
-    /* Layout */
     --content-width: 920px;
     --wide-content-width: 1160px;
 }
@@ -101,7 +90,7 @@ body {
         linear-gradient(
             135deg,
             rgba(37, 99, 235, 0.025),
-            transparent 32%
+            transparent 35%
         ),
         var(--background);
 
@@ -111,9 +100,6 @@ body {
     line-height: 1.7;
 }
 
-
-/* Keep media inside the viewport */
-
 img,
 video {
     display: block;
@@ -121,12 +107,10 @@ video {
     height: auto;
 }
 
-
-/* General links */
-
 a {
     color: var(--primary);
     text-decoration: none;
+
     transition:
         color 180ms ease,
         border-color 180ms ease,
@@ -146,7 +130,7 @@ a:focus-visible {
 
 
 /* =========================================================
-   HEADER / HERO
+   HEADER
    ========================================================= */
 
 body > header {
@@ -166,29 +150,25 @@ body > header {
 }
 
 
-/* Large restrained geometric background plane */
+/* Subtle geometric background */
 
 body > header::before {
     content: "";
-    position: absolute;
-    z-index: -2;
 
-    width: 440px;
-    height: 440px;
+    position: absolute;
+    z-index: -1;
+
+    width: 420px;
+    height: 420px;
 
     top: -270px;
     right: -170px;
 
-    border: 1px solid rgba(75, 150, 230, 0.16);
+    border: 1px solid rgba(75, 130, 220, 0.14);
 
     transform: rotate(38deg);
 
-    background:
-        linear-gradient(
-            135deg,
-            rgba(37, 99, 235, 0.08),
-            rgba(21, 151, 165, 0.025)
-        );
+    background: rgba(37, 99, 235, 0.035);
 
     clip-path: polygon(
         18% 0,
@@ -201,24 +181,23 @@ body > header::before {
 }
 
 
-/* Secondary geometric structure */
+/* Small lower geometric detail */
 
 body > header::after {
     content: "";
+
     position: absolute;
     z-index: -1;
 
-    width: 180px;
-    height: 180px;
+    width: 130px;
+    height: 130px;
 
-    left: -75px;
-    bottom: -105px;
+    left: -60px;
+    bottom: -75px;
 
-    border: 1px solid rgba(21, 151, 165, 0.2);
+    border: 1px solid rgba(75, 130, 220, 0.13);
 
     transform: rotate(45deg);
-
-    background: rgba(21, 151, 165, 0.025);
 }
 
 
@@ -239,13 +218,14 @@ body > header h1 {
 }
 
 
-/* Small geometric line underneath title */
+/* Accent beneath title */
 
 body > header h1::after {
     content: "";
+
     display: block;
 
-    width: 74px;
+    width: 72px;
     height: 3px;
 
     margin: 1.25rem auto 1.35rem;
@@ -261,7 +241,7 @@ body > header h1::after {
 }
 
 
-/* Header subtitle */
+/* Subtitle */
 
 body > header p {
     max-width: 680px;
@@ -302,7 +282,7 @@ body > nav {
 }
 
 
-/* Thin technology line */
+/* Simple navigation accent */
 
 body > nav::before {
     content: "";
@@ -312,19 +292,12 @@ body > nav::before {
     left: 50%;
     bottom: -1px;
 
-    width: min(180px, 30%);
+    width: min(160px, 28%);
     height: 2px;
 
     transform: translateX(-50%);
 
-    background: var(--gradient-accent);
-
-    clip-path: polygon(
-        0 0,
-        100% 0,
-        92% 100%,
-        8% 100%
-    );
+    background: var(--primary);
 }
 
 
@@ -348,7 +321,7 @@ body > nav a {
 }
 
 
-/* Small accent indicator */
+/* Small active-style underline */
 
 body > nav a::before {
     content: "";
@@ -367,9 +340,6 @@ body > nav a::before {
 
     transition: width 180ms ease;
 }
-
-
-/* Hover treatment */
 
 body > nav a:hover {
     color: var(--primary);
@@ -390,7 +360,7 @@ body > nav a:hover::before {
 
 
 /* =========================================================
-   MAIN LAYOUT
+   MAIN
    ========================================================= */
 
 main {
@@ -407,7 +377,7 @@ main {
 }
 
 
-/* Subtle vertical technical guide */
+/* Very subtle structural line */
 
 main::before {
     content: "";
@@ -418,18 +388,15 @@ main::before {
     left: 0;
 
     width: 1px;
-    height: 180px;
+    height: 170px;
 
     background:
         linear-gradient(
             to bottom,
-            rgba(37, 99, 235, 0.28),
+            rgba(37, 99, 235, 0.22),
             transparent
         );
 }
-
-
-/* Main sections */
 
 main > section {
     position: relative;
@@ -461,7 +428,7 @@ main > section > header h2 {
 }
 
 
-/* Geometric heading marker */
+/* Small geometric marker */
 
 main > section > h2::before,
 main > section > header h2::before {
@@ -469,21 +436,18 @@ main > section > header h2::before {
 
     display: inline-block;
 
-    width: 9px;
-    height: 9px;
+    width: 8px;
+    height: 8px;
 
     margin: 0 0.7rem 0.15rem 0;
 
     background: var(--primary);
 
     transform: rotate(45deg);
-
-    box-shadow:
-        7px 7px 0 -2px rgba(21, 151, 165, 0.55);
 }
 
 
-/* Heading underline */
+/* Heading accent line */
 
 main > section > h2::after,
 main > section > header h2::after {
@@ -491,7 +455,7 @@ main > section > header h2::after {
 
     display: block;
 
-    width: 92px;
+    width: 90px;
     height: 2px;
 
     margin-top: 0.85rem;
@@ -507,7 +471,7 @@ main > section > header h2::after {
 }
 
 
-/* Existing section headers remain open */
+/* Existing headers remain open */
 
 main > section > header {
     margin: 0;
@@ -519,7 +483,7 @@ main > section > header {
 
 
 /* =========================================================
-   BODY TYPOGRAPHY
+   TYPOGRAPHY
    ========================================================= */
 
 main h3 {
@@ -559,7 +523,7 @@ main article {
 }
 
 
-/* Vertical engineering accent */
+/* Vertical blue accent */
 
 main article::before {
     content: "";
@@ -582,50 +546,15 @@ main article::before {
         0 100%
     );
 
-    transition:
-        height 220ms ease;
-}
-
-
-/* Small corner detail */
-
-main article::after {
-    content: "";
-
-    position: absolute;
-
-    top: 0;
-    right: 0;
-
-    width: 18px;
-    height: 18px;
-
-    border-top: 1px solid rgba(37, 99, 235, 0.2);
-    border-right: 1px solid rgba(37, 99, 235, 0.2);
-
-    clip-path: polygon(
-        0 0,
-        100% 0,
-        100% 100%,
-        70% 100%,
-        70% 30%,
-        0 30%
-    );
+    transition: height 200ms ease;
 }
 
 main article:hover::before {
-    height: 62px;
+    height: 55px;
 }
 
 
-/* Article headings */
-
-main article h3 {
-    margin-top: 0;
-}
-
-
-/* Article header elements */
+/* Article headers remain open */
 
 main article > header {
     margin: 0 0 0.85rem;
@@ -637,6 +566,10 @@ main article > header {
 
 main article > header h3 {
     margin-bottom: 0.35rem;
+}
+
+main article h3 {
+    margin-top: 0;
 }
 
 
@@ -652,15 +585,10 @@ main aside {
 
     color: var(--text);
 
-    background:
-        linear-gradient(
-            135deg,
-            #f5fafc 0%,
-            #edf8fa 100%
-        );
+    background: #f3f7fb;
 
-    border: 1px solid #d3e5e9;
-    border-left: 3px solid var(--secondary-accent);
+    border: 1px solid #d5e0ea;
+    border-left: 3px solid var(--primary);
 
     border-radius: var(--radius-sm);
 
@@ -668,7 +596,7 @@ main aside {
 }
 
 
-/* Small aside corner shape */
+/* Small corner detail */
 
 main aside::after {
     content: "";
@@ -678,20 +606,11 @@ main aside::after {
     top: 0;
     right: 0;
 
-    width: 28px;
-    height: 28px;
+    width: 24px;
+    height: 24px;
 
-    border-top: 1px solid rgba(21, 151, 165, 0.35);
-    border-right: 1px solid rgba(21, 151, 165, 0.35);
-
-    clip-path: polygon(
-        0 0,
-        100% 0,
-        100% 100%,
-        70% 100%,
-        70% 30%,
-        0 30%
-    );
+    border-top: 1px solid rgba(37, 99, 235, 0.25);
+    border-right: 1px solid rgba(37, 99, 235, 0.25);
 }
 
 
@@ -739,13 +658,6 @@ main dd {
    WEEKLY WORK
    ========================================================= */
 
-/*
-   The existing Weekly Work <ul> is the first list inside
-   the first main section.
-
-   CSS Grid requirement preserved.
-*/
-
 main > section:first-child > ul {
     display: grid;
 
@@ -764,11 +676,10 @@ main > section:first-child > ul {
 }
 
 
-/* Technical portfolio tile */
+/* Weekly Work tile */
 
 main > section:first-child > ul > li {
     position: relative;
-    isolation: isolate;
     overflow: hidden;
 
     min-width: 0;
@@ -789,18 +700,17 @@ main > section:first-child > ul > li {
 }
 
 
-/* Thin top accent */
+/* Tile accent */
 
 main > section:first-child > ul > li::before {
     content: "";
 
     position: absolute;
-    z-index: -1;
 
     top: 0;
     left: 0;
 
-    width: 52px;
+    width: 48px;
     height: 3px;
 
     background: var(--gradient-accent);
@@ -816,26 +726,24 @@ main > section:first-child > ul > li::before {
 }
 
 
-/* Small geometric corner */
+/* Very subtle corner shape */
 
 main > section:first-child > ul > li::after {
     content: "";
 
     position: absolute;
 
-    right: -18px;
-    bottom: -18px;
+    right: -20px;
+    bottom: -20px;
 
-    width: 58px;
-    height: 58px;
+    width: 55px;
+    height: 55px;
 
-    border: 1px solid rgba(37, 99, 235, 0.09);
+    border: 1px solid rgba(37, 99, 235, 0.08);
 
     transform: rotate(45deg);
 }
 
-
-/* Weekly tile hover */
 
 main > section:first-child > ul > li:hover {
     transform: translateY(-3px);
@@ -846,11 +754,11 @@ main > section:first-child > ul > li:hover {
 }
 
 main > section:first-child > ul > li:hover::before {
-    width: 88px;
+    width: 78px;
 }
 
 
-/* Weekly links */
+/* Weekly Work links */
 
 main > section:first-child > ul > li a {
     position: relative;
@@ -866,11 +774,9 @@ main > section:first-child > ul > li a {
 
 main > section:first-child > ul > li a:hover {
     color: var(--primary);
+
     transform: translateX(2px);
 }
-
-
-/* Remove generic list spacing from Weekly Work */
 
 main > section:first-child > ul > li {
     margin-bottom: 0;
@@ -878,15 +784,15 @@ main > section:first-child > ul > li {
 
 
 /* =========================================================
-   TABLE-LIKE / CONTENT STRUCTURE
+   TABLES
    ========================================================= */
 
 main table {
     width: 100%;
 
-    border-collapse: collapse;
-
     margin: 2rem 0;
+
+    border-collapse: collapse;
 
     background: var(--surface);
 
@@ -931,7 +837,7 @@ body > footer {
 }
 
 
-/* Footer geometric plane */
+/* Footer geometric details */
 
 body > footer::before {
     content: "";
@@ -939,19 +845,16 @@ body > footer::before {
     position: absolute;
     z-index: -1;
 
-    width: 230px;
-    height: 230px;
+    width: 190px;
+    height: 190px;
 
-    left: -115px;
-    bottom: -150px;
+    left: -100px;
+    bottom: -130px;
 
-    border: 1px solid rgba(37, 99, 235, 0.15);
+    border: 1px solid rgba(37, 99, 235, 0.12);
 
     transform: rotate(45deg);
 }
-
-
-/* Footer right detail */
 
 body > footer::after {
     content: "";
@@ -959,13 +862,13 @@ body > footer::after {
     position: absolute;
     z-index: -1;
 
-    width: 150px;
-    height: 150px;
+    width: 100px;
+    height: 100px;
 
-    right: -75px;
-    top: -100px;
+    right: -50px;
+    top: -70px;
 
-    border: 1px solid rgba(21, 151, 165, 0.14);
+    border: 1px solid rgba(37, 99, 235, 0.1);
 
     transform: rotate(45deg);
 }
@@ -983,26 +886,19 @@ body > footer p {
 }
 
 
-/* Small footer accent */
+/* Footer accent */
 
 body > footer p:first-child::before {
     content: "";
 
     display: block;
 
-    width: 54px;
+    width: 52px;
     height: 2px;
 
     margin: 0 auto 1rem;
 
-    background: var(--gradient-accent);
-
-    clip-path: polygon(
-        0 0,
-        100% 0,
-        84% 100%,
-        0 100%
-    );
+    background: var(--primary);
 }
 
 
@@ -1072,26 +968,23 @@ body > footer p:first-child::before {
     }
 
     body > header::before {
-        width: 620px;
-        height: 620px;
+        width: 560px;
+        height: 560px;
 
-        top: -390px;
-        right: -220px;
+        top: -360px;
+        right: -200px;
     }
 
     body > header::after {
-        width: 260px;
-        height: 260px;
+        width: 190px;
+        height: 190px;
 
-        left: -105px;
-        bottom: -155px;
+        left: -90px;
+        bottom: -120px;
     }
 
     body > nav {
-        justify-content: center;
-
         gap: 0.8rem;
-
         padding:
             0.85rem
             2rem;
@@ -1114,12 +1007,12 @@ body > footer p:first-child::before {
     }
 
     main::before {
-        height: 260px;
+        height: 240px;
         left: -1rem;
     }
 
     main > section {
-        margin-bottom: 5.5rem;
+        margin-bottom: 5.25rem;
     }
 
     main > section > h2,
@@ -1190,7 +1083,7 @@ body > footer p:first-child::before {
 
 
 /* =========================================================
-   SMALL MOBILE DEVICES
+   SMALL MOBILE
    ========================================================= */
 
 @media (max-width: 374px) {
