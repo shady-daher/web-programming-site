@@ -1,64 +1,45 @@
-:root {
-    /* =========================
-       Core Colors
-       ========================= */
+/* =========================================================
+   GIN446 WEB PROGRAMMING PORTFOLIO
+   Formal Engineering / Futuristic Technology Design
+   CSS-only redesign
+   ========================================================= */
 
+:root {
+    /* Core palette */
     --primary: #2563eb;
     --primary-dark: #1d4ed8;
+
     --navy: #0b1628;
-    --navy-soft: #13243a;
+    --navy-soft: #14243a;
     --charcoal: #1e293b;
 
-    --secondary-accent: #0f9ca8;
-    --secondary-accent-soft: #e5f6f7;
+    --secondary-accent: #1597a5;
+    --secondary-accent-soft: #e9f7f8;
 
-    --text: #243447;
-    --muted-text: #64748b;
+    --text: #263548;
+    --muted-text: #68788b;
 
-    --background: #eef4f9;
+    --background: #eef3f7;
     --surface: #ffffff;
     --surface-soft: #f7fafc;
 
-    --border: #d7e1eb;
-    --border-strong: #c3d2e0;
+    --border: #d7e0e8;
+    --border-strong: #c2cfdb;
 
-    /* =========================
-       Restrained Gradients
-       ========================= */
-
+    /* Restrained gradients */
     --gradient-header:
-        linear-gradient(
-            135deg,
-            #091525 0%,
-            #10243b 62%,
-            #163653 100%
-        );
+        linear-gradient(135deg, #091522 0%, #0d1c30 68%, #132b43 100%);
 
     --gradient-footer:
-        linear-gradient(
-            135deg,
-            #091525 0%,
-            #101f33 100%
-        );
+        linear-gradient(135deg, #091522 0%, #101d2e 100%);
 
     --gradient-card:
-        linear-gradient(
-            145deg,
-            #ffffff 0%,
-            #f7fafc 100%
-        );
+        linear-gradient(145deg, #ffffff 0%, #f8fafc 100%);
 
     --gradient-accent:
-        linear-gradient(
-            90deg,
-            var(--primary),
-            var(--secondary-accent)
-        );
+        linear-gradient(90deg, #2563eb, #1597a5);
 
-    /* =========================
-       Typography
-       ========================= */
-
+    /* Typography */
     --font-main:
         "Avenir Next",
         "Century Gothic",
@@ -66,66 +47,61 @@
         "Segoe UI",
         sans-serif;
 
-    /* =========================
-       Spacing
-       ========================= */
-
+    /* Spacing */
     --space-xs: 0.4rem;
     --space-sm: 0.75rem;
     --space-md: 1rem;
     --space-lg: 1.5rem;
     --space-xl: 2rem;
     --space-xxl: 3rem;
-    --space-section: 3.5rem;
+    --space-section: 4rem;
 
-    /* =========================
-       Shape & Depth
-       ========================= */
+    /* Shape */
+    --radius-sm: 6px;
+    --radius: 9px;
+    --radius-lg: 13px;
 
-    --radius-sm: 7px;
-    --radius: 10px;
-    --radius-lg: 14px;
-
+    /* Shadows */
     --shadow-subtle:
-        0 3px 12px rgba(15, 23, 42, 0.055);
+        0 2px 10px rgba(15, 23, 42, 0.045);
 
     --shadow-card:
-        0 8px 24px rgba(15, 23, 42, 0.07);
+        0 8px 22px rgba(15, 23, 42, 0.065);
 
     --shadow-dark:
-        0 12px 30px rgba(4, 12, 24, 0.2);
+        0 14px 34px rgba(4, 12, 24, 0.22);
 
-    /* =========================
-       Layout
-       ========================= */
-
-    --content-width: 900px;
-    --wide-content-width: 1120px;
+    /* Layout */
+    --content-width: 920px;
+    --wide-content-width: 1160px;
 }
 
 
-/* =========================
-   Global Reset & Base
-   ========================= */
+/* =========================================================
+   GLOBAL
+   ========================================================= */
 
-* {
+*,
+*::before,
+*::after {
     box-sizing: border-box;
 }
 
 html {
     overflow-x: hidden;
+    scroll-behavior: smooth;
 }
 
 body {
-    min-width: 0;
     margin: 0;
+    min-width: 0;
     overflow-x: hidden;
 
     background:
-        radial-gradient(
-            circle at 85% 10%,
-            rgba(37, 99, 235, 0.055),
-            transparent 28rem
+        linear-gradient(
+            135deg,
+            rgba(37, 99, 235, 0.025),
+            transparent 32%
         ),
         var(--background);
 
@@ -135,6 +111,9 @@ body {
     line-height: 1.7;
 }
 
+
+/* Keep media inside the viewport */
+
 img,
 video {
     display: block;
@@ -142,9 +121,18 @@ video {
     height: auto;
 }
 
+
+/* General links */
+
 a {
     color: var(--primary);
-    overflow-wrap: anywhere;
+    text-decoration: none;
+    transition:
+        color 180ms ease,
+        border-color 180ms ease,
+        background-color 180ms ease,
+        transform 180ms ease,
+        box-shadow 180ms ease;
 }
 
 a:hover {
@@ -153,192 +141,298 @@ a:hover {
 
 a:focus-visible {
     outline: 2px solid var(--primary);
-    outline-offset: 3px;
+    outline-offset: 4px;
 }
 
 
-/* =========================
-   Header / Hero
-   ========================= */
+/* =========================================================
+   HEADER / HERO
+   ========================================================= */
 
-header {
+body > header {
     position: relative;
+    isolation: isolate;
     overflow: hidden;
 
-    padding:
-        3.25rem
-        var(--space-md)
-        2.75rem;
+    padding: 4.25rem 1.25rem 4rem;
 
-    background: var(--gradient-header);
     color: #ffffff;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-
     text-align: center;
 
+    background: var(--gradient-header);
+
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
     box-shadow: var(--shadow-dark);
 }
 
-/* Restrained geometric accent */
-header::before {
+
+/* Large restrained geometric background plane */
+
+body > header::before {
     content: "";
     position: absolute;
-    top: 0;
+    z-index: -2;
+
+    width: 440px;
+    height: 440px;
+
+    top: -270px;
+    right: -170px;
+
+    border: 1px solid rgba(75, 150, 230, 0.16);
+
+    transform: rotate(38deg);
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(37, 99, 235, 0.08),
+            rgba(21, 151, 165, 0.025)
+        );
+
+    clip-path: polygon(
+        18% 0,
+        100% 0,
+        100% 82%,
+        82% 100%,
+        0 100%,
+        0 18%
+    );
+}
+
+
+/* Secondary geometric structure */
+
+body > header::after {
+    content: "";
+    position: absolute;
+    z-index: -1;
+
+    width: 180px;
+    height: 180px;
+
+    left: -75px;
+    bottom: -105px;
+
+    border: 1px solid rgba(21, 151, 165, 0.2);
+
+    transform: rotate(45deg);
+
+    background: rgba(21, 151, 165, 0.025);
+}
+
+
+/* Header title */
+
+body > header h1 {
+    position: relative;
+
+    max-width: 1000px;
+    margin: 0 auto;
+
+    color: #ffffff;
+
+    font-size: clamp(2rem, 5vw, 3.7rem);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.035em;
+}
+
+
+/* Small geometric line underneath title */
+
+body > header h1::after {
+    content: "";
+    display: block;
+
+    width: 74px;
+    height: 3px;
+
+    margin: 1.25rem auto 1.35rem;
+
+    background: var(--gradient-accent);
+
+    clip-path: polygon(
+        0 0,
+        100% 0,
+        86% 100%,
+        0 100%
+    );
+}
+
+
+/* Header subtitle */
+
+body > header p {
+    max-width: 680px;
+    margin: 0 auto;
+
+    color: #b9c7d7;
+
+    font-size: clamp(0.95rem, 2vw, 1.1rem);
+    line-height: 1.7;
+    letter-spacing: 0.015em;
+}
+
+
+/* =========================================================
+   NAVIGATION
+   ========================================================= */
+
+body > nav {
+    position: relative;
+    z-index: 5;
+
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+    gap: 0.45rem;
+
+    padding: 0.85rem 1rem;
+
+    background: rgba(255, 255, 255, 0.97);
+
+    border-bottom: 1px solid var(--border);
+
+    box-shadow:
+        0 3px 12px rgba(15, 23, 42, 0.045);
+}
+
+
+/* Thin technology line */
+
+body > nav::before {
+    content: "";
+
+    position: absolute;
+
     left: 50%;
-    width: min(90%, 720px);
+    bottom: -1px;
+
+    width: min(180px, 30%);
     height: 2px;
 
     transform: translateX(-50%);
 
     background: var(--gradient-accent);
-    opacity: 0.8;
+
+    clip-path: polygon(
+        0 0,
+        100% 0,
+        92% 100%,
+        8% 100%
+    );
 }
 
-/* Very subtle technical depth */
-header::after {
-    content: "";
-    position: absolute;
-    top: -8rem;
-    right: -7rem;
 
-    width: 18rem;
-    height: 18rem;
+/* Navigation links */
 
-    border: 1px solid rgba(37, 99, 235, 0.18);
-    border-radius: 50%;
-
-    box-shadow:
-        0 0 0 2rem rgba(15, 156, 168, 0.025),
-        0 0 0 4rem rgba(37, 99, 235, 0.02);
-
-    pointer-events: none;
-}
-
-header h1 {
+body > nav a {
     position: relative;
-    z-index: 1;
 
-    max-width: 900px;
-    margin: 0 auto;
-
-    color: #ffffff;
-
-    font-size: clamp(1.75rem, 8vw, 3rem);
-    line-height: 1.15;
-    letter-spacing: -0.035em;
-
-    overflow-wrap: anywhere;
-}
-
-header p {
-    position: relative;
-    z-index: 1;
-
-    max-width: 720px;
-    margin:
-        var(--space-md)
-        auto
-        0;
-
-    color: #cbd8e6;
-
-    font-size: 0.95rem;
-    line-height: 1.7;
-}
-
-
-/* =========================
-   Navigation
-   ========================= */
-
-nav {
-    display: flex;
-    flex-wrap: wrap;
-
-    align-items: center;
-    justify-content: center;
-
-    gap: 0.35rem;
-
-    width: 100%;
-    padding:
-        var(--space-sm)
-        var(--space-md);
-
-    background: rgba(255, 255, 255, 0.98);
-
-    border-bottom: 1px solid var(--border);
-
-    box-shadow:
-        0 2px 10px rgba(15, 23, 42, 0.045);
-}
-
-nav a {
-    display: inline-block;
-
-    max-width: 100%;
-
-    padding:
-        0.45rem
-        0.75rem;
-
-    border:
-        1px solid
-        transparent;
-
-    border-radius: 999px;
+    padding: 0.5rem 0.85rem;
 
     color: var(--charcoal);
 
+    border: 1px solid transparent;
+    border-radius: 999px;
+
     font-size: 0.88rem;
     font-weight: 600;
-    line-height: 1.4;
+    letter-spacing: 0.01em;
 
-    text-align: center;
-    text-decoration: none;
-
-    overflow-wrap: anywhere;
-
-    transition:
-        color 160ms ease,
-        background-color 160ms ease,
-        border-color 160ms ease,
-        box-shadow 160ms ease;
+    white-space: nowrap;
 }
 
-nav a:hover {
+
+/* Small accent indicator */
+
+body > nav a::before {
+    content: "";
+
+    position: absolute;
+
+    left: 50%;
+    bottom: 3px;
+
+    width: 0;
+    height: 2px;
+
+    transform: translateX(-50%);
+
+    background: var(--primary);
+
+    transition: width 180ms ease;
+}
+
+
+/* Hover treatment */
+
+body > nav a:hover {
     color: var(--primary);
 
-    background: #f0f6ff;
+    background: #f2f6fa;
 
-    border-color:
-        rgba(37, 99, 235, 0.2);
+    border-color: var(--border);
 
     box-shadow:
-        0 2px 7px rgba(37, 99, 235, 0.08);
+        0 2px 8px rgba(15, 23, 42, 0.045);
+
+    transform: translateY(-1px);
+}
+
+body > nav a:hover::before {
+    width: 18px;
 }
 
 
-/* =========================
-   Main Content
-   ========================= */
+/* =========================================================
+   MAIN LAYOUT
+   ========================================================= */
 
 main {
-    width: calc(100% - 2rem);
-    max-width: var(--content-width);
+    position: relative;
 
-    margin-inline: auto;
+    width: min(
+        calc(100% - 2rem),
+        var(--content-width)
+    );
 
-    padding:
-        var(--space-xxl)
-        0
-        var(--space-section);
+    margin: 0 auto;
+
+    padding: 3rem 0 4.5rem;
 }
+
+
+/* Subtle vertical technical guide */
+
+main::before {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    width: 1px;
+    height: 180px;
+
+    background:
+        linear-gradient(
+            to bottom,
+            rgba(37, 99, 235, 0.28),
+            transparent
+        );
+}
+
+
+/* Main sections */
 
 main > section {
     position: relative;
-
-    min-width: 0;
 
     margin-bottom: var(--space-section);
 }
@@ -348,34 +442,48 @@ main > section:last-child {
 }
 
 
-/* Section headings */
+/* =========================================================
+   SECTION HEADINGS
+   ========================================================= */
 
 main > section > h2,
 main > section > header h2 {
     position: relative;
 
-    margin:
-        0
-        0
-        var(--space-lg);
+    margin: 0 0 1.75rem;
 
     color: var(--navy);
 
-    font-size:
-        clamp(
-            1.45rem,
-            6vw,
-            2rem
-        );
-
-    line-height: 1.25;
+    font-size: clamp(1.55rem, 4vw, 2.25rem);
+    font-weight: 700;
+    line-height: 1.2;
     letter-spacing: -0.025em;
-
-    overflow-wrap: anywhere;
 }
 
 
-/* Small technical accent under headings */
+/* Geometric heading marker */
+
+main > section > h2::before,
+main > section > header h2::before {
+    content: "";
+
+    display: inline-block;
+
+    width: 9px;
+    height: 9px;
+
+    margin: 0 0.7rem 0.15rem 0;
+
+    background: var(--primary);
+
+    transform: rotate(45deg);
+
+    box-shadow:
+        7px 7px 0 -2px rgba(21, 151, 165, 0.55);
+}
+
+
+/* Heading underline */
 
 main > section > h2::after,
 main > section > header h2::after {
@@ -383,325 +491,77 @@ main > section > header h2::after {
 
     display: block;
 
-    width: 3.25rem;
-    height: 3px;
+    width: 92px;
+    height: 2px;
 
-    margin-top: 0.7rem;
-
-    border-radius: 999px;
+    margin-top: 0.85rem;
 
     background: var(--gradient-accent);
+
+    clip-path: polygon(
+        0 0,
+        100% 0,
+        90% 100%,
+        0 100%
+    );
 }
 
+
+/* Existing section headers remain open */
+
 main > section > header {
-    margin: 0 0 var(--space-lg);
+    margin: 0;
     padding: 0;
 
     background: transparent;
     border: 0;
-
-    text-align: left;
-}
-
-main > section > header h2 {
-    margin-bottom: var(--space-sm);
-}
-
-main > section > header p {
-    margin-bottom: 0;
-    color: var(--muted-text);
 }
 
 
-/* =========================
-   Typography
-   ========================= */
-
-main h2 {
-    color: var(--navy);
-}
+/* =========================================================
+   BODY TYPOGRAPHY
+   ========================================================= */
 
 main h3 {
-    margin:
-        0
-        0
-        var(--space-sm);
+    margin-top: 2.25rem;
+    margin-bottom: 0.7rem;
 
-    color: var(--charcoal);
+    color: var(--navy);
 
-    font-size:
-        clamp(
-            1.1rem,
-            5vw,
-            1.4rem
-        );
-
-    line-height: 1.4;
-    letter-spacing: -0.015em;
-
-    overflow-wrap: anywhere;
+    font-size: clamp(1.1rem, 2.5vw, 1.35rem);
+    font-weight: 700;
+    line-height: 1.35;
 }
 
 main p {
-    max-width: 75ch;
-
-    margin:
-        0
-        0
-        var(--space-md);
-
-    overflow-wrap: break-word;
-}
-
-main p:last-child {
-    margin-bottom: 0;
-}
-
-main ul,
-main ol {
-    margin:
-        var(--space-md)
-        0;
-
-    padding-left: 1.3rem;
-}
-
-main li {
-    min-width: 0;
-
-    margin-bottom: var(--space-sm);
-
-    overflow-wrap: break-word;
-}
-
-main li:last-child {
-    margin-bottom: 0;
-}
-
-
-/* =========================
-   Articles
-   ========================= */
-
-article {
-    position: relative;
-
-    min-width: 0;
-
-    margin:
-        var(--space-xl)
-        0;
-
-    padding:
-        0
-        0
-        var(--space-xl);
-
-    border-bottom:
-        1px solid
-        var(--border);
-}
-
-article:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-
-    border-bottom: 0;
-}
-
-article::before {
-    content: "";
-
-    position: absolute;
-
-    top: 0;
-    left: -0.75rem;
-
-    width: 2px;
-    height: 0;
-
-    border-radius: 999px;
-
-    background: var(--gradient-accent);
-
-    transition:
-        height 180ms ease;
-}
-
-article:hover::before {
-    height: 100%;
-}
-
-article header {
-    margin-bottom: var(--space-md);
-    padding: 0;
-
-    background: transparent;
-    border: 0;
-
-    box-shadow: none;
-
-    text-align: left;
-}
-
-article header h3 {
-    margin-bottom: 0;
-}
-
-
-/* =========================
-   Ordered Timeline Lists
-   ========================= */
-
-main > section > ol {
-    padding-left: 1.5rem;
-}
-
-main > section > ol > li {
-    padding-left: 0.25rem;
-}
-
-
-/* =========================
-   Aside
-   ========================= */
-
-aside {
-    min-width: 0;
-
-    margin:
-        var(--space-lg)
-        0;
-
-    padding:
-        var(--space-md)
-        var(--space-lg);
-
-    background:
-        linear-gradient(
-            135deg,
-            rgba(229, 246, 247, 0.9),
-            rgba(238, 246, 255, 0.95)
-        );
-
-    border:
-        1px solid
-        rgba(15, 156, 168, 0.16);
-
-    border-left:
-        3px solid
-        var(--secondary-accent);
-
-    border-radius: var(--radius);
-
-    color: var(--text);
-
-    box-shadow:
-        0 3px 12px
-        rgba(15, 23, 42, 0.035);
-}
-
-aside strong {
-    color: var(--navy);
-}
-
-
-/* =========================
-   Definition Lists
-   ========================= */
-
-dl {
-    margin: 0;
-
-    overflow-wrap: break-word;
-}
-
-dt {
-    margin-top: var(--space-xl);
-
-    color: var(--navy);
-
-    font-weight: 700;
-}
-
-dt:first-child {
     margin-top: 0;
-}
-
-dd {
-    margin:
-        var(--space-xs)
-        0
-        0;
+    margin-bottom: 1.1rem;
 
     color: var(--text);
+}
 
-    overflow-wrap: break-word;
+main strong {
+    color: var(--navy);
 }
 
 
-/* =========================
-   Weekly Work
-   ========================= */
+/* =========================================================
+   ARTICLES
+   ========================================================= */
 
-main > section:first-child > ul {
-    display: grid;
-
-    grid-template-columns:
-        repeat(
-            auto-fit,
-            minmax(
-                min(240px, 100%),
-                1fr
-            )
-        );
-
-    gap: var(--space-md);
-
-    width: 100%;
-
-    margin:
-        var(--space-lg)
-        0
-        0;
-
-    padding: 0;
-
-    list-style: none;
-}
-
-main > section:first-child > ul > li {
+main article {
     position: relative;
 
-    min-width: 0;
+    margin: 2rem 0;
+    padding: 0 0 2rem 1.25rem;
 
-    margin: 0;
-
-    padding: var(--space-lg);
-
-    background: var(--gradient-card);
-
-    border:
-        1px solid
-        var(--border);
-
-    border-radius: var(--radius-lg);
-
-    box-shadow: var(--shadow-subtle);
-
-    overflow: hidden;
-
-    transition:
-        transform 180ms ease,
-        border-color 180ms ease,
-        box-shadow 180ms ease,
-        background-color 180ms ease;
+    border-bottom: 1px solid var(--border);
 }
 
 
-/* Small card accent */
+/* Vertical engineering accent */
 
-main > section:first-child > ul > li::before {
+main article::before {
     content: "";
 
     position: absolute;
@@ -709,275 +569,701 @@ main > section:first-child > ul > li::before {
     top: 0;
     left: 0;
 
-    width: 100%;
-    height: 2px;
+    width: 2px;
+    height: 34px;
 
     background: var(--gradient-accent);
 
-    opacity: 0.65;
+    clip-path: polygon(
+        0 0,
+        100% 0,
+        100% 72%,
+        45% 100%,
+        0 100%
+    );
+
+    transition:
+        height 220ms ease;
 }
+
+
+/* Small corner detail */
+
+main article::after {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    right: 0;
+
+    width: 18px;
+    height: 18px;
+
+    border-top: 1px solid rgba(37, 99, 235, 0.2);
+    border-right: 1px solid rgba(37, 99, 235, 0.2);
+
+    clip-path: polygon(
+        0 0,
+        100% 0,
+        100% 100%,
+        70% 100%,
+        70% 30%,
+        0 30%
+    );
+}
+
+main article:hover::before {
+    height: 62px;
+}
+
+
+/* Article headings */
+
+main article h3 {
+    margin-top: 0;
+}
+
+
+/* Article header elements */
+
+main article > header {
+    margin: 0 0 0.85rem;
+    padding: 0;
+
+    background: transparent;
+    border: 0;
+}
+
+main article > header h3 {
+    margin-bottom: 0.35rem;
+}
+
+
+/* =========================================================
+   ASIDE
+   ========================================================= */
+
+main aside {
+    position: relative;
+
+    margin: 2rem 0;
+    padding: 1.2rem 1.35rem;
+
+    color: var(--text);
+
+    background:
+        linear-gradient(
+            135deg,
+            #f5fafc 0%,
+            #edf8fa 100%
+        );
+
+    border: 1px solid #d3e5e9;
+    border-left: 3px solid var(--secondary-accent);
+
+    border-radius: var(--radius-sm);
+
+    box-shadow: var(--shadow-subtle);
+}
+
+
+/* Small aside corner shape */
+
+main aside::after {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    right: 0;
+
+    width: 28px;
+    height: 28px;
+
+    border-top: 1px solid rgba(21, 151, 165, 0.35);
+    border-right: 1px solid rgba(21, 151, 165, 0.35);
+
+    clip-path: polygon(
+        0 0,
+        100% 0,
+        100% 100%,
+        70% 100%,
+        70% 30%,
+        0 30%
+    );
+}
+
+
+/* =========================================================
+   LISTS
+   ========================================================= */
+
+main ul,
+main ol {
+    padding-left: 1.35rem;
+}
+
+main li {
+    margin-bottom: 0.55rem;
+}
+
+main li::marker {
+    color: var(--primary);
+}
+
+
+/* =========================================================
+   DEFINITION LISTS
+   ========================================================= */
+
+main dl {
+    margin: 1.5rem 0;
+}
+
+main dt {
+    margin-top: 1.2rem;
+
+    color: var(--navy);
+    font-weight: 700;
+}
+
+main dd {
+    margin: 0.3rem 0 0;
+
+    color: var(--muted-text);
+}
+
+
+/* =========================================================
+   WEEKLY WORK
+   ========================================================= */
+
+/*
+   The existing Weekly Work <ul> is the first list inside
+   the first main section.
+
+   CSS Grid requirement preserved.
+*/
+
+main > section:first-child > ul {
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            auto-fit,
+            minmax(min(240px, 100%), 1fr)
+        );
+
+    gap: 1rem;
+
+    margin: 0;
+    padding: 0;
+
+    list-style: none;
+}
+
+
+/* Technical portfolio tile */
+
+main > section:first-child > ul > li {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+
+    min-width: 0;
+
+    padding: 1.25rem 1.2rem 1.3rem;
+
+    background: var(--gradient-card);
+
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+
+    box-shadow: var(--shadow-subtle);
+
+    transition:
+        transform 200ms ease,
+        border-color 200ms ease,
+        box-shadow 200ms ease;
+}
+
+
+/* Thin top accent */
+
+main > section:first-child > ul > li::before {
+    content: "";
+
+    position: absolute;
+    z-index: -1;
+
+    top: 0;
+    left: 0;
+
+    width: 52px;
+    height: 3px;
+
+    background: var(--gradient-accent);
+
+    clip-path: polygon(
+        0 0,
+        100% 0,
+        82% 100%,
+        0 100%
+    );
+
+    transition: width 200ms ease;
+}
+
+
+/* Small geometric corner */
+
+main > section:first-child > ul > li::after {
+    content: "";
+
+    position: absolute;
+
+    right: -18px;
+    bottom: -18px;
+
+    width: 58px;
+    height: 58px;
+
+    border: 1px solid rgba(37, 99, 235, 0.09);
+
+    transform: rotate(45deg);
+}
+
+
+/* Weekly tile hover */
 
 main > section:first-child > ul > li:hover {
     transform: translateY(-3px);
 
-    border-color:
-        rgba(37, 99, 235, 0.3);
+    border-color: #b9cadb;
 
     box-shadow: var(--shadow-card);
 }
 
-main > section:first-child > ul > li > a {
+main > section:first-child > ul > li:hover::before {
+    width: 88px;
+}
+
+
+/* Weekly links */
+
+main > section:first-child > ul > li a {
+    position: relative;
+
     display: block;
 
     color: var(--charcoal);
 
+    font-size: 0.96rem;
     font-weight: 650;
     line-height: 1.5;
-
-    text-decoration: none;
-
-    overflow-wrap: anywhere;
 }
 
-main > section:first-child > ul > li > a:hover {
+main > section:first-child > ul > li a:hover {
     color: var(--primary);
+    transform: translateX(2px);
 }
 
 
-/* =========================
-   Reference Lists
-   ========================= */
+/* Remove generic list spacing from Weekly Work */
 
-main > section ul:not(:first-child) a {
-    color: var(--primary);
-}
-
-
-/* =========================
-   Footer
-   ========================= */
-
-footer {
-    position: relative;
-
-    overflow: hidden;
-
-    padding:
-        var(--space-xxl)
-        var(--space-md);
-
-    background: var(--gradient-footer);
-
-    border-top:
-        1px solid
-        rgba(37, 99, 235, 0.18);
-
-    color: #dbe5ef;
-
-    text-align: center;
-
-    box-shadow:
-        0 -8px 25px
-        rgba(15, 23, 42, 0.08);
-}
-
-footer::before {
-    content: "";
-
-    display: block;
-
-    width: 4rem;
-    height: 2px;
-
-    margin:
-        0
-        auto
-        var(--space-lg);
-
-    background: var(--gradient-accent);
-
-    opacity: 0.8;
-}
-
-footer p {
-    max-width: 800px;
-
-    margin:
-        0
-        auto
-        var(--space-sm);
-
-    color: #b8c7d8;
-
-    font-size: 0.88rem;
-    line-height: 1.7;
-
-    overflow-wrap: break-word;
-}
-
-footer p:last-child {
+main > section:first-child > ul > li {
     margin-bottom: 0;
 }
 
 
-/* =========================
-   Tablet
-   ========================= */
+/* =========================================================
+   TABLE-LIKE / CONTENT STRUCTURE
+   ========================================================= */
+
+main table {
+    width: 100%;
+
+    border-collapse: collapse;
+
+    margin: 2rem 0;
+
+    background: var(--surface);
+
+    border: 1px solid var(--border);
+}
+
+main th,
+main td {
+    padding: 0.75rem;
+
+    text-align: left;
+
+    border-bottom: 1px solid var(--border);
+}
+
+main th {
+    color: var(--navy);
+    background: var(--surface-soft);
+}
+
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+
+body > footer {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+
+    padding: 2.5rem 1.25rem;
+
+    color: #aebdcd;
+    text-align: center;
+
+    background: var(--gradient-footer);
+
+    border-top: 1px solid rgba(255, 255, 255, 0.07);
+
+    box-shadow:
+        0 -10px 28px rgba(15, 23, 42, 0.08);
+}
+
+
+/* Footer geometric plane */
+
+body > footer::before {
+    content: "";
+
+    position: absolute;
+    z-index: -1;
+
+    width: 230px;
+    height: 230px;
+
+    left: -115px;
+    bottom: -150px;
+
+    border: 1px solid rgba(37, 99, 235, 0.15);
+
+    transform: rotate(45deg);
+}
+
+
+/* Footer right detail */
+
+body > footer::after {
+    content: "";
+
+    position: absolute;
+    z-index: -1;
+
+    width: 150px;
+    height: 150px;
+
+    right: -75px;
+    top: -100px;
+
+    border: 1px solid rgba(21, 151, 165, 0.14);
+
+    transform: rotate(45deg);
+}
+
+
+/* Footer text */
+
+body > footer p {
+    max-width: 780px;
+
+    margin: 0.35rem auto;
+
+    font-size: 0.82rem;
+    line-height: 1.65;
+}
+
+
+/* Small footer accent */
+
+body > footer p:first-child::before {
+    content: "";
+
+    display: block;
+
+    width: 54px;
+    height: 2px;
+
+    margin: 0 auto 1rem;
+
+    background: var(--gradient-accent);
+
+    clip-path: polygon(
+        0 0,
+        100% 0,
+        84% 100%,
+        0 100%
+    );
+}
+
+
+/* =========================================================
+   TABLET
+   ========================================================= */
 
 @media (min-width: 600px) {
 
-    header {
-        padding:
-            4rem
-            var(--space-xl)
-            3.25rem;
-    }
-
-    header h1 {
-        font-size: clamp(2.2rem, 6vw, 3rem);
-    }
-
-    nav {
-        gap: var(--space-sm);
-
-        padding:
-            var(--space-md)
-            var(--space-xl);
-    }
-
-    nav a {
-        padding:
-            0.5rem
-            0.9rem;
-    }
-
-    main {
-        width: calc(100% - 3rem);
-
-        padding-top: var(--space-xxl);
-    }
-
-    main > section:first-child > ul {
-        gap: var(--space-lg);
-    }
-
-    article {
-        padding-left: 0.25rem;
-    }
-
-    footer {
-        padding:
-            var(--space-xxl)
-            var(--space-xl);
-    }
-}
-
-
-/* =========================
-   Desktop
-   ========================= */
-
-@media (min-width: 900px) {
-
-    header {
+    body > header {
         padding:
             5rem
-            var(--space-xl)
-            4rem;
+            2rem
+            4.5rem;
     }
 
-    header h1 {
-        font-size: 3rem;
+    body > nav {
+        gap: 0.65rem;
+        padding: 0.9rem 1.25rem;
     }
 
-    header p {
-        font-size: 1rem;
-    }
-
-    nav {
-        justify-content: space-evenly;
-
-        gap: var(--space-sm);
-
-        padding:
-            var(--space-md)
-            var(--space-xl);
-    }
-
-    nav a {
-        white-space: nowrap;
+    body > nav a {
+        padding: 0.55rem 1rem;
+        font-size: 0.9rem;
     }
 
     main {
-        width: calc(100% - 4rem);
-        max-width: var(--wide-content-width);
+        width: min(
+            calc(100% - 3.5rem),
+            var(--content-width)
+        );
 
         padding-top: 4rem;
-        padding-bottom: 4.5rem;
     }
 
     main > section {
-        margin-bottom: 4rem;
+        margin-bottom: 4.75rem;
+    }
+
+    main article {
+        padding-left: 1.5rem;
     }
 
     main > section:first-child > ul {
-        grid-template-columns:
-            repeat(
-                auto-fit,
-                minmax(240px, 1fr)
-            );
+        gap: 1.15rem;
     }
 
-    article {
-        padding-bottom: var(--space-xxl);
-    }
-
-    aside {
+    body > footer {
         padding:
-            var(--space-lg)
-            var(--space-xl);
-    }
-
-    footer {
-        padding:
-            3.5rem
-            var(--space-xl);
+            3rem
+            2rem;
     }
 }
 
 
-/* =========================
-   Wide Desktop
-   ========================= */
+/* =========================================================
+   DESKTOP
+   ========================================================= */
 
-@media (min-width: 1200px) {
+@media (min-width: 900px) {
 
-    header {
-        padding-top: 5.5rem;
-        padding-bottom: 4.5rem;
+    body > header {
+        padding:
+            6rem
+            2rem
+            5.25rem;
     }
 
-    nav {
-        padding-left: 3rem;
-        padding-right: 3rem;
+    body > header::before {
+        width: 620px;
+        height: 620px;
+
+        top: -390px;
+        right: -220px;
+    }
+
+    body > header::after {
+        width: 260px;
+        height: 260px;
+
+        left: -105px;
+        bottom: -155px;
+    }
+
+    body > nav {
+        justify-content: center;
+
+        gap: 0.8rem;
+
+        padding:
+            0.85rem
+            2rem;
+    }
+
+    body > nav a {
+        padding:
+            0.55rem
+            1.05rem;
     }
 
     main {
-        max-width: var(--wide-content-width);
+        width: min(
+            calc(100% - 5rem),
+            var(--wide-content-width)
+        );
+
+        padding-top: 5rem;
+        padding-bottom: 6rem;
+    }
+
+    main::before {
+        height: 260px;
+        left: -1rem;
+    }
+
+    main > section {
+        margin-bottom: 5.5rem;
+    }
+
+    main > section > h2,
+    main > section > header h2 {
+        margin-bottom: 2rem;
+    }
+
+    main article {
+        padding:
+            0
+            2rem
+            2.25rem
+            1.75rem;
+
+        margin: 2.5rem 0;
+    }
+
+    main article::before {
+        width: 3px;
+    }
+
+    main aside {
+        padding:
+            1.4rem
+            1.6rem;
+    }
+
+    main > section:first-child > ul {
+        gap: 1.25rem;
+    }
+
+    body > footer {
+        padding:
+            3.5rem
+            2rem;
     }
 }
 
 
-/* =========================
-   Reduced Motion
-   ========================= */
+/* =========================================================
+   LARGE DESKTOP
+   ========================================================= */
+
+@media (min-width: 1200px) {
+
+    body > header h1 {
+        font-size: 3.8rem;
+    }
+
+    body > header p {
+        font-size: 1.1rem;
+    }
+
+    main {
+        width: min(
+            calc(100% - 7rem),
+            var(--wide-content-width)
+        );
+    }
+
+    main > section:first-child > ul > li {
+        padding:
+            1.4rem
+            1.35rem
+            1.45rem;
+    }
+}
+
+
+/* =========================================================
+   SMALL MOBILE DEVICES
+   ========================================================= */
+
+@media (max-width: 374px) {
+
+    body > header {
+        padding:
+            3.25rem
+            0.9rem
+            3rem;
+    }
+
+    body > header h1 {
+        font-size: 1.8rem;
+    }
+
+    body > header p {
+        font-size: 0.9rem;
+    }
+
+    body > nav {
+        gap: 0.3rem;
+        padding:
+            0.7rem
+            0.5rem;
+    }
+
+    body > nav a {
+        padding:
+            0.45rem
+            0.65rem;
+
+        font-size: 0.78rem;
+    }
+
+    main {
+        width: min(
+            calc(100% - 1.25rem),
+            var(--content-width)
+        );
+
+        padding-top: 2.5rem;
+    }
+
+    main > section > h2,
+    main > section > header h2 {
+        font-size: 1.45rem;
+    }
+
+    main article {
+        padding-left: 1rem;
+    }
+
+    main > section:first-child > ul {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+   ========================================================= */
 
 @media (prefers-reduced-motion: reduce) {
 
-    a,
-    nav a,
-    article::before,
-    main > section:first-child > ul > li {
-        transition: none;
+    html {
+        scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
     }
 }
