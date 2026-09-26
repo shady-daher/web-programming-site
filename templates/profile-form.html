@@ -10,6 +10,7 @@
 {% block content %}
 
 <h2>Engineering Student Profile</h2>
+
 <p>
     Complete this form to provide information about your academic background,
     technical skills, internship experience, and Final Year Project preferences.
@@ -17,7 +18,7 @@
 
 <form action="{{ url_for('submit_profile') }}" method="post">
 
-    <!-- ==================== PERSONAL INFORMATION ==================== -->
+    <!-- 1. Personal Information -->
     <fieldset>
         <legend>1. Personal Information</legend>
 
@@ -83,50 +84,43 @@
         </p>
 
         <p>
-            <label for="gin446">GIN446 Website:</label>
+            <label for="gin446">GIN446 website:</label>
             <input
                 type="url"
                 id="gin446"
                 name="gin446"
             >
         </p>
-
     </fieldset>
 
 
-    <!-- ==================== ACADEMIC INFORMATION ==================== -->
+    <!-- 2. Academic Information -->
     <fieldset>
-
         <legend>2. Academic Information</legend>
 
         <p>
             <label for="major">Engineering Major:</label>
 
             <select id="major" name="major" required>
+                <option value="">-- Select your major --</option>
 
-                <option value="">
-                    -- Select your major --
-                </option>
-
-                <option value="Computer Engineering">
+                <option value="Computer">
                     Computer Engineering
                 </option>
 
-                <option value="Electrical Engineering">
+                <option value="Electrical">
                     Electrical Engineering
                 </option>
 
-                <option value="Biomedical Engineering">
+                <option value="Biomedical">
                     Biomedical Engineering
                 </option>
 
-                <option value="Telecommunications Engineering">
+                <option value="Telecommunications">
                     Telecommunications Engineering
                 </option>
-
             </select>
         </p>
-
 
         <p>
             <label for="gpa">Current GPA / 100:</label>
@@ -142,7 +136,6 @@
             >
         </p>
 
-
         <p>
             <label for="credits">Credits Completed:</label>
 
@@ -151,20 +144,18 @@
                 id="credits"
                 name="credits"
                 min="0"
-                max="146"
                 step="1"
                 required
             >
         </p>
 
-
         <fieldset>
-
             <legend>Expected Graduation:</legend>
 
-            <label>
+            <label for="graduation_spring">
                 <input
                     type="radio"
+                    id="graduation_spring"
                     name="graduation"
                     value="Spring"
                     required
@@ -172,26 +163,26 @@
                 Spring
             </label>
 
-            <label>
+            <label for="graduation_summer">
                 <input
                     type="radio"
+                    id="graduation_summer"
                     name="graduation"
                     value="Summer"
                 >
                 Summer
             </label>
 
-            <label>
+            <label for="graduation_fall">
                 <input
                     type="radio"
+                    id="graduation_fall"
                     name="graduation"
                     value="Fall"
                 >
                 Fall
             </label>
-
         </fieldset>
-
 
         <p>
             <label for="graduation_month">
@@ -206,14 +197,13 @@
             >
         </p>
 
-
         <fieldset>
-
             <legend>Have you completed an engineering internship?</legend>
 
-            <label>
+            <label for="internship_yes">
                 <input
                     type="radio"
+                    id="internship_yes"
                     name="internship_completed"
                     value="Yes"
                     required
@@ -221,113 +211,111 @@
                 Yes
             </label>
 
-            <label>
+            <label for="internship_no">
                 <input
                     type="radio"
+                    id="internship_no"
                     name="internship_completed"
                     value="No"
                 >
                 No
             </label>
-
         </fieldset>
-
     </fieldset>
 
 
-    <!-- ==================== TECHNICAL BACKGROUND ==================== -->
+    <!-- 3. Technical Background -->
     <fieldset>
-
         <legend>3. Technical Background</legend>
 
         <p>Select all areas in which you have experience:</p>
 
-        <label>
+        <label for="skill_programming">
             <input
                 type="checkbox"
+                id="skill_programming"
                 name="skills"
                 value="Programming"
             >
             Programming
         </label>
-
         <br>
 
-        <label>
+        <label for="skill_embedded">
             <input
                 type="checkbox"
+                id="skill_embedded"
                 name="skills"
                 value="Embedded Systems"
             >
             Embedded Systems
         </label>
-
         <br>
 
-        <label>
+        <label for="skill_electronics">
             <input
                 type="checkbox"
+                id="skill_electronics"
                 name="skills"
                 value="Electronics"
             >
             Electronics
         </label>
-
         <br>
 
-        <label>
+        <label for="skill_networks">
             <input
                 type="checkbox"
+                id="skill_networks"
                 name="skills"
                 value="Computer Networks"
             >
             Computer Networks
         </label>
-
         <br>
 
-        <label>
+        <label for="skill_telecommunications">
             <input
                 type="checkbox"
+                id="skill_telecommunications"
                 name="skills"
                 value="Telecommunications"
             >
             Telecommunications
         </label>
-
         <br>
 
-        <label>
+        <label for="skill_biomedical">
             <input
                 type="checkbox"
+                id="skill_biomedical"
                 name="skills"
                 value="Biomedical Instrumentation"
             >
             Biomedical Instrumentation
         </label>
-
         <br>
 
-        <label>
+        <label for="skill_ai_ml">
             <input
                 type="checkbox"
+                id="skill_ai_ml"
                 name="skills"
                 value="Artificial Intelligence / Machine Learning"
             >
             Artificial Intelligence / Machine Learning
         </label>
-
         <br>
 
-        <label>
+        <label for="skill_signal_processing">
             <input
                 type="checkbox"
+                id="skill_signal_processing"
                 name="skills"
                 value="Signal Processing"
             >
             Signal Processing
         </label>
-
 
         <p>
             <label for="language">
@@ -343,7 +331,6 @@
             >
 
             <datalist id="programming-languages">
-
                 <option value="Python">
                 <option value="C">
                 <option value="C++">
@@ -352,11 +339,8 @@
                 <option value="MATLAB">
                 <option value="C#">
                 <option value="PHP">
-
             </datalist>
-
         </p>
-
 
         <p>
             <label for="software">
@@ -370,26 +354,20 @@
                 size="6"
                 required
             >
-
                 <option value="MATLAB">MATLAB</option>
                 <option value="Simulink">Simulink</option>
                 <option value="LabVIEW">LabVIEW</option>
                 <option value="LTspice">LTspice</option>
                 <option value="Visio">Visio</option>
                 <option value="SolidWorks">SolidWorks</option>
-
             </select>
-
         </p>
-
     </fieldset>
 
 
-    <!-- ==================== FINAL YEAR PROJECT ==================== -->
+    <!-- 4. Final Year Project -->
     <fieldset>
-
         <legend>4. Final Year Project</legend>
-
 
         <p>
             <label for="project_title">
@@ -405,7 +383,6 @@
             >
         </p>
 
-
         <p>
             <label for="project_area">
                 Preferred Project Area:
@@ -416,14 +393,14 @@
                 name="project_area"
                 required
             >
+                <option value="">-- Select project area --</option>
 
-                <option value="">
-                    -- Select project area --
+                <!-- Top-level option shown in the guide -->
+                <option value="Artificial Intelligence">
+                    Artificial Intelligence
                 </option>
 
-
                 <optgroup label="Computer Engineering">
-
                     <option value="Web Applications">
                         Web Applications
                     </option>
@@ -435,12 +412,9 @@
                     <option value="Internet of Things">
                         Internet of Things
                     </option>
-
                 </optgroup>
 
-
                 <optgroup label="Electrical Engineering">
-
                     <option value="Power Systems">
                         Power Systems
                     </option>
@@ -449,11 +423,12 @@
                         Renewable Energy
                     </option>
 
+                    <option value="Control Systems">
+                        Control Systems
+                    </option>
                 </optgroup>
 
-
                 <optgroup label="Biomedical Engineering">
-
                     <option value="Medical Imaging">
                         Medical Imaging
                     </option>
@@ -465,12 +440,9 @@
                     <option value="Medical Devices">
                         Medical Devices
                     </option>
-
                 </optgroup>
 
-
                 <optgroup label="Telecommunications Engineering">
-
                     <option value="Wireless Communication">
                         Wireless Communication
                     </option>
@@ -479,18 +451,18 @@
                         5G / 6G Networks
                     </option>
 
+                    <!-- User-requested addition -->
+                    <option value="Network Security">
+                        Network Security
+                    </option>
                 </optgroup>
-
             </select>
-
         </p>
-
 
         <p>
             <label for="description">
                 Brief Project Description:
             </label>
-
             <br>
 
             <textarea
@@ -500,9 +472,7 @@
                 maxlength="1000"
                 required
             ></textarea>
-
         </p>
-
 
         <p>
             <label for="team_size">
@@ -520,7 +490,6 @@
             >
         </p>
 
-
         <p>
             <label for="project_color">
                 Choose a color for your project dashboard:
@@ -533,7 +502,6 @@
                 value="#2563eb"
             >
         </p>
-
 
         <p>
             <label for="meeting_date">
@@ -548,7 +516,6 @@
             >
         </p>
 
-
         <p>
             <label for="meeting_time">
                 Preferred Meeting Time:
@@ -561,14 +528,11 @@
                 required
             >
         </p>
-
     </fieldset>
 
 
-    <!-- ==================== CONFIRMATION ==================== -->
-
+    <!-- Required confirmation -->
     <p>
-
         <input
             type="checkbox"
             id="confirmation"
@@ -580,10 +544,10 @@
         <label for="confirmation">
             I confirm that the information provided is accurate.
         </label>
-
     </p>
 
 
+    <!-- Required hidden field -->
     <input
         type="hidden"
         name="form_version"
@@ -591,13 +555,9 @@
     >
 
 
-    <button type="submit">
-        Submit Profile
-    </button>
-
-    <button type="reset">
-        Clear Form
-    </button>
+    <!-- Submit / Reset -->
+    <button type="submit">Submit Profile</button>
+    <button type="reset">Clear Form</button>
 
 </form>
 
