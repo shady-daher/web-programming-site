@@ -1,0 +1,769 @@
+/* =========================================================
+   GIN446 WEEK 4 - ENGINEERING STUDENT PROFILE FORM
+   AI-assisted form styling
+   Vanilla CSS - no framework
+   ========================================================= */
+
+/* ---------------------------------------------------------
+   FORM DESIGN TOKENS
+   The form uses a separate black / navy / electric-blue
+   palette so it has its own visual identity while still
+   fitting the existing engineering website.
+   --------------------------------------------------------- */
+
+form {
+    --form-navy: #0b1220;
+    --form-blue: #2563eb;
+    --form-blue-bright: #3b82f6;
+    --form-blue-soft: #60a5fa;
+    --form-white: #f8fbff;
+    --form-muted: #9aa9bd;
+    --form-border: rgba(96, 165, 250, 0.22);
+    --form-border-strong: rgba(59, 130, 246, 0.55);
+    --form-radius: 18px;
+
+    position: relative;
+    isolation: isolate;
+
+    max-width: 980px;
+    margin: 2.5rem auto 0;
+    padding: clamp(1.2rem, 3vw, 2.5rem);
+
+    color: var(--form-white);
+
+    background:
+        radial-gradient(circle at 85% 8%, rgba(37, 99, 235, 0.18), transparent 24%),
+        radial-gradient(circle at 10% 92%, rgba(59, 130, 246, 0.10), transparent 22%),
+        linear-gradient(145deg, #05070b 0%, #0a1020 48%, #0d1728 100%);
+
+    border: 1px solid rgba(96, 165, 250, 0.22);
+    border-radius: 24px;
+
+    box-shadow:
+        0 30px 70px rgba(2, 6, 23, 0.22),
+        inset 0 1px 0 rgba(255, 255, 255, 0.055);
+
+    overflow: hidden;
+}
+
+
+/* Animated technical corner details */
+
+form::before,
+form::after {
+    content: "";
+    position: absolute;
+    z-index: -1;
+
+    width: 150px;
+    height: 150px;
+
+    border: 1px solid rgba(59, 130, 246, 0.16);
+
+    transform: rotate(45deg);
+    pointer-events: none;
+}
+
+form::before {
+    top: -92px;
+    right: -70px;
+
+    box-shadow:
+        0 0 0 18px rgba(37, 99, 235, 0.025),
+        0 0 0 36px rgba(37, 99, 235, 0.018);
+
+    animation: form-float 8s ease-in-out infinite;
+}
+
+form::after {
+    left: -95px;
+    bottom: -100px;
+
+    border-color: rgba(96, 165, 250, 0.10);
+
+    animation: form-float 10s ease-in-out infinite reverse;
+}
+
+
+/* ---------------------------------------------------------
+   FORM INTRO
+   --------------------------------------------------------- */
+
+form > fieldset:first-of-type {
+    margin-top: 0;
+}
+
+
+/* ---------------------------------------------------------
+   FIELDSET CARDS
+   --------------------------------------------------------- */
+
+form > fieldset {
+    position: relative;
+
+    min-width: 0;
+    margin: 0 0 1.35rem;
+    padding: 1.7rem clamp(1rem, 2.5vw, 1.8rem) 1.35rem;
+
+    background:
+        linear-gradient(145deg, rgba(17, 28, 48, 0.94), rgba(7, 12, 22, 0.96));
+
+    border: 1px solid var(--form-border);
+    border-radius: var(--form-radius);
+
+    box-shadow:
+        0 14px 32px rgba(0, 0, 0, 0.16),
+        inset 0 1px 0 rgba(255, 255, 255, 0.025);
+
+    transition:
+        transform 220ms ease,
+        border-color 220ms ease,
+        box-shadow 220ms ease;
+}
+
+form > fieldset:hover {
+    transform: translateY(-2px);
+
+    border-color: rgba(96, 165, 250, 0.36);
+
+    box-shadow:
+        0 18px 38px rgba(0, 0, 0, 0.20),
+        0 0 28px rgba(37, 99, 235, 0.055),
+        inset 0 1px 0 rgba(255, 255, 255, 0.035);
+}
+
+
+/* Blue technical accent along each card */
+
+form > fieldset::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 1.4rem;
+
+    width: 72px;
+    height: 3px;
+
+    background: linear-gradient(
+        90deg,
+        var(--form-blue),
+        var(--form-blue-soft),
+        transparent
+    );
+
+    border-radius: 999px;
+}
+
+
+/* ---------------------------------------------------------
+   LEGENDS / SECTION TITLES
+   --------------------------------------------------------- */
+
+form > fieldset > legend {
+    width: auto;
+    max-width: 100%;
+    padding: 0 0.75rem;
+
+    color: #dbeafe;
+    font-size: 1rem;
+    font-weight: 800;
+    letter-spacing: 0.045em;
+    text-transform: uppercase;
+
+    background: #0b1220;
+
+    border: 1px solid rgba(96, 165, 250, 0.20);
+    border-radius: 999px;
+}
+
+
+/* Nested fieldsets are used by the existing HTML for radio groups. */
+
+form fieldset fieldset {
+    margin: 1.2rem 0;
+    padding: 1rem 1.1rem;
+
+    background: rgba(5, 10, 20, 0.48);
+
+    border: 1px solid rgba(96, 165, 250, 0.15);
+    border-radius: 13px;
+}
+
+form fieldset fieldset legend {
+    padding: 0 0.5rem;
+
+    color: #a9c9f5;
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+}
+
+
+/* ---------------------------------------------------------
+   FIELD ROWS
+   --------------------------------------------------------- */
+
+form > fieldset > p {
+    display: grid;
+    grid-template-columns: minmax(190px, 0.72fr) minmax(0, 1.6fr);
+    align-items: center;
+    gap: 1rem;
+
+    margin: 0;
+    padding: 0.8rem 0;
+
+    border-bottom: 1px solid rgba(148, 163, 184, 0.08);
+}
+
+form > fieldset > p:last-child {
+    border-bottom: 0;
+}
+
+
+/* Description is intentionally stacked because it is a larger field. */
+
+form > fieldset:last-of-type > p:has(textarea) {
+    grid-template-columns: 1fr;
+    gap: 0.55rem;
+}
+
+
+/* ---------------------------------------------------------
+   LABELS
+   --------------------------------------------------------- */
+
+form label[for] {
+    color: #d9e7f7;
+    font-size: 0.9rem;
+    font-weight: 650;
+    line-height: 1.35;
+}
+
+form label[for]:hover {
+    color: #ffffff;
+}
+
+
+/* ---------------------------------------------------------
+   TEXT-LIKE CONTROLS
+   --------------------------------------------------------- */
+
+form input:not([type="checkbox"]):not([type="radio"]),
+form select,
+form textarea {
+    width: 100%;
+    min-width: 0;
+
+    color: #f8fbff;
+    font: inherit;
+    font-size: 0.92rem;
+
+    background:
+        linear-gradient(180deg, rgba(17, 28, 48, 0.96), rgba(8, 14, 25, 0.96));
+
+    border: 1px solid rgba(148, 163, 184, 0.24);
+    border-radius: 11px;
+
+    outline: none;
+
+    transition:
+        border-color 180ms ease,
+        box-shadow 180ms ease,
+        background 180ms ease,
+        transform 180ms ease;
+}
+
+form input:not([type="checkbox"]):not([type="radio"]),
+form select {
+    min-height: 46px;
+    padding: 0.7rem 0.85rem;
+}
+
+form textarea {
+    min-height: 150px;
+    padding: 0.8rem 0.9rem;
+    resize: vertical;
+}
+
+form input::placeholder,
+form textarea::placeholder {
+    color: #687990;
+}
+
+form select option,
+form select optgroup {
+    color: #eaf2ff;
+    background: #0b1220;
+}
+
+
+/* ---------------------------------------------------------
+   ADVANCED FOCUS STATE
+   --------------------------------------------------------- */
+
+form input:not([type="checkbox"]):not([type="radio"]):focus,
+form select:focus,
+form textarea:focus {
+    border-color: var(--form-blue-bright);
+
+    background:
+        linear-gradient(180deg, rgba(19, 35, 61, 0.98), rgba(8, 16, 29, 0.98));
+
+    box-shadow:
+        0 0 0 3px rgba(37, 99, 235, 0.14),
+        0 0 24px rgba(37, 99, 235, 0.12);
+
+    transform: translateY(-1px);
+}
+
+
+/* ---------------------------------------------------------
+   NATIVE VALIDATION - STRONG VISUAL FEEDBACK
+   --------------------------------------------------------- */
+
+form input:not([type="checkbox"]):not([type="radio"]):user-valid,
+form select:user-valid,
+form textarea:user-valid {
+    border-color: rgba(34, 197, 94, 0.52);
+}
+
+form input:not([type="checkbox"]):not([type="radio"]):user-invalid,
+form select:user-invalid,
+form textarea:user-invalid {
+    border-color: rgba(248, 113, 113, 0.85);
+
+    box-shadow:
+        0 0 0 2px rgba(248, 113, 113, 0.08),
+        0 0 18px rgba(248, 113, 113, 0.07);
+}
+
+form input:not([type="checkbox"]):not([type="radio"]):user-valid:focus,
+form select:user-valid:focus,
+form textarea:user-valid:focus,
+form input:not([type="checkbox"]):not([type="radio"]):user-invalid:focus,
+form select:user-invalid:focus,
+form textarea:user-invalid:focus {
+    box-shadow:
+        0 0 0 3px rgba(37, 99, 235, 0.14),
+        0 0 24px rgba(37, 99, 235, 0.12);
+}
+
+
+/* ---------------------------------------------------------
+   CHECKBOXES / RADIO BUTTONS
+   Modern chip-like controls without changing the HTML.
+   --------------------------------------------------------- */
+
+form label:not([for]) {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+
+    margin: 0.3rem 0.35rem 0.3rem 0;
+    padding: 0.65rem 0.85rem;
+
+    color: #b8c8dc;
+    font-size: 0.88rem;
+    font-weight: 600;
+
+    background: rgba(15, 23, 42, 0.72);
+    border: 1px solid rgba(148, 163, 184, 0.16);
+    border-radius: 999px;
+
+    cursor: pointer;
+
+    transition:
+        color 180ms ease,
+        border-color 180ms ease,
+        background 180ms ease,
+        transform 180ms ease,
+        box-shadow 180ms ease;
+}
+
+form label:not([for]):hover {
+    color: #eaf3ff;
+    background: rgba(37, 99, 235, 0.12);
+    border-color: rgba(96, 165, 250, 0.38);
+    transform: translateY(-1px);
+}
+
+form label:not([for]):has(input:checked) {
+    color: #eff6ff;
+    background: linear-gradient(135deg, rgba(37, 99, 235, 0.26), rgba(29, 78, 216, 0.12));
+    border-color: rgba(96, 165, 250, 0.66);
+    box-shadow: 0 0 18px rgba(37, 99, 235, 0.12);
+}
+
+form input[type="checkbox"],
+form input[type="radio"] {
+    appearance: none;
+    -webkit-appearance: none;
+
+    flex: 0 0 auto;
+    width: 19px;
+    height: 19px;
+    margin: 0;
+
+    background: #080e19;
+    border: 1px solid rgba(148, 163, 184, 0.48);
+
+    cursor: pointer;
+
+    transition:
+        background 160ms ease,
+        border-color 160ms ease,
+        box-shadow 160ms ease,
+        transform 160ms ease;
+}
+
+form input[type="checkbox"] {
+    border-radius: 6px;
+}
+
+form input[type="radio"] {
+    border-radius: 50%;
+}
+
+form input[type="checkbox"]:hover,
+form input[type="radio"]:hover {
+    border-color: var(--form-blue-soft);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.10);
+}
+
+form input[type="checkbox"]:checked,
+form input[type="radio"]:checked {
+    background: var(--form-blue);
+    border-color: #60a5fa;
+    box-shadow: 0 0 14px rgba(37, 99, 235, 0.32);
+}
+
+form input[type="checkbox"]:checked::after {
+    content: "✓";
+    display: grid;
+    place-items: center;
+
+    height: 100%;
+
+    color: white;
+    font-size: 0.78rem;
+    font-weight: 900;
+}
+
+form input[type="radio"]:checked::after {
+    content: "";
+    display: block;
+
+    width: 7px;
+    height: 7px;
+    margin: 5px auto;
+
+    background: white;
+    border-radius: 50%;
+}
+
+
+/* ---------------------------------------------------------
+   TECHNICAL BACKGROUND SKILL OPTIONS
+   The existing <br> elements are visually neutralized so
+   the labels can form a modern responsive chip group.
+   --------------------------------------------------------- */
+
+form > fieldset:nth-of-type(3) > br {
+    display: none;
+}
+
+form > fieldset:nth-of-type(3) > label:not([for]) {
+    margin-top: 0.2rem;
+}
+
+
+/* ---------------------------------------------------------
+   MULTI-SELECT
+   --------------------------------------------------------- */
+
+form select[multiple] {
+    min-height: 190px;
+    padding: 0.45rem;
+}
+
+form select[multiple] option {
+    padding: 0.55rem 0.65rem;
+    border-radius: 7px;
+}
+
+form select[multiple] option:checked {
+    color: #ffffff;
+    background: var(--form-blue);
+}
+
+
+/* ---------------------------------------------------------
+   COLOR PICKER
+   --------------------------------------------------------- */
+
+form input[type="color"] {
+    width: 74px;
+    height: 46px;
+    padding: 4px;
+
+    background: #080e19;
+    border: 1px solid rgba(148, 163, 184, 0.28);
+    border-radius: 11px;
+
+    cursor: pointer;
+}
+
+form input[type="color"]:focus {
+    outline: none;
+    border-color: var(--form-blue-bright);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.14);
+}
+
+
+/* ---------------------------------------------------------
+   CONFIRMATION AREA
+   --------------------------------------------------------- */
+
+form > p:has(#confirmation) {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+
+    margin: 1.25rem 0;
+    padding: 1rem 1.15rem;
+
+    color: #c8d7e8;
+
+    background: rgba(11, 18, 32, 0.78);
+    border: 1px solid rgba(96, 165, 250, 0.18);
+    border-radius: 13px;
+}
+
+form > p:has(#confirmation) label {
+    margin: 0;
+    padding: 0;
+
+    color: #c8d7e8;
+    font-size: 0.88rem;
+    font-weight: 600;
+}
+
+form > p:has(#confirmation) input:checked + label {
+    color: #eaf3ff;
+}
+
+
+/* ---------------------------------------------------------
+   SUBMIT / RESET BUTTONS
+   --------------------------------------------------------- */
+
+form > button {
+    position: relative;
+    overflow: hidden;
+
+    min-height: 48px;
+    margin: 0.35rem 0.55rem 0 0;
+    padding: 0.75rem 1.35rem;
+
+    color: #dbeafe;
+    font: inherit;
+    font-size: 0.9rem;
+    font-weight: 800;
+    letter-spacing: 0.02em;
+
+    background: transparent;
+    border: 1px solid rgba(96, 165, 250, 0.42);
+    border-radius: 11px;
+
+    cursor: pointer;
+
+    transition:
+        transform 180ms ease,
+        color 180ms ease,
+        background 180ms ease,
+        border-color 180ms ease,
+        box-shadow 180ms ease;
+}
+
+form > button::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -120%;
+
+    width: 80%;
+    height: 100%;
+
+    background: linear-gradient(
+        100deg,
+        transparent,
+        rgba(255, 255, 255, 0.24),
+        transparent
+    );
+
+    transform: skewX(-20deg);
+    transition: left 500ms ease;
+}
+
+form > button:hover::before {
+    left: 135%;
+}
+
+form > button:hover {
+    transform: translateY(-3px);
+}
+
+form > button:active {
+    transform: translateY(0) scale(0.98);
+}
+
+
+/* Primary action: first button = Submit Profile */
+
+form > button[type="submit"] {
+    color: white;
+
+    background:
+        linear-gradient(135deg, #2563eb 0%, #1d4ed8 55%, #1740a8 100%);
+
+    border-color: rgba(96, 165, 250, 0.82);
+
+    box-shadow:
+        0 10px 24px rgba(29, 78, 216, 0.25),
+        inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+form > button[type="submit"]:hover {
+    background:
+        linear-gradient(135deg, #3b82f6 0%, #2563eb 55%, #1d4ed8 100%);
+
+    border-color: #93c5fd;
+
+    box-shadow:
+        0 14px 30px rgba(29, 78, 216, 0.34),
+        0 0 24px rgba(37, 99, 235, 0.18);
+}
+
+
+/* Secondary action: reset remains outlined */
+
+form > button[type="reset"] {
+    color: #b8c8dc;
+    background: rgba(255, 255, 255, 0.025);
+    border-color: rgba(148, 163, 184, 0.30);
+}
+
+form > button[type="reset"]:hover {
+    color: #f8fbff;
+    background: rgba(148, 163, 184, 0.09);
+    border-color: rgba(203, 213, 225, 0.48);
+    box-shadow: 0 10px 22px rgba(0, 0, 0, 0.14);
+}
+
+
+/* Keyboard accessibility */
+
+form button:focus-visible,
+form input:focus-visible,
+form select:focus-visible,
+form textarea:focus-visible {
+    outline: 2px solid #60a5fa;
+    outline-offset: 3px;
+}
+
+
+/* ---------------------------------------------------------
+   RESPONSIVE DESIGN
+   The default is mobile-first single-column behavior.
+   --------------------------------------------------------- */
+
+@media (max-width: 720px) {
+
+    form {
+        margin-top: 1.5rem;
+        padding: 1rem;
+        border-radius: 18px;
+    }
+
+    form > fieldset {
+        padding: 1.35rem 0.85rem 1rem;
+        border-radius: 15px;
+    }
+
+    form > fieldset > p {
+        grid-template-columns: 1fr;
+        gap: 0.45rem;
+        padding: 0.9rem 0;
+    }
+
+    form > fieldset:last-of-type > p:has(textarea) {
+        grid-template-columns: 1fr;
+    }
+
+    form > button {
+        width: 100%;
+        margin: 0.4rem 0 0;
+    }
+
+    form > fieldset:nth-of-type(3) > label:not([for]) {
+        margin-right: 0.2rem;
+    }
+
+    form label:not([for]) {
+        font-size: 0.84rem;
+    }
+}
+
+
+@media (max-width: 430px) {
+
+    form {
+        padding: 0.75rem;
+        border-radius: 15px;
+    }
+
+    form > fieldset > legend {
+        font-size: 0.82rem;
+    }
+
+    form fieldset fieldset {
+        padding: 0.8rem;
+    }
+
+    form input:not([type="checkbox"]):not([type="radio"]),
+    form select,
+    form textarea {
+        font-size: 0.88rem;
+    }
+
+    form label:not([for]) {
+        width: 100%;
+        margin-right: 0;
+        justify-content: flex-start;
+    }
+}
+
+
+/* ---------------------------------------------------------
+   MOTION SAFETY
+   --------------------------------------------------------- */
+
+@keyframes form-float {
+    0%,
+    100% {
+        transform: rotate(45deg) translate3d(0, 0, 0);
+    }
+
+    50% {
+        transform: rotate(45deg) translate3d(-8px, 8px, 0);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    form,
+    form * {
+        animation: none !important;
+        transition-duration: 0.01ms !important;
+    }
+}
