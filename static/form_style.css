@@ -1,619 +1,993 @@
 /* =========================================================
-   GIN446 Week 4 — Engineering Student Profile Form
-   Modern Tech / Dark Interface
-   Form-specific stylesheet only
+   GIN446 — Week 4 Profile Form
+   Modern Tech / Dark Engineering Interface
+   Scoped specifically to the profile form.
+   No HTML, Flask, or validation changes required.
    ========================================================= */
 
-/* ---------- Theme ---------- */
-:root {
-    --form-bg: #050914;
-    --form-bg-soft: #091222;
-    --card-bg: rgba(9, 18, 34, 0.88);
-    --card-bg-deep: rgba(5, 12, 25, 0.94);
-
-    --blue: #1683ff;
-    --blue-bright: #38a7ff;
-    --blue-soft: rgba(22, 131, 255, 0.16);
-    --blue-glow: rgba(22, 131, 255, 0.34);
-
-    --text: #f4f8ff;
-    --text-soft: #aebdd2;
-    --text-muted: #72839a;
-
-    --border: rgba(105, 151, 205, 0.20);
-    --border-strong: rgba(56, 167, 255, 0.42);
-
-    --valid: #31d58a;
-    --valid-glow: rgba(49, 213, 138, 0.22);
-
-    --invalid: #ff5268;
-    --invalid-glow: rgba(255, 82, 104, 0.22);
-
-    --radius-lg: 18px;
-    --radius-md: 12px;
-    --radius-sm: 9px;
-
-    --shadow-card:
-        0 22px 60px rgba(0, 0, 0, 0.38),
-        0 0 0 1px rgba(255, 255, 255, 0.015);
-
-    --transition: 180ms ease;
-}
-
-/* ---------- Page ---------- */
+/* ---------- Form-page theme ---------- */
+html:has(body form[action*="submit_profile"]),
 body:has(form[action*="submit_profile"]) {
+    --wf-bg: #030711;
+    --wf-bg-2: #07111f;
+    --wf-panel: #081525;
+    --wf-panel-2: #0b1b2e;
+    --wf-control: #071321;
+    --wf-control-2: #0b1b2f;
+
+    --wf-blue: #1683ff;
+    --wf-blue-light: #42adff;
+    --wf-blue-soft: rgba(22, 131, 255, 0.16);
+    --wf-blue-glow: rgba(22, 131, 255, 0.38);
+
+    --wf-text: #f7fbff;
+    --wf-text-soft: #c5d2e3;
+    --wf-muted: #8496ad;
+
+    --wf-border: rgba(117, 160, 207, 0.22);
+    --wf-border-hover: rgba(66, 173, 255, 0.52);
+
+    --wf-valid: #28d98b;
+    --wf-valid-glow: rgba(40, 217, 139, 0.25);
+
+    --wf-invalid: #ff5068;
+    --wf-invalid-glow: rgba(255, 80, 104, 0.25);
+
+    --wf-radius: 18px;
+    --wf-radius-small: 12px;
+}
+
+/* ---------- Override the site's page-level light theme ---------- */
+body:has(form[action*="submit_profile"]) {
+    color: var(--wf-text);
     background:
-        radial-gradient(circle at 12% 12%, rgba(22, 131, 255, 0.13), transparent 28rem),
-        radial-gradient(circle at 88% 82%, rgba(30, 70, 150, 0.13), transparent 30rem),
-        linear-gradient(145deg, #02050b 0%, #07101e 48%, #030712 100%);
-    color: var(--text);
+        radial-gradient(circle at 8% 5%, rgba(22, 131, 255, 0.16), transparent 27rem),
+        radial-gradient(circle at 92% 88%, rgba(30, 83, 170, 0.12), transparent 30rem),
+        linear-gradient(145deg, var(--wf-bg) 0%, var(--wf-bg-2) 48%, #02050b 100%);
 }
 
-/* Keep the form-page heading visually separate from the existing site design. */
+/* Keep inherited site text colors from leaking into the form. */
+body:has(form[action*="submit_profile"]) main,
+body:has(form[action*="submit_profile"]) section,
+body:has(form[action*="submit_profile"]) article,
+body:has(form[action*="submit_profile"]) form {
+    color: var(--wf-text);
+}
+
+/* ---------- Form-page heading / introduction ---------- */
 body:has(form[action*="submit_profile"]) h2 {
-    color: var(--text);
-    letter-spacing: 0.02em;
-    text-shadow: 0 0 24px rgba(56, 167, 255, 0.20);
+    color: var(--wf-text);
+    font-weight: 800;
+    letter-spacing: 0.025em;
+    text-shadow: 0 0 28px rgba(66, 173, 255, 0.22);
 }
 
-body:has(form[action*="submit_profile"]) > * {
-    box-sizing: border-box;
+body:has(form[action*="submit_profile"]) h2 + p {
+    color: var(--wf-text-soft);
 }
 
-/* ---------- Main Form ---------- */
-form[action*="submit_profile"] {
+/* ---------- Main form shell ---------- */
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"] {
     position: relative;
     isolation: isolate;
+
     width: min(100% - 2rem, 920px);
     margin: 2rem auto;
-    padding: clamp(1rem, 3vw, 2rem);
+    padding: clamp(1rem, 3vw, 1.75rem);
+
     box-sizing: border-box;
 
+    color: var(--wf-text);
     background:
-        linear-gradient(145deg, rgba(12, 25, 46, 0.94), rgba(3, 9, 20, 0.97));
-    border: 1px solid rgba(56, 167, 255, 0.16);
+        linear-gradient(145deg, rgba(10, 27, 48, 0.96), rgba(3, 10, 21, 0.98));
+    border: 1px solid rgba(66, 173, 255, 0.20);
     border-radius: 24px;
+
     box-shadow:
-        0 30px 80px rgba(0, 0, 0, 0.48),
-        0 0 55px rgba(22, 131, 255, 0.06);
+        0 30px 80px rgba(0, 0, 0, 0.58),
+        0 0 55px rgba(22, 131, 255, 0.08);
 
     overflow: hidden;
 }
 
-/* Ambient geometric decoration. */
-form[action*="submit_profile"]::before,
-form[action*="submit_profile"]::after {
+/* ---------- Animated geometric decorations ---------- */
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]::before,
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]::after {
     content: "";
     position: absolute;
     pointer-events: none;
     z-index: -1;
 }
 
-form[action*="submit_profile"]::before {
-    width: 260px;
-    height: 260px;
-    top: -145px;
-    right: -100px;
-    border: 1px solid rgba(56, 167, 255, 0.20);
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]::before {
+    width: 270px;
+    height: 270px;
+    top: -150px;
+    right: -105px;
+
+    border: 1px solid rgba(66, 173, 255, 0.28);
     transform: rotate(45deg);
+
     box-shadow:
-        0 0 35px rgba(22, 131, 255, 0.10),
-        inset 0 0 35px rgba(22, 131, 255, 0.05);
-    animation: techFloat 8s ease-in-out infinite;
+        0 0 40px rgba(22, 131, 255, 0.12),
+        inset 0 0 40px rgba(22, 131, 255, 0.05);
+
+    animation: wf-corner-float 8s ease-in-out infinite;
 }
 
-form[action*="submit_profile"]::after {
-    width: 180px;
-    height: 180px;
-    bottom: -110px;
-    left: -85px;
-    border: 1px solid rgba(56, 167, 255, 0.15);
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]::after {
+    width: 190px;
+    height: 190px;
+    bottom: -125px;
+    left: -90px;
+
+    border: 1px solid rgba(66, 173, 255, 0.20);
     border-radius: 30%;
-    transform: rotate(22deg);
-    box-shadow: 0 0 40px rgba(22, 131, 255, 0.08);
-    animation: techFloatReverse 10s ease-in-out infinite;
+    transform: rotate(24deg);
+
+    box-shadow: 0 0 45px rgba(22, 131, 255, 0.09);
+
+    animation: wf-corner-float-reverse 10s ease-in-out infinite;
 }
 
-@keyframes techFloat {
+@keyframes wf-corner-float {
     0%, 100% {
         transform: rotate(45deg) translate3d(0, 0, 0);
     }
+
     50% {
-        transform: rotate(49deg) translate3d(-8px, 8px, 0);
+        transform: rotate(49deg) translate3d(-9px, 8px, 0);
     }
 }
 
-@keyframes techFloatReverse {
+@keyframes wf-corner-float-reverse {
     0%, 100% {
-        transform: rotate(22deg) translate3d(0, 0, 0);
+        transform: rotate(24deg) translate3d(0, 0, 0);
     }
+
     50% {
-        transform: rotate(17deg) translate3d(8px, -5px, 0);
+        transform: rotate(18deg) translate3d(8px, -7px, 0);
     }
 }
 
-/* ---------- Four Main Section Cards ---------- */
-form[action*="submit_profile"] > fieldset {
+/* ---------- Four main fieldset cards ---------- */
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"] > fieldset {
     position: relative;
-    margin: 0 0 1.25rem;
-    padding: clamp(1rem, 3vw, 1.5rem);
-    min-width: 0;
 
+    min-width: 0;
+    margin: 0 0 1.25rem;
+    padding: clamp(1rem, 3vw, 1.55rem);
+
+    color: var(--wf-text);
     background:
-        linear-gradient(145deg, var(--card-bg), var(--card-bg-deep));
-    border: 1px solid var(--border);
-    border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-card);
+        linear-gradient(145deg, rgba(10, 27, 47, 0.94), rgba(4, 12, 24, 0.97));
+    border: 1px solid var(--wf-border);
+    border-radius: var(--wf-radius);
+
+    box-shadow:
+        0 20px 55px rgba(0, 0, 0, 0.38),
+        inset 0 1px 0 rgba(255, 255, 255, 0.018);
 
     transition:
-        border-color var(--transition),
-        box-shadow var(--transition),
-        transform var(--transition);
+        border-color 180ms ease,
+        box-shadow 180ms ease,
+        transform 180ms ease;
 }
 
-form[action*="submit_profile"] > fieldset:hover {
-    border-color: rgba(56, 167, 255, 0.30);
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"] > fieldset:hover {
+    border-color: rgba(66, 173, 255, 0.34);
     box-shadow:
-        var(--shadow-card),
-        0 0 30px rgba(22, 131, 255, 0.06);
+        0 22px 60px rgba(0, 0, 0, 0.42),
+        0 0 30px rgba(22, 131, 255, 0.07);
 }
 
-form[action*="submit_profile"] > fieldset::before {
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"] > fieldset::before {
     content: "";
     position: absolute;
     top: 0.75rem;
     right: 0.75rem;
-    width: 38px;
-    height: 38px;
-    border-top: 1px solid rgba(56, 167, 255, 0.38);
-    border-right: 1px solid rgba(56, 167, 255, 0.38);
-    border-radius: 0 9px 0 0;
+
+    width: 42px;
+    height: 42px;
+
+    border-top: 1px solid rgba(66, 173, 255, 0.48);
+    border-right: 1px solid rgba(66, 173, 255, 0.48);
+    border-radius: 0 10px 0 0;
+
     pointer-events: none;
 }
 
-/* ---------- Legends ---------- */
-form[action*="submit_profile"] > fieldset > legend {
+/* ---------- Main legends ---------- */
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"] > fieldset > legend {
     padding: 0 0.7rem;
-    color: var(--blue-bright);
+
+    color: var(--wf-blue-light);
+    background: transparent;
+
     font-size: 0.82rem;
-    font-weight: 800;
+    font-weight: 850;
     letter-spacing: 0.10em;
     text-transform: uppercase;
+
+    text-shadow: 0 0 15px rgba(66, 173, 255, 0.18);
 }
 
-form[action*="submit_profile"] > fieldset > legend::before {
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"] > fieldset > legend::before {
     content: "◆";
     margin-right: 0.55rem;
-    color: var(--blue);
-    font-size: 0.58rem;
+
+    color: var(--wf-blue);
+    font-size: 0.55rem;
     vertical-align: middle;
+
+    text-shadow: 0 0 12px var(--wf-blue-glow);
 }
 
-/* Nested radio fieldsets inside Academic Information. */
-form[action*="submit_profile"] fieldset fieldset {
+/* ---------- Nested radio fieldsets ---------- */
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"] fieldset fieldset {
+    min-width: 0;
     margin: 1rem 0;
     padding: 0.9rem 1rem;
-    min-width: 0;
 
-    background: rgba(2, 8, 18, 0.52);
-    border: 1px solid rgba(105, 151, 205, 0.15);
-    border-radius: var(--radius-md);
+    color: var(--wf-text);
+    background: rgba(2, 9, 19, 0.54);
+    border: 1px solid rgba(117, 160, 207, 0.16);
+    border-radius: var(--wf-radius-small);
 }
 
-form[action*="submit_profile"] fieldset fieldset > legend {
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"] fieldset fieldset > legend {
     padding: 0 0.5rem;
-    color: var(--text-soft);
+    color: var(--wf-text-soft);
+    background: transparent;
     font-size: 0.78rem;
     font-weight: 700;
 }
 
-/* ---------- Paragraph / Field Spacing ---------- */
-form[action*="submit_profile"] p {
+/* ---------- Form spacing ---------- */
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"] p {
     margin: 0 0 1rem;
 }
 
-form[action*="submit_profile"] > p:last-of-type {
-    margin-bottom: 0.75rem;
-}
-
-/* ---------- Labels ---------- */
-form[action*="submit_profile"] label {
-    display: inline-block;
-    margin-bottom: 0.45rem;
-    color: var(--text-soft);
+/* ---------- Standard labels ---------- */
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"] label {
+    color: var(--wf-text-soft);
     font-size: 0.9rem;
     font-weight: 650;
     letter-spacing: 0.01em;
 }
 
-/* ---------- Text / Number / URL / Email / Date / Time / Month / Color / Textarea ---------- */
-form[action*="submit_profile"] input[type="text"],
-form[action*="submit_profile"] input[type="email"],
-form[action*="submit_profile"] input[type="tel"],
-form[action*="submit_profile"] input[type="url"],
-form[action*="submit_profile"] input[type="number"],
-form[action*="submit_profile"] input[type="date"],
-form[action*="submit_profile"] input[type="month"],
-form[action*="submit_profile"] input[type="time"],
-form[action*="submit_profile"] input[type="color"],
-form[action*="submit_profile"] textarea,
-form[action*="submit_profile"] select {
-    width: 100%;
+/* ---------- Modern controls ---------- */
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+input[type="text"],
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+input[type="email"],
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+input[type="tel"],
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+input[type="url"],
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+input[type="number"],
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+input[type="date"],
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+input[type="month"],
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+input[type="time"],
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+input[type="color"],
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+textarea,
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+select {
     box-sizing: border-box;
+    width: 100%;
 
-    color: var(--text);
+    color: var(--wf-text);
     background:
-        linear-gradient(145deg, rgba(13, 29, 51, 0.92), rgba(5, 13, 27, 0.94));
-    border: 1px solid rgba(105, 151, 205, 0.22);
-    border-radius: var(--radius-md);
+        linear-gradient(145deg, var(--wf-control-2), var(--wf-control));
 
-    font: inherit;
-    font-size: 0.95rem;
+    border: 1px solid rgba(117, 160, 207, 0.25);
+    border-radius: var(--wf-radius-small);
 
     outline: none;
+
+    font: inherit;
+    font-size: 0.96rem;
+
     transition:
-        border-color var(--transition),
-        box-shadow var(--transition),
-        transform var(--transition),
-        background var(--transition);
+        color 180ms ease,
+        background 180ms ease,
+        border-color 180ms ease,
+        box-shadow 180ms ease,
+        transform 180ms ease;
 }
 
-/* Individual control sizing. */
-form[action*="submit_profile"] input[type="text"],
-form[action*="submit_profile"] input[type="email"],
-form[action*="submit_profile"] input[type="tel"],
-form[action*="submit_profile"] input[type="url"],
-form[action*="submit_profile"] input[type="number"],
-form[action*="submit_profile"] input[type="date"],
-form[action*="submit_profile"] input[type="month"],
-form[action*="submit_profile"] input[type="time"],
-form[action*="submit_profile"] select {
-    min-height: 50px;
-    padding: 0.75rem 0.9rem;
+/* Force readable text against potentially inherited light-site styles. */
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+input[type="text"],
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+input[type="email"],
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+input[type="tel"],
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+input[type="url"],
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+input[type="number"],
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+input[type="date"],
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+input[type="month"],
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+input[type="time"],
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+textarea,
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+select {
+    color: #f7fbff;
 }
 
-form[action*="submit_profile"] textarea {
-    min-height: 150px;
-    padding: 0.85rem 0.9rem;
-    resize: vertical;
+/* Standard control dimensions. */
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+input[type="text"],
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+input[type="email"],
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+input[type="tel"],
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+input[type="url"],
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+input[type="number"],
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+input[type="date"],
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+input[type="month"],
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+input[type="time"],
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+select {
+    min-height: 52px;
+    padding: 0.78rem 0.95rem;
+}
+
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"] textarea {
+    min-height: 155px;
+    padding: 0.9rem 0.95rem;
     line-height: 1.55;
-}
-
-/* Color input needs a little less text-like padding. */
-form[action*="submit_profile"] input[type="color"] {
-    width: 100%;
-    min-height: 50px;
-    padding: 0.35rem;
-    cursor: pointer;
+    resize: vertical;
 }
 
 /* ---------- Placeholder ---------- */
-form[action*="submit_profile"] input::placeholder,
-form[action*="submit_profile"] textarea::placeholder {
-    color: var(--text-muted);
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+input::placeholder,
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+textarea::placeholder {
+    color: #71849b;
     opacity: 1;
 }
 
-/* ---------- Focus: blue glow + slight lift ---------- */
-form[action*="submit_profile"] input:not([type="checkbox"]):not([type="radio"]):focus,
-form[action*="submit_profile"] textarea:focus,
-form[action*="submit_profile"] select:focus {
-    border-color: var(--blue-bright);
+/* ---------- Focus ---------- */
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+input:not([type="checkbox"]):not([type="radio"]):focus,
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+textarea:focus,
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+select:focus {
+    color: #ffffff;
     background:
-        linear-gradient(145deg, rgba(15, 35, 62, 0.96), rgba(5, 15, 30, 0.98));
+        linear-gradient(145deg, #0d2440, #071525);
+
+    border-color: var(--wf-blue-light);
+
     box-shadow:
-        0 0 0 3px var(--blue-soft),
-        0 0 24px var(--blue-glow);
+        0 0 0 3px var(--wf-blue-soft),
+        0 0 28px var(--wf-blue-glow);
+
     transform: translateY(-2px);
 }
 
-/* ---------- Native validation states ---------- */
-/* :user-valid / :user-invalid avoids making untouched required fields red immediately. */
-form[action*="submit_profile"] input:not([type="checkbox"]):not([type="radio"]):user-valid,
-form[action*="submit_profile"] textarea:user-valid,
-form[action*="submit_profile"] select:user-valid {
-    border-color: rgba(49, 213, 138, 0.62);
-    box-shadow: 0 0 0 2px rgba(49, 213, 138, 0.06);
+/* ---------- Validation: after user interaction ---------- */
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+input:not([type="checkbox"]):not([type="radio"]):user-valid,
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+textarea:user-valid,
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+select:user-valid {
+    border-color: rgba(40, 217, 139, 0.70);
+    box-shadow: 0 0 0 2px rgba(40, 217, 139, 0.07);
 }
 
-form[action*="submit_profile"] input:not([type="checkbox"]):not([type="radio"]):user-invalid,
-form[action*="submit_profile"] textarea:user-invalid,
-form[action*="submit_profile"] select:user-invalid {
-    border-color: rgba(255, 82, 104, 0.72);
-    box-shadow: 0 0 0 2px rgba(255, 82, 104, 0.07);
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+input:not([type="checkbox"]):not([type="radio"]):user-invalid,
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+textarea:user-invalid,
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+select:user-invalid {
+    border-color: rgba(255, 80, 104, 0.78);
+    box-shadow: 0 0 0 2px rgba(255, 80, 104, 0.07);
 }
 
-/* Focus should remain visually dominant over validation state. */
-form[action*="submit_profile"] input:not([type="checkbox"]):not([type="radio"]):focus:user-valid,
-form[action*="submit_profile"] input:not([type="checkbox"]):not([type="radio"]):focus:user-invalid,
-form[action*="submit_profile"] textarea:focus:user-valid,
-form[action*="submit_profile"] textarea:focus:user-invalid,
-form[action*="submit_profile"] select:focus:user-valid,
-form[action*="submit_profile"] select:focus:user-invalid {
+/* Focus remains blue even if a field is valid/invalid. */
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+input:not([type="checkbox"]):not([type="radio"]):focus:user-valid,
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+input:not([type="checkbox"]):not([type="radio"]):focus:user-invalid,
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+textarea:focus:user-valid,
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+textarea:focus:user-invalid,
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+select:focus:user-valid,
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+select:focus:user-invalid {
+    border-color: var(--wf-blue-light);
     box-shadow:
-        0 0 0 3px var(--blue-soft),
-        0 0 24px var(--blue-glow);
+        0 0 0 3px var(--wf-blue-soft),
+        0 0 28px var(--wf-blue-glow);
 }
 
-/* ---------- Selects ---------- */
-form[action*="submit_profile"] select {
+/* ---------- Select / options ---------- */
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"] select {
     cursor: pointer;
 }
 
-form[action*="submit_profile"] select option {
-    color: #f4f8ff;
-    background: #091525;
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"] select option {
+    color: #f7fbff;
+    background: #091728;
 }
 
-/* Multiple select should show enough information without becoming huge. */
-form[action*="submit_profile"] select[multiple] {
-    min-height: 180px;
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"] select[multiple] {
+    min-height: 190px;
     padding: 0.45rem;
 }
 
-form[action*="submit_profile"] select[multiple] option {
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"] select[multiple] option {
     padding: 0.65rem 0.7rem;
     border-radius: 7px;
 }
 
-form[action*="submit_profile"] select[multiple] option:checked {
-    color: white;
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+select[multiple] option:checked {
+    color: #ffffff;
     background: #126fd1;
 }
 
-/* ---------- Checkbox / Radio Chips ---------- */
-form[action*="submit_profile"] label:has(> input[type="checkbox"]),
-form[action*="submit_profile"] label:has(> input[type="radio"]) {
+/* ---------- Color input ---------- */
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+input[type="color"] {
+    min-height: 52px;
+    padding: 0.35rem;
+    cursor: pointer;
+}
+
+/* ---------- Checkbox and radio chips ---------- */
+/*
+   Explicit label-for / input-id structure:
+   label[for="..."] + input[id="..."]
+
+   The chips are built by styling the existing labels and
+   using :has() to detect their associated checked/focused input.
+*/
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+label[for="skill_programming"],
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+label[for="skill_embedded"],
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+label[for="skill_electronics"],
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+label[for="skill_networks"],
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+label[for="skill_telecommunications"],
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+label[for="skill_biomedical"],
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+label[for="skill_ai_ml"],
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+label[for="skill_signal_processing"],
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+label[for="graduation_spring"],
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+label[for="graduation_summer"],
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+label[for="graduation_fall"],
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+label[for="internship_yes"],
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+label[for="internship_no"] {
     position: relative;
+
     display: inline-flex;
     align-items: center;
     gap: 0.55rem;
 
+    width: auto;
     margin: 0.25rem 0.35rem 0.25rem 0;
-    padding: 0.65rem 0.85rem;
+    padding: 0.68rem 0.9rem;
 
-    color: var(--text-soft);
-    background: rgba(8, 20, 37, 0.82);
-    border: 1px solid rgba(105, 151, 205, 0.18);
+    box-sizing: border-box;
+
+    color: var(--wf-text-soft);
+    background: rgba(6, 17, 31, 0.88);
+
+    border: 1px solid rgba(117, 160, 207, 0.20);
     border-radius: 999px;
 
     cursor: pointer;
     user-select: none;
 
     transition:
-        color var(--transition),
-        background var(--transition),
-        border-color var(--transition),
-        box-shadow var(--transition),
-        transform var(--transition);
+        color 180ms ease,
+        background 180ms ease,
+        border-color 180ms ease,
+        box-shadow 180ms ease,
+        transform 180ms ease;
 }
 
-form[action*="submit_profile"] label:has(> input[type="checkbox"]):hover,
-form[action*="submit_profile"] label:has(> input[type="radio"]):hover {
-    color: var(--text);
-    border-color: rgba(56, 167, 255, 0.42);
-    background: rgba(15, 37, 65, 0.92);
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+label[for="skill_programming"]:hover,
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+label[for="skill_embedded"]:hover,
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+label[for="skill_electronics"]:hover,
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+label[for="skill_networks"]:hover,
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+label[for="skill_telecommunications"]:hover,
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+label[for="skill_biomedical"]:hover,
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+label[for="skill_ai_ml"]:hover,
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+label[for="skill_signal_processing"]:hover,
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+label[for="graduation_spring"]:hover,
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+label[for="graduation_summer"]:hover,
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+label[for="graduation_fall"]:hover,
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+label[for="internship_yes"]:hover,
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+label[for="internship_no"]:hover {
+    color: #ffffff;
+    background: rgba(13, 35, 61, 0.96);
+    border-color: var(--wf-border-hover);
     transform: translateY(-1px);
 }
 
-/* Hide the native controls visually while preserving functionality. */
-form[action*="submit_profile"] input[type="checkbox"],
-form[action*="submit_profile"] input[type="radio"] {
+/* Hide native checkbox/radio visually but preserve keyboard/accessibility. */
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+label[for="skill_programming"] input,
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+label[for="skill_embedded"] input,
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+label[for="skill_electronics"] input,
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+label[for="skill_networks"] input,
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+label[for="skill_telecommunications"] input,
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+label[for="skill_biomedical"] input,
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+label[for="skill_ai_ml"] input,
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+label[for="skill_signal_processing"] input,
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+label[for="graduation_spring"] input,
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+label[for="graduation_summer"] input,
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+label[for="graduation_fall"] input,
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+label[for="internship_yes"] input,
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+label[for="internship_no"] input {
     position: absolute;
-    opacity: 0;
     width: 1px;
     height: 1px;
+    opacity: 0;
     pointer-events: none;
 }
 
 /* Custom indicator. */
-form[action*="submit_profile"] label:has(> input[type="checkbox"])::before,
-form[action*="submit_profile"] label:has(> input[type="radio"])::before {
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+label[for="skill_programming"]::before,
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+label[for="skill_embedded"]::before,
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+label[for="skill_electronics"]::before,
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+label[for="skill_networks"]::before,
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+label[for="skill_telecommunications"]::before,
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+label[for="skill_biomedical"]::before,
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+label[for="skill_ai_ml"]::before,
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+label[for="skill_signal_processing"]::before,
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+label[for="graduation_spring"]::before,
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+label[for="graduation_summer"]::before,
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+label[for="graduation_fall"]::before,
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+label[for="internship_yes"]::before,
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+label[for="internship_no"]::before {
     content: "";
     flex: 0 0 auto;
+
     width: 17px;
     height: 17px;
+
     box-sizing: border-box;
 
-    border: 1px solid rgba(126, 158, 196, 0.55);
-    background: rgba(2, 9, 19, 0.75);
+    background: #020913;
+    border: 1px solid rgba(137, 169, 204, 0.58);
 
     transition:
-        border-color var(--transition),
-        background var(--transition),
-        box-shadow var(--transition),
-        transform var(--transition);
+        background 180ms ease,
+        border-color 180ms ease,
+        box-shadow 180ms ease,
+        transform 180ms ease;
 }
 
-form[action*="submit_profile"] label:has(> input[type="radio"])::before {
-    border-radius: 50%;
-}
-
-form[action*="submit_profile"] label:has(> input[type="checkbox"])::before {
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+label[for="skill_programming"]::before,
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+label[for="skill_embedded"]::before,
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+label[for="skill_electronics"]::before,
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+label[for="skill_networks"]::before,
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+label[for="skill_telecommunications"]::before,
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+label[for="skill_biomedical"]::before,
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+label[for="skill_ai_ml"]::before,
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+label[for="skill_signal_processing"]::before {
     border-radius: 5px;
 }
 
-/* Selected state. */
-form[action*="submit_profile"] label:has(> input[type="checkbox"]:checked),
-form[action*="submit_profile"] label:has(> input[type="radio"]:checked) {
-    color: #ffffff;
-    background: linear-gradient(135deg, rgba(22, 131, 255, 0.22), rgba(8, 34, 65, 0.92));
-    border-color: rgba(56, 167, 255, 0.62);
-    box-shadow:
-        0 0 18px rgba(22, 131, 255, 0.12),
-        inset 0 0 16px rgba(22, 131, 255, 0.05);
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+label[for="graduation_spring"]::before,
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+label[for="graduation_summer"]::before,
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+label[for="graduation_fall"]::before,
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+label[for="internship_yes"]::before,
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+label[for="internship_no"]::before {
+    border-radius: 50%;
 }
 
-form[action*="submit_profile"] label:has(> input[type="checkbox"]:checked)::before {
+/* Selected checkbox chips. */
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+label[for="skill_programming"]:has(input:checked),
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+label[for="skill_embedded"]:has(input:checked),
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+label[for="skill_electronics"]:has(input:checked),
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+label[for="skill_networks"]:has(input:checked),
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+label[for="skill_telecommunications"]:has(input:checked),
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+label[for="skill_biomedical"]:has(input:checked),
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+label[for="skill_ai_ml"]:has(input:checked),
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+label[for="skill_signal_processing"]:has(input:checked),
+/* Selected radio chips. */
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+label[for="graduation_spring"]:has(input:checked),
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+label[for="graduation_summer"]:has(input:checked),
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+label[for="graduation_fall"]:has(input:checked),
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+label[for="internship_yes"]:has(input:checked),
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+label[for="internship_no"]:has(input:checked) {
+    color: #ffffff;
+    background:
+        linear-gradient(135deg, rgba(22, 131, 255, 0.26), rgba(7, 29, 53, 0.96));
+    border-color: rgba(66, 173, 255, 0.72);
+
+    box-shadow:
+        0 0 20px rgba(22, 131, 255, 0.13),
+        inset 0 0 18px rgba(22, 131, 255, 0.05);
+}
+
+/* Selected checkbox indicator. */
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+label[for="skill_programming"]:has(input:checked)::before,
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+label[for="skill_embedded"]:has(input:checked)::before,
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+label[for="skill_electronics"]:has(input:checked)::before,
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+label[for="skill_networks"]:has(input:checked)::before,
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+label[for="skill_telecommunications"]:has(input:checked)::before,
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+label[for="skill_biomedical"]:has(input:checked)::before,
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+label[for="skill_ai_ml"]:has(input:checked)::before,
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+label[for="skill_signal_processing"]:has(input:checked)::before {
     content: "✓";
+
     display: grid;
     place-items: center;
-    color: white;
-    background: var(--blue);
-    border-color: var(--blue-bright);
-    box-shadow: 0 0 12px rgba(22, 131, 255, 0.40);
+
+    color: #ffffff;
+    background: var(--wf-blue);
+    border-color: var(--wf-blue-light);
+
+    box-shadow: 0 0 14px rgba(22, 131, 255, 0.45);
+
     font-size: 0.72rem;
     font-weight: 900;
 }
 
-form[action*="submit_profile"] label:has(> input[type="radio"]:checked)::before {
-    background: var(--blue);
-    border-color: var(--blue-bright);
+/* Selected radio indicator. */
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+label[for="graduation_spring"]:has(input:checked)::before,
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+label[for="graduation_summer"]:has(input:checked)::before,
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+label[for="graduation_fall"]:has(input:checked)::before,
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+label[for="internship_yes"]:has(input:checked)::before,
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+label[for="internship_no"]:has(input:checked)::before {
+    background: var(--wf-blue);
+    border-color: var(--wf-blue-light);
+
     box-shadow:
         inset 0 0 0 4px #071323,
-        0 0 12px rgba(22, 131, 255, 0.38);
+        0 0 14px rgba(22, 131, 255, 0.42);
 }
 
-/* Keyboard focus for hidden checkbox/radio controls. */
-form[action*="submit_profile"] label:has(> input[type="checkbox"]:focus-visible),
-form[action*="submit_profile"] label:has(> input[type="radio"]:focus-visible) {
-    border-color: var(--blue-bright);
+/* Keyboard focus around the whole chip. */
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+label[for="skill_programming"]:has(input:focus-visible),
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+label[for="skill_embedded"]:has(input:focus-visible),
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+label[for="skill_electronics"]:has(input:focus-visible),
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+label[for="skill_networks"]:has(input:focus-visible),
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+label[for="skill_telecommunications"]:has(input:focus-visible),
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+label[for="skill_biomedical"]:has(input:focus-visible),
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+label[for="skill_ai_ml"]:has(input:focus-visible),
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+label[for="skill_signal_processing"]:has(input:focus-visible),
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+label[for="graduation_spring"]:has(input:focus-visible),
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+label[for="graduation_summer"]:has(input:focus-visible),
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+label[for="graduation_fall"]:has(input:focus-visible),
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+label[for="internship_yes"]:has(input:focus-visible),
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+label[for="internship_no"]:has(input:focus-visible) {
+    border-color: var(--wf-blue-light);
     box-shadow:
-        0 0 0 3px var(--blue-soft),
-        0 0 20px var(--blue-glow);
+        0 0 0 3px var(--wf-blue-soft),
+        0 0 22px var(--wf-blue-glow);
 }
 
-/* ---------- Confirmation Checkbox ---------- */
-form[action*="submit_profile"] > p:has(> input#confirmation) {
-    margin-top: 0.35rem;
-    padding: 0.9rem;
-    background: rgba(6, 17, 31, 0.78);
-    border: 1px solid rgba(56, 167, 255, 0.14);
-    border-radius: var(--radius-md);
+/* ---------- Confirmation checkbox ---------- */
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+input#confirmation {
+    accent-color: var(--wf-blue);
 }
 
-form[action*="submit_profile"] > p:has(> input#confirmation) label {
-    margin: 0;
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+input#confirmation + label {
+    margin-left: 0.4rem;
+    color: var(--wf-text-soft);
 }
 
-/* Required confirmation becomes red/green after user interaction. */
-form[action*="submit_profile"] input#confirmation:user-invalid + label {
-    color: #ff8292;
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+input#confirmation:user-valid + label {
+    color: #67e7ad;
 }
 
-form[action*="submit_profile"] input#confirmation:user-valid + label {
-    color: #69e6ad;
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+input#confirmation:user-invalid + label {
+    color: #ff7b8c;
 }
 
 /* ---------- Buttons ---------- */
-form[action*="submit_profile"] button {
-    min-height: 48px;
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+button[type="submit"],
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+button[type="reset"] {
+    min-height: 50px;
+
     margin: 0.35rem 0.5rem 0.35rem 0;
-    padding: 0.75rem 1.15rem;
+    padding: 0.75rem 1.3rem;
 
     border-radius: 999px;
+
     font: inherit;
     font-weight: 800;
-    letter-spacing: 0.02em;
+    letter-spacing: 0.025em;
 
     cursor: pointer;
+
     transition:
-        transform var(--transition),
-        box-shadow var(--transition),
-        background var(--transition),
-        border-color var(--transition);
+        transform 180ms ease,
+        background 180ms ease,
+        border-color 180ms ease,
+        color 180ms ease,
+        box-shadow 180ms ease;
 }
 
-form[action*="submit_profile"] button[type="submit"] {
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+button[type="submit"] {
     color: #ffffff;
-    background: linear-gradient(135deg, #0d72e8, #1b96ff);
-    border: 1px solid rgba(101, 190, 255, 0.62);
+    background:
+        linear-gradient(135deg, #0c70e6, #209bff);
+    border: 1px solid rgba(94, 190, 255, 0.70);
+
     box-shadow:
-        0 8px 25px rgba(22, 131, 255, 0.24),
-        0 0 18px rgba(22, 131, 255, 0.12);
+        0 10px 28px rgba(22, 131, 255, 0.25),
+        0 0 20px rgba(22, 131, 255, 0.12);
+
+    animation: wf-button-pulse 4s ease-in-out infinite;
 }
 
-form[action*="submit_profile"] button[type="reset"] {
-    color: var(--blue-bright);
-    background: transparent;
-    border: 1px solid rgba(56, 167, 255, 0.52);
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+button[type="reset"] {
+    color: var(--wf-blue-light);
+    background: rgba(5, 14, 26, 0.72);
+    border: 1px solid rgba(66, 173, 255, 0.50);
 }
 
-form[action*="submit_profile"] button:hover {
-    transform: translateY(-2px);
-}
-
-form[action*="submit_profile"] button[type="submit"]:hover {
-    background: linear-gradient(135deg, #1683ff, #35a7ff);
-    box-shadow:
-        0 12px 30px rgba(22, 131, 255, 0.30),
-        0 0 25px rgba(22, 131, 255, 0.20);
-}
-
-form[action*="submit_profile"] button[type="reset"]:hover {
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+button[type="submit"]:hover {
     color: #ffffff;
-    background: rgba(22, 131, 255, 0.12);
-    border-color: var(--blue-bright);
-    box-shadow: 0 0 20px rgba(22, 131, 255, 0.12);
+    background:
+        linear-gradient(135deg, #1683ff, #43adff);
+
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 15px 34px rgba(22, 131, 255, 0.32),
+        0 0 28px rgba(22, 131, 255, 0.22);
 }
 
-form[action*="submit_profile"] button:active {
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+button[type="reset"]:hover {
+    color: #ffffff;
+    background: rgba(22, 131, 255, 0.13);
+    border-color: var(--wf-blue-light);
+
+    transform: translateY(-3px);
+
+    box-shadow: 0 0 22px rgba(22, 131, 255, 0.14);
+}
+
+body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+button:active {
     transform: translateY(0);
 }
 
-/* ---------- Responsive Layout ---------- */
+@keyframes wf-button-pulse {
+    0%, 100% {
+        box-shadow:
+            0 10px 28px rgba(22, 131, 255, 0.25),
+            0 0 20px rgba(22, 131, 255, 0.12);
+    }
+
+    50% {
+        box-shadow:
+            0 10px 30px rgba(22, 131, 255, 0.31),
+            0 0 27px rgba(22, 131, 255, 0.18);
+    }
+}
+
+/* ---------- Responsive ---------- */
 @media (min-width: 700px) {
-    form[action*="submit_profile"] {
+    body:has(form[action*="submit_profile"]) form[action*="submit_profile"] {
         width: min(100% - 3rem, 920px);
         padding: 1.75rem;
     }
 
-    form[action*="submit_profile"] > fieldset {
+    body:has(form[action*="submit_profile"]) form[action*="submit_profile"] > fieldset {
         padding: 1.5rem 1.6rem;
     }
 }
 
 @media (max-width: 520px) {
-    form[action*="submit_profile"] {
-        width: min(100% - 1rem, 920px);
+    body:has(form[action*="submit_profile"]) form[action*="submit_profile"] {
+        width: calc(100% - 1rem);
         margin: 1rem auto;
         padding: 0.65rem;
         border-radius: 18px;
     }
 
-    form[action*="submit_profile"] > fieldset {
+    body:has(form[action*="submit_profile"]) form[action*="submit_profile"] > fieldset {
         padding: 1rem 0.85rem;
         border-radius: 14px;
     }
 
-    form[action*="submit_profile"] > fieldset::before {
-        width: 28px;
-        height: 28px;
+    body:has(form[action*="submit_profile"]) form[action*="submit_profile"] > fieldset::before {
+        width: 30px;
+        height: 30px;
         top: 0.55rem;
         right: 0.55rem;
     }
 
-    form[action*="submit_profile"] > fieldset > legend {
+    body:has(form[action*="submit_profile"]) form[action*="submit_profile"] > fieldset > legend {
         font-size: 0.74rem;
         letter-spacing: 0.07em;
     }
 
-    form[action*="submit_profile"] label:has(> input[type="checkbox"]),
-    form[action*="submit_profile"] label:has(> input[type="radio"]) {
+    body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+    label[for="skill_programming"],
+    body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+    label[for="skill_embedded"],
+    body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+    label[for="skill_electronics"],
+    body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+    label[for="skill_networks"],
+    body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+    label[for="skill_telecommunications"],
+    body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+    label[for="skill_biomedical"],
+    body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+    label[for="skill_ai_ml"],
+    body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+    label[for="skill_signal_processing"],
+    body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+    label[for="graduation_spring"],
+    body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+    label[for="graduation_summer"],
+    body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+    label[for="graduation_fall"],
+    body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+    label[for="internship_yes"],
+    body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+    label[for="internship_no"] {
         width: 100%;
-        box-sizing: border-box;
         margin-right: 0;
+        box-sizing: border-box;
     }
 
-    form[action*="submit_profile"] button {
+    body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+    button[type="submit"],
+    body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+    button[type="reset"] {
         width: 100%;
         margin-right: 0;
     }
 }
 
-/* ---------- Reduced Motion Accessibility ---------- */
+/* ---------- Accessibility ---------- */
 @media (prefers-reduced-motion: reduce) {
-    form[action*="submit_profile"]::before,
-    form[action*="submit_profile"]::after {
+    body:has(form[action*="submit_profile"]) form[action*="submit_profile"]::before,
+    body:has(form[action*="submit_profile"]) form[action*="submit_profile"]::after,
+    body:has(form[action*="submit_profile"]) form[action*="submit_profile"]
+    button[type="submit"] {
         animation: none;
     }
 
-    form[action*="submit_profile"] > fieldset,
-    form[action*="submit_profile"] input,
-    form[action*="submit_profile"] textarea,
-    form[action*="submit_profile"] select,
-    form[action*="submit_profile"] label,
-    form[action*="submit_profile"] button {
-        transition: none;
+    body:has(form[action*="submit_profile"]) form[action*="submit_profile"] *,
+    body:has(form[action*="submit_profile"]) form[action*="submit_profile"] *::before,
+    body:has(form[action*="submit_profile"]) form[action*="submit_profile"] *::after {
+        transition-duration: 0.01ms;
     }
 }
