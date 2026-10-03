@@ -1,0 +1,881 @@
+/* =========================================================
+   GIN446 WEB PROGRAMMING - JAVASCRIPT QUIZ
+   AI-ASSISTED STYLING
+   Design: clean + futuristic engineering
+   This stylesheet only styles quiz.html.
+   No HTML or JavaScript changes are required.
+   ========================================================= */
+
+:root {
+    --quiz-primary: #2563eb;
+    --quiz-primary-dark: #1d4ed8;
+    --quiz-primary-soft: #eaf2ff;
+
+    --quiz-navy: #0b1628;
+    --quiz-navy-soft: #14243a;
+    --quiz-text: #263548;
+    --quiz-muted: #68788b;
+
+    --quiz-background: #eef3f7;
+    --quiz-surface: rgba(255, 255, 255, 0.88);
+    --quiz-surface-solid: #ffffff;
+    --quiz-surface-soft: #f7fafc;
+
+    --quiz-border: #d7e0e8;
+    --quiz-border-strong: #b9c9d8;
+
+    --quiz-success: #16805c;
+    --quiz-success-soft: #eaf8f2;
+    --quiz-warning: #a56a00;
+    --quiz-warning-soft: #fff7e5;
+
+    --quiz-shadow-card:
+        0 20px 55px rgba(11, 22, 40, 0.12),
+        0 3px 12px rgba(37, 99, 235, 0.06);
+
+    --quiz-shadow-hover:
+        0 14px 30px rgba(11, 22, 40, 0.12),
+        0 4px 14px rgba(37, 99, 235, 0.09);
+
+    --quiz-radius: 14px;
+    --quiz-radius-sm: 10px;
+
+    --quiz-font:
+        "Avenir Next",
+        "Century Gothic",
+        "Trebuchet MS",
+        "Segoe UI",
+        Arial,
+        sans-serif;
+}
+
+
+/* =========================================================
+   PAGE BACKGROUND
+   ========================================================= */
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    min-height: 100vh;
+    margin: 0;
+
+    color: var(--quiz-text);
+    font-family: var(--quiz-font);
+
+    background:
+        radial-gradient(
+            circle at 12% 12%,
+            rgba(37, 99, 235, 0.10),
+            transparent 24rem
+        ),
+        radial-gradient(
+            circle at 88% 72%,
+            rgba(20, 62, 112, 0.075),
+            transparent 25rem
+        ),
+        repeating-linear-gradient(
+            90deg,
+            rgba(37, 99, 235, 0.028) 0,
+            rgba(37, 99, 235, 0.028) 1px,
+            transparent 1px,
+            transparent 38px
+        ),
+        repeating-linear-gradient(
+            0deg,
+            rgba(37, 99, 235, 0.022) 0,
+            rgba(37, 99, 235, 0.022) 1px,
+            transparent 1px,
+            transparent 38px
+        ),
+        var(--quiz-background);
+}
+
+
+/* Keep the site's header, navigation and footer intact. */
+
+body > header,
+body > nav,
+body > footer {
+    font-family: var(--quiz-font);
+}
+
+
+/* =========================================================
+   QUIZ CONTAINER
+   ========================================================= */
+
+main.container {
+    position: relative;
+    isolation: isolate;
+
+    width: min(calc(100% - 2rem), 900px);
+    max-width: 900px;
+
+    margin: 3rem auto 4.5rem;
+    padding: clamp(1.5rem, 4vw, 2.75rem);
+
+    color: var(--quiz-text);
+
+    background: var(--quiz-surface);
+    border: 1px solid rgba(255, 255, 255, 0.78);
+    border-radius: var(--quiz-radius);
+
+    box-shadow: var(--quiz-shadow-card);
+
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+
+    overflow: hidden;
+}
+
+/* The base stylesheet adds this line to every main element.
+   The quiz has its own visual treatment instead. */
+
+main.container::before {
+    display: none;
+}
+
+/* Subtle geometric engineering detail. */
+
+main.container::after {
+    content: "";
+
+    position: absolute;
+    z-index: -1;
+
+    width: 250px;
+    height: 250px;
+
+    top: -155px;
+    right: -105px;
+
+    border: 1px solid rgba(37, 99, 235, 0.10);
+
+    transform: rotate(45deg);
+
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   QUIZ TITLE
+   ========================================================= */
+
+main.container > h1 {
+    position: relative;
+
+    margin: 0 0 1.9rem;
+    padding-bottom: 1.1rem;
+
+    color: var(--quiz-navy);
+
+    text-align: center;
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.035em;
+}
+
+main.container > h1::after {
+    content: "";
+
+    display: block;
+
+    width: 74px;
+    height: 3px;
+
+    margin: 0.95rem auto 0;
+
+    background:
+        linear-gradient(
+            90deg,
+            var(--quiz-primary),
+            #4b83ed
+        );
+
+    clip-path: polygon(
+        0 0,
+        100% 0,
+        86% 100%,
+        0 100%
+    );
+}
+
+
+/* =========================================================
+   QUIZ PANEL
+   ========================================================= */
+
+#quizPanel {
+    position: relative;
+}
+
+#quizPanel::before {
+    content: "";
+
+    display: block;
+
+    height: 1px;
+    margin-bottom: 1.35rem;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(37, 99, 235, 0.20),
+            transparent
+        );
+}
+
+
+/* =========================================================
+   PROGRESS
+   ========================================================= */
+
+#progress {
+    display: inline-flex;
+    align-items: center;
+
+    min-height: 34px;
+    margin: 0 0 1.4rem;
+    padding: 0.42rem 0.8rem;
+
+    color: #ffffff;
+    background:
+        linear-gradient(
+            135deg,
+            var(--quiz-navy),
+            var(--quiz-navy-soft)
+        );
+
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 999px;
+
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.035em;
+    line-height: 1;
+
+    box-shadow:
+        0 7px 18px rgba(11, 22, 40, 0.10);
+}
+
+
+/* =========================================================
+   QUESTION
+   ========================================================= */
+
+#questionText {
+    margin: 0 0 1.4rem;
+    padding: 0 0 0 1.15rem;
+
+    color: var(--quiz-navy);
+
+    border-left: 4px solid var(--quiz-primary);
+
+    font-size: clamp(1.15rem, 2.5vw, 1.45rem);
+    font-weight: 600;
+    line-height: 1.45;
+    letter-spacing: -0.012em;
+}
+
+
+/* =========================================================
+   ANSWER CHOICES
+   ========================================================= */
+
+#choices {
+    display: grid;
+    gap: 0.8rem;
+}
+
+.choice {
+    position: relative;
+
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+
+    min-height: 60px;
+    margin: 0;
+    padding: 0.9rem 1rem;
+
+    color: var(--quiz-text);
+    background: rgba(255, 255, 255, 0.76);
+
+    border: 1px solid var(--quiz-border);
+    border-radius: var(--quiz-radius-sm);
+
+    cursor: pointer;
+
+    font-size: 0.98rem;
+    font-weight: 500;
+    line-height: 1.45;
+
+    transition:
+        background-color 180ms ease,
+        border-color 180ms ease,
+        box-shadow 180ms ease,
+        transform 180ms ease,
+        color 180ms ease;
+}
+
+.choice:hover {
+    background: #ffffff;
+    border-color: #9fb5cc;
+
+    box-shadow:
+        0 9px 22px rgba(15, 23, 42, 0.065);
+
+    transform: translateY(-2px);
+}
+
+.choice:focus-within {
+    border-color: var(--quiz-primary);
+
+    box-shadow:
+        0 0 0 3px rgba(37, 99, 235, 0.12),
+        0 8px 22px rgba(15, 23, 42, 0.06);
+}
+
+/* Modern custom radio button. */
+
+.choice input[type="radio"] {
+    flex: 0 0 auto;
+
+    width: 19px;
+    height: 19px;
+    margin: 0;
+
+    appearance: none;
+    -webkit-appearance: none;
+
+    background: #ffffff;
+    border: 2px solid #a9b9c9;
+    border-radius: 50%;
+
+    cursor: pointer;
+
+    transition:
+        border-color 160ms ease,
+        background-color 160ms ease,
+        box-shadow 160ms ease,
+        transform 160ms ease;
+}
+
+.choice input[type="radio"]:checked {
+    border-color: var(--quiz-primary);
+
+    background:
+        radial-gradient(
+            circle at center,
+            #ffffff 0 34%,
+            var(--quiz-primary) 36% 100%
+        );
+
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.10);
+}
+
+.choice input[type="radio"]:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.18);
+}
+
+/* :has() lets the card reflect the selected radio without changing HTML. */
+
+.choice:has(input[type="radio"]:checked) {
+    color: var(--quiz-navy);
+
+    background:
+        linear-gradient(
+            135deg,
+            #f2f7ff,
+            #ffffff
+        );
+
+    border-color: var(--quiz-primary);
+
+    box-shadow:
+        0 10px 24px rgba(37, 99, 235, 0.10),
+        inset 3px 0 0 var(--quiz-primary);
+
+    transform: translateY(-1px);
+}
+
+
+/* =========================================================
+   NAVIGATION BUTTONS
+   ========================================================= */
+
+.navigation {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.7rem;
+
+    margin-top: 1.8rem;
+    padding-top: 1.2rem;
+
+    border-top: 1px solid var(--quiz-border);
+}
+
+.navigation button {
+    flex: 1 1 120px;
+}
+
+button {
+    min-height: 44px;
+    padding: 0.68rem 1.05rem;
+
+    color: var(--quiz-navy);
+    background: rgba(255, 255, 255, 0.80);
+
+    border: 1px solid var(--quiz-border-strong);
+    border-radius: 10px;
+
+    cursor: pointer;
+
+    font: inherit;
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+
+    box-shadow: 0 3px 9px rgba(15, 23, 42, 0.045);
+
+    transition:
+        background-color 180ms ease,
+        border-color 180ms ease,
+        color 180ms ease,
+        box-shadow 180ms ease,
+        transform 180ms ease;
+}
+
+button:hover:not(:disabled) {
+    color: var(--quiz-primary-dark);
+    background: #ffffff;
+    border-color: var(--quiz-primary);
+
+    box-shadow: var(--quiz-shadow-hover);
+
+    transform: translateY(-2px);
+}
+
+button:active:not(:disabled) {
+    transform: translateY(0);
+    box-shadow: 0 4px 10px rgba(15, 23, 42, 0.07);
+}
+
+button:focus-visible {
+    outline: 3px solid rgba(37, 99, 235, 0.20);
+    outline-offset: 2px;
+}
+
+button:disabled {
+    color: #9aa8b6;
+    background: #eef2f5;
+    border-color: #dde4ea;
+
+    cursor: not-allowed;
+
+    box-shadow: none;
+    opacity: 0.72;
+}
+
+
+/* =========================================================
+   SUBMIT BUTTON
+   ========================================================= */
+
+.submit {
+    display: block;
+
+    width: 100%;
+    margin-top: 1.7rem;
+    padding: 0.85rem 1.2rem;
+
+    color: #ffffff;
+    background:
+        linear-gradient(
+            135deg,
+            var(--quiz-primary),
+            #4b83ed
+        );
+
+    border: 1px solid rgba(37, 99, 235, 0.34);
+    border-radius: 11px;
+
+    font-size: 0.98rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+
+    box-shadow:
+        0 12px 24px rgba(37, 99, 235, 0.20);
+
+    transition:
+        background 180ms ease,
+        box-shadow 180ms ease,
+        transform 180ms ease;
+}
+
+.submit:hover {
+    color: #ffffff;
+    background:
+        linear-gradient(
+            135deg,
+            var(--quiz-primary-dark),
+            #3f76df
+        );
+
+    box-shadow:
+        0 16px 30px rgba(37, 99, 235, 0.25);
+
+    transform: translateY(-2px);
+}
+
+.submit:active {
+    transform: translateY(0);
+}
+
+
+/* =========================================================
+   RESULTS PAGE
+   Clear, separated sections for score, percentage,
+   performance and the correction.
+   ========================================================= */
+
+#resultsPanel {
+    position: relative;
+    margin-top: 0.5rem;
+    padding-top: 0.25rem;
+}
+
+/* Results becomes a clean two-part layout:
+   summary cards first, correction second. */
+#resultsPanel[style*="display: block"] {
+    display: grid !important;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+    align-items: stretch;
+    animation: resultsIn 420ms ease both;
+}
+
+#resultsPanel > h2 {
+    grid-column: 1 / -1;
+
+    margin: 0 0 0.15rem;
+    padding: 1rem 1.15rem;
+
+    color: #ffffff;
+    background: linear-gradient(135deg, var(--quiz-navy), var(--quiz-navy-soft));
+    border: 1px solid rgba(20, 36, 58, 0.8);
+    border-radius: var(--quiz-radius);
+
+    box-shadow: 0 10px 22px rgba(11, 22, 40, 0.12);
+
+    text-align: center;
+    font-size: clamp(1.55rem, 4vw, 2.05rem);
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+/* ---------- Summary cards ---------- */
+
+#scoreText,
+#percentageText,
+#performanceText {
+    min-width: 0;
+    min-height: 150px;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+#scoreText {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1.25rem;
+
+    color: #ffffff;
+    background: linear-gradient(145deg, #0b1628, #172b46);
+    border: 1px solid #1f3a5d;
+    border-radius: var(--quiz-radius);
+
+    text-align: center;
+    font-size: 1.08rem;
+    font-weight: 700;
+    line-height: 1.45;
+
+    box-shadow: 0 12px 26px rgba(11, 22, 40, 0.14);
+}
+
+#scoreText::before {
+    content: "SCORE";
+    display: block;
+    margin-bottom: 0.45rem;
+    color: #a9c8f8;
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.14em;
+}
+
+#percentageText {
+    position: relative;
+    display: grid;
+    place-items: center;
+    width: 100%;
+    padding: 1rem;
+
+    color: var(--quiz-navy);
+    background: linear-gradient(145deg, #f7fbff, #e9f2ff);
+    border: 1px solid #bfd4ee;
+    border-radius: var(--quiz-radius);
+
+    text-align: center;
+    font-size: 1rem;
+    font-weight: 800;
+    line-height: 1.3;
+
+    box-shadow: 0 12px 26px rgba(37, 99, 235, 0.09);
+}
+
+#percentageText::before {
+    content: "PERCENTAGE";
+    position: absolute;
+    top: 1rem;
+
+    color: var(--quiz-muted);
+    font-size: 0.68rem;
+    font-weight: 800;
+    letter-spacing: 0.13em;
+}
+
+#performanceText {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1.25rem;
+
+    color: #124f92;
+    background: linear-gradient(145deg, #eef6ff, #ffffff);
+    border: 1px solid #bdd3ed;
+    border-radius: var(--quiz-radius);
+
+    text-align: center;
+    font-size: clamp(1rem, 2vw, 1.18rem);
+    font-weight: 800;
+    line-height: 1.4;
+
+    box-shadow: 0 12px 26px rgba(37, 99, 235, 0.08);
+}
+
+#performanceText::before {
+    content: "PERFORMANCE";
+    margin-bottom: 0.45rem;
+    color: #6a7a8d;
+    font-size: 0.68rem;
+    font-weight: 800;
+    letter-spacing: 0.13em;
+}
+
+/* ---------- Correction section ---------- */
+
+#resultsPanel > h3 {
+    grid-column: 1 / -1;
+
+    position: relative;
+    margin: 0.9rem 0 0;
+    padding: 1rem 1.15rem;
+
+    color: var(--quiz-navy);
+    background: #f1f6fb;
+
+    border: 1px solid var(--quiz-border-strong);
+    border-bottom: 0;
+    border-radius: var(--quiz-radius) var(--quiz-radius) 0 0;
+
+    text-align: left;
+    font-size: 1.2rem;
+    font-weight: 800;
+    line-height: 1.3;
+
+    box-shadow: 0 7px 18px rgba(15, 23, 42, 0.05);
+}
+
+#resultsPanel > h3::before {
+    content: "";
+    display: inline-block;
+    width: 5px;
+    height: 20px;
+    margin-right: 0.65rem;
+    vertical-align: -4px;
+    background: var(--quiz-primary);
+    border-radius: 3px;
+}
+
+#correction {
+    grid-column: 1 / -1;
+    min-width: 0;
+    margin: 0;
+    padding: 1.4rem 1.35rem;
+    box-sizing: border-box;
+
+    color: var(--quiz-text);
+    background: #ffffff;
+
+    border: 1px solid var(--quiz-border-strong);
+    border-top: 1px solid var(--quiz-border);
+    border-left: 4px solid var(--quiz-primary);
+    border-radius: 0 0 var(--quiz-radius) var(--quiz-radius);
+
+    white-space: pre-wrap;
+    overflow-x: auto;
+    overflow-wrap: anywhere;
+
+    font-family:
+        "SFMono-Regular",
+        Consolas,
+        "Liberation Mono",
+        Menlo,
+        monospace;
+    font-size: 0.88rem;
+    line-height: 1.8;
+
+    box-shadow: 0 12px 25px rgba(15, 23, 42, 0.065);
+}
+
+/* Make the built-in dashed separators much easier to see. */
+#correction::selection {
+    color: #ffffff;
+    background: var(--quiz-primary);
+}
+
+/* Give the correction text more breathing room without changing JS/HTML. */
+#correction {
+    scroll-padding: 1rem;
+}
+
+/* =========================================================
+   SMALL VISUAL DETAILS
+   ========================================================= */
+
+::selection {
+    color: #ffffff;
+    background: var(--quiz-primary);
+}
+
+
+/* =========================================================
+   ANIMATION
+   ========================================================= */
+
+@keyframes resultsIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+/* =========================================================
+   RESPONSIVE DESIGN
+   ========================================================= */
+
+@media (max-width: 760px) {
+
+    main.container {
+        width: min(calc(100% - 1.25rem), 900px);
+        margin-top: 2rem;
+        margin-bottom: 3rem;
+        padding: 1.4rem;
+    }
+
+    #resultsPanel[style*="display: block"] {
+        grid-template-columns: 1fr;
+    }
+
+    #percentageText {
+        justify-self: center;
+    }
+
+    #scoreText,
+    #performanceText {
+        min-height: 110px;
+    }
+}
+
+@media (max-width: 520px) {
+
+    main.container {
+        width: calc(100% - 1rem);
+        padding: 1.1rem;
+        border-radius: 12px;
+    }
+
+    main.container > h1 {
+        font-size: 1.75rem;
+    }
+
+    #progress {
+        font-size: 0.78rem;
+    }
+
+    #questionText {
+        padding-left: 0.85rem;
+        font-size: 1.08rem;
+    }
+
+    .choice {
+        min-height: 56px;
+        padding: 0.82rem 0.9rem;
+        font-size: 0.93rem;
+    }
+
+    .navigation {
+        gap: 0.55rem;
+    }
+
+    .navigation button {
+        flex: 1 1 45%;
+    }
+
+    #percentageText {
+        width: 132px;
+        height: 132px;
+        font-size: 0.9rem;
+    }
+
+    #correction {
+        padding: 1rem;
+        font-size: 0.8rem;
+        line-height: 1.7;
+    }
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    html {
+        scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
