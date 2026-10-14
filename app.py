@@ -52,6 +52,7 @@ def home():
         {"week": 2, "title": "History of the Web (AI)", "url": "/web-history-ai"},
         {"week": 4, "title": "Engineering Student Profile", "url": "/submit-profile"},
         {"week": 5, "title": "JavaScript app", "url": "/quiz"},
+        {"week": 6, "title": "Profile Form Review", "url": "/submit-profile-week6"},
     ]
     return render_template("index.html", weekly_work=weekly_work)
 
@@ -93,6 +94,10 @@ def submit_profile():
 
     # First visit (GET): just show the empty form.
     return render_template("profile-form.html")
+
+@app.route("/submit-profile-week6")
+def submit_profile_week6():
+    return render_template("profile-form-week6.html")
 
 @app.route("/quiz", methods=["GET", "POST"])
 def quiz():
