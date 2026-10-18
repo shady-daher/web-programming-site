@@ -1,207 +1,278 @@
+const form = document.getElementById("profileForm");
 
-const profileForm = document.getElementById("profileForm");
-const reviewPanel = document.getElementById("profileReview");
+const reviewPanel = document.getElementById("reviewPanel");
 const reviewContent = document.getElementById("reviewContent");
-const editButton = document.getElementById("editProfile");
-const confirmButton = document.getElementById("confirmProfile");
+const editButton = document.getElementById("editButton");
+const confirmButton = document.getElementById("confirmButton");
 
-// Organize the form fields into sections for the review panel.
-const reviewSections = [
-    {
-        title: "Personal Information",
-        fields: [
-            { name: "student_id", label: "Student ID" },
-            { name: "fullname", label: "Full Name" },
-            { name: "email", label: "USEK Email" },
-            { name: "phone", label: "Mobile Number" },
-            { name: "birthdate", label: "Date of Birth" },
-            { name: "portfolio", label: "GitHub" },
-            { name: "gin446", label: "GIN446 Website" }
-        ]
-    },
-    {
-        title: "Academic Information",
-        fields: [
-            { name: "major", label: "Engineering Major" },
-            { name: "gpa", label: "GPA" },
-            { name: "credits", label: "Credits Completed" },
-            { name: "graduation", label: "Expected Graduation" },
-            { name: "graduation_month", label: "Graduation Month and Year" },
-            { name: "internship_completed", label: "Internship Completed" }
-        ]
-    },
-    {
-        title: "Technical Background",
-        fields: [
-            { name: "skills", label: "Technical Skills" },
-            { name: "language", label: "Programming Language" },
-            { name: "software", label: "Engineering Software" }
-        ]
-    },
-    {
-        title: "Final Year Project",
-        fields: [
-            { name: "project_title", label: "Project Title" },
-            { name: "project_area", label: "Project Area" },
-            { name: "description", label: "Project Description" },
-            { name: "team_size", label: "Preferred Team Size" },
-            { name: "project_color", label: "Project Dashboard Color" },
-            { name: "meeting_date", label: "Preferred Meeting Date" },
-            { name: "meeting_time", label: "Preferred Meeting Time" }
-        ]
-    },
-    {
-        title: "Submission Details",
-        fields: [
-            { name: "confirmation", label: "Information Confirmation" },
-            { name: "form_version", label: "Form Version" }
-        ]
-    }
-];
 
-// Stop the normal submission so the review can happen first.
-profileForm.addEventListener("submit", function (event) {
-    event.preventDefault();
+// Intercept the form submission.
+form.addEventListener("submit", function (e) {
+    e.preventDefault();
 
-    // Check all the validation rules already defined in the HTML.
-    if (!profileForm.checkValidity()) {
-        profileForm.reportValidity();
+    // Validate the form.
+    if (!form.checkValidity()) {
+        form.reportValidity();
         return;
     }
 
-    showReview();
-});
+
+    // PERSONAL INFORMATION
+    const studentId = document.getElementById("student_id").value;
+    const fullName = document.getElementById("fullname").value;
+    const email = document.getElementById("email").value;
+    const phone = document.getElementById("phone").value;
+    const birthdate = document.getElementById("birthdate").value;
+    const portfolio = document.getElementById("portfolio").value;
+    const gin446 = document.getElementById("gin446").value;
 
 
-// Read the value of a field, including groups of controls.
-function getFieldValue(fieldName) {
-    const fields = Array.from(profileForm.elements).filter(
-        function (field) {
-            return field.name === fieldName;
-        }
-    );
+    // ACADEMIC INFORMATION
+    const major = document.getElementById("major").value;
+    const gpa = document.getElementById("gpa").value;
+    const credits = document.getElementById("credits").value;
+    const graduationMonth =
+        document.getElementById("graduation_month").value;
 
-    if (fields.length === 0) {
-        return "Not provided";
-    }
+    const graduation = document.querySelector(
+        'input[name="graduation"]:checked'
+    )?.value;
 
-    const firstField = fields[0];
-
-    // Return the selected radio button.
-    if (firstField.type === "radio") {
-        const selectedField = fields.find(function (field) {
-            return field.checked;
-        });
-
-        return selectedField
-            ? selectedField.value
-            : "Not selected";
-    }
-
-    // Collect all selected checkboxes.
-    if (firstField.type === "checkbox") {
-        const selectedFields = fields.filter(function (field) {
-            return field.checked;
-        });
-
-        if (fieldName === "confirmation") {
-            return selectedFields.length > 0
-                ? "Confirmed"
-                : "Not confirmed";
-        }
-
-        return selectedFields.length > 0
-            ? selectedFields.map(function (field) {
-                return field.value;
-            }).join(", ")
-            : "None selected";
-    }
-
-    // Collect every selected option from a multiple-select list.
-    if (firstField.tagName === "SELECT" && firstField.multiple) {
-        const selectedOptions = Array.from(
-            firstField.selectedOptions
-        );
-
-        return selectedOptions.length > 0
-            ? selectedOptions.map(function (option) {
-                return option.textContent.trim();
-            }).join(", ")
-            : "None selected";
-    }
-
-    // Use the visible label for a normal dropdown.
-    if (firstField.tagName === "SELECT") {
-        const selectedOption = firstField.selectedOptions[0];
-
-        return selectedOption
-            ? selectedOption.textContent.trim()
-            : "Not selected";
-    }
-
-    // Read text, numbers, dates, colors, and hidden inputs.
-    return firstField.value !== ""
-        ? firstField.value
-        : "Not provided";
-}
+    const internshipCompleted = document.querySelector(
+        'input[name="internship_completed"]:checked'
+    )?.value;
 
 
-// Build and display the read-only review panel.
-function showReview() {
-    reviewContent.textContent = "";
+    // TECHNICAL BACKGROUND
+    const language = document.getElementById("language").value;
 
-    reviewSections.forEach(function (section) {
-        const sectionBox = document.createElement("section");
-        sectionBox.className = "review-section";
-
-        const heading = document.createElement("h3");
-        heading.textContent = section.title;
-        sectionBox.appendChild(heading);
-
-        section.fields.forEach(function (field) {
-            const row = document.createElement("div");
-            row.className = "review-field";
-
-            const label = document.createElement("strong");
-            label.textContent = field.label;
-
-            const value = document.createElement("p");
-            value.textContent = getFieldValue(field.name);
-
-            row.appendChild(label);
-            row.appendChild(value);
-            sectionBox.appendChild(row);
-        });
-
-        reviewContent.appendChild(sectionBox);
+    const skills = [
+        ...document.querySelectorAll('input[name="skills"]:checked')
+    ].map(function (checkbox) {
+        return checkbox.value;
     });
 
-    // Hide the original form without removing its values.
-    profileForm.style.display = "none";
+    const softwareSelect = document.getElementById("software");
 
-    // Show the review panel.
-    reviewPanel.style.display = "block";
+    const software = [
+        ...softwareSelect.selectedOptions
+    ].map(function (option) {
+        return option.value;
+    });
 
-    confirmButton.focus();
-}
+
+    // FINAL YEAR PROJECT
+    const projectTitle =
+        document.getElementById("project_title").value;
+
+    const projectArea =
+        document.getElementById("project_area").value;
+
+    const description =
+        document.getElementById("description").value;
+
+    const teamSize =
+        document.getElementById("team_size").value;
+
+    const projectColor =
+        document.getElementById("project_color").value;
+
+    const meetingDate =
+        document.getElementById("meeting_date").value;
+
+    const meetingTime =
+        document.getElementById("meeting_time").value;
 
 
-// Return to the original form so answers can be edited.
-editButton.addEventListener("click", function () {
-    reviewPanel.style.display = "none";
-    profileForm.style.display = "";
+    // CONFIRMATION AND FORM VERSION
+    const confirmation =
+        document.getElementById("confirmation").checked;
 
-    const firstField = profileForm.querySelector(
-        'input:not([type="hidden"]), select, textarea'
-    );
+    const formVersion = document.querySelector(
+        'input[name="form_version"]'
+    ).value;
 
-    if (firstField) {
-        firstField.focus();
-    }
+
+    // Clear the review panel before adding the values.
+    reviewContent.textContent = "";
+
+
+    // PERSONAL INFORMATION
+    const personalHeading = document.createElement("h3");
+    personalHeading.textContent = "PERSONAL INFORMATION";
+    reviewContent.appendChild(personalHeading);
+
+    const studentIdLine = document.createElement("p");
+    studentIdLine.textContent = "Student ID: " + studentId;
+    reviewContent.appendChild(studentIdLine);
+
+    const fullNameLine = document.createElement("p");
+    fullNameLine.textContent = "Full Name: " + fullName;
+    reviewContent.appendChild(fullNameLine);
+
+    const emailLine = document.createElement("p");
+    emailLine.textContent = "USEK Email: " + email;
+    reviewContent.appendChild(emailLine);
+
+    const phoneLine = document.createElement("p");
+    phoneLine.textContent = "Mobile Number: " + phone;
+    reviewContent.appendChild(phoneLine);
+
+    const birthdateLine = document.createElement("p");
+    birthdateLine.textContent = "Date of Birth: " + birthdate;
+    reviewContent.appendChild(birthdateLine);
+
+    const portfolioLine = document.createElement("p");
+    portfolioLine.textContent =
+        "GitHub: " + (portfolio || "Not provided");
+    reviewContent.appendChild(portfolioLine);
+
+    const gin446Line = document.createElement("p");
+    gin446Line.textContent =
+        "GIN446 Website: " + (gin446 || "Not provided");
+    reviewContent.appendChild(gin446Line);
+
+
+    // ACADEMIC INFORMATION
+    const academicHeading = document.createElement("h3");
+    academicHeading.textContent = "ACADEMIC INFORMATION";
+    reviewContent.appendChild(academicHeading);
+
+    const majorLine = document.createElement("p");
+    majorLine.textContent = "Engineering Major: " + major;
+    reviewContent.appendChild(majorLine);
+
+    const gpaLine = document.createElement("p");
+    gpaLine.textContent = "GPA: " + gpa;
+    reviewContent.appendChild(gpaLine);
+
+    const creditsLine = document.createElement("p");
+    creditsLine.textContent = "Credits Completed: " + credits;
+    reviewContent.appendChild(creditsLine);
+
+    const graduationLine = document.createElement("p");
+    graduationLine.textContent =
+        "Expected Graduation: " + (graduation || "Not selected");
+    reviewContent.appendChild(graduationLine);
+
+    const graduationMonthLine = document.createElement("p");
+    graduationMonthLine.textContent =
+        "Graduation Month and Year: " + graduationMonth;
+    reviewContent.appendChild(graduationMonthLine);
+
+    const internshipLine = document.createElement("p");
+    internshipLine.textContent =
+        "Engineering Internship Completed: " +
+        (internshipCompleted || "Not selected");
+    reviewContent.appendChild(internshipLine);
+
+
+    // TECHNICAL BACKGROUND
+    const technicalHeading = document.createElement("h3");
+    technicalHeading.textContent = "TECHNICAL BACKGROUND";
+    reviewContent.appendChild(technicalHeading);
+
+    const skillsLine = document.createElement("p");
+    skillsLine.textContent =
+        "Skills: " +
+        (skills.length > 0 ? skills.join(", ") : "None selected");
+    reviewContent.appendChild(skillsLine);
+
+    const languageLine = document.createElement("p");
+    languageLine.textContent =
+        "Primary Programming Language: " + language;
+    reviewContent.appendChild(languageLine);
+
+    const softwareLine = document.createElement("p");
+    softwareLine.textContent =
+        "Engineering Software Used: " +
+        (software.length > 0 ? software.join(", ") : "None selected");
+    reviewContent.appendChild(softwareLine);
+
+
+    // FINAL YEAR PROJECT
+    const projectHeading = document.createElement("h3");
+    projectHeading.textContent = "FINAL YEAR PROJECT";
+    reviewContent.appendChild(projectHeading);
+
+    const projectTitleLine = document.createElement("p");
+    projectTitleLine.textContent =
+        "Proposed Project Title: " + projectTitle;
+    reviewContent.appendChild(projectTitleLine);
+
+    const projectAreaLine = document.createElement("p");
+    projectAreaLine.textContent =
+        "Preferred Project Area: " + projectArea;
+    reviewContent.appendChild(projectAreaLine);
+
+    const descriptionLine = document.createElement("p");
+    descriptionLine.textContent =
+        "Project Description: " + description;
+    reviewContent.appendChild(descriptionLine);
+
+    const teamSizeLine = document.createElement("p");
+    teamSizeLine.textContent =
+        "Preferred Team Size: " + teamSize;
+    reviewContent.appendChild(teamSizeLine);
+
+    const projectColorLine = document.createElement("p");
+    projectColorLine.textContent =
+        "Project Dashboard Color: " + projectColor;
+    reviewContent.appendChild(projectColorLine);
+
+    const meetingDateLine = document.createElement("p");
+    meetingDateLine.textContent =
+        "Preferred Meeting Date: " + (meetingDate || "Not provided");
+    reviewContent.appendChild(meetingDateLine);
+
+    const meetingTimeLine = document.createElement("p");
+    meetingTimeLine.textContent =
+        "Preferred Meeting Time: " + (meetingTime || "Not provided");
+    reviewContent.appendChild(meetingTimeLine);
+
+
+    // CONFIRMATION AND FORM VERSION
+    const confirmationHeading = document.createElement("h3");
+    confirmationHeading.textContent = "CONFIRMATION";
+    reviewContent.appendChild(confirmationHeading);
+
+    const confirmationLine = document.createElement("p");
+    confirmationLine.textContent =
+        "Information Confirmed: " + (confirmation ? "Yes" : "No");
+    reviewContent.appendChild(confirmationLine);
+
+    const formVersionLine = document.createElement("p");
+    formVersionLine.textContent = "Form Version: " + formVersion;
+    reviewContent.appendChild(formVersionLine);
+
+
+    // Hide the form and display the review panel.
+    form.classList.add("hidden");
+    reviewPanel.classList.remove("hidden");
+
+    // Scroll to the review panel.
+    reviewPanel.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+    });
 });
 
 
-// Submit to the existing Flask route after confirmation.
+// EDIT BUTTON
+editButton.addEventListener("click", function () {
+    reviewPanel.classList.add("hidden");
+    form.classList.remove("hidden");
+
+    // Return to the form without losing the answers.
+    form.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+    });
+});
+
+
+// CONFIRM AND SUBMIT BUTTON
 confirmButton.addEventListener("click", function () {
-    profileForm.submit();
+    // Send the form to Flask without triggering the submit listener again.
+    form.submit();
 });

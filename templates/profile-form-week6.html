@@ -1,7 +1,6 @@
-
 {% extends "base.html" %}
 
-{% block title %}Engineering Student Profile — Week 6{% endblock %}
+{% block title %}Engineering Student Profile{% endblock %}
 
 {% block head %}
 <link rel="stylesheet"
@@ -69,6 +68,7 @@
 
         <p>
             <label for="major">Engineering Major:</label>
+
             <select id="major" name="major" required>
                 <option value="">-- Select your major --</option>
                 <option value="Computer">Computer Engineering</option>
@@ -118,6 +118,7 @@
             <label for="graduation_month">
                 Expected Graduation Month and Year:
             </label>
+
             <input type="month" id="graduation_month"
                    name="graduation_month" required>
         </p>
@@ -149,44 +150,51 @@
             <input type="checkbox" id="skill_programming"
                    name="skills" value="Programming">
             Programming
-        </label><br>
+        </label>
+        <br>
 
         <label for="skill_embedded">
             <input type="checkbox" id="skill_embedded"
                    name="skills" value="Embedded Systems">
             Embedded Systems
-        </label><br>
+        </label>
+        <br>
 
         <label for="skill_electronics">
             <input type="checkbox" id="skill_electronics"
                    name="skills" value="Electronics">
             Electronics
-        </label><br>
+        </label>
+        <br>
 
         <label for="skill_networks">
             <input type="checkbox" id="skill_networks"
                    name="skills" value="Computer Networks">
             Computer Networks
-        </label><br>
+        </label>
+        <br>
 
         <label for="skill_telecommunications">
             <input type="checkbox" id="skill_telecommunications"
                    name="skills" value="Telecommunications">
             Telecommunications
-        </label><br>
+        </label>
+        <br>
 
         <label for="skill_biomedical">
             <input type="checkbox" id="skill_biomedical"
                    name="skills" value="Biomedical Instrumentation">
             Biomedical Instrumentation
-        </label><br>
+        </label>
+        <br>
 
         <label for="skill_ai_ml">
             <input type="checkbox" id="skill_ai_ml"
                    name="skills"
                    value="Artificial Intelligence / Machine Learning">
             Artificial Intelligence / Machine Learning
-        </label><br>
+        </label>
+        <br>
 
         <label for="skill_signal_processing">
             <input type="checkbox" id="skill_signal_processing"
@@ -195,7 +203,10 @@
         </label>
 
         <p>
-            <label for="language">Primary Programming Language:</label>
+            <label for="language">
+                Primary Programming Language:
+            </label>
+
             <input type="text" id="language" name="language"
                    list="programming-languages" required>
 
@@ -249,9 +260,7 @@
                 <optgroup label="Computer Engineering">
                     <option value="Web Applications">Web Applications</option>
                     <option value="Cybersecurity">Cybersecurity</option>
-                    <option value="Internet of Things">
-                        Internet of Things
-                    </option>
+                    <option value="Internet of Things">Internet of Things</option>
                 </optgroup>
 
                 <optgroup label="Electrical Engineering">
@@ -277,7 +286,8 @@
         </p>
 
         <p>
-            <label for="description">Brief Project Description:</label><br>
+            <label for="description">Brief Project Description:</label>
+            <br>
             <textarea id="description" name="description"
                       rows="6" maxlength="1000" required></textarea>
         </p>
@@ -298,14 +308,12 @@
 
         <p>
             <label for="meeting_date">Preferred Meeting Date:</label>
-            <input type="date" id="meeting_date"
-                   name="meeting_date" required>
+            <input type="date" id="meeting_date" name="meeting_date" required>
         </p>
 
         <p>
             <label for="meeting_time">Preferred Meeting Time:</label>
-            <input type="time" id="meeting_time"
-                   name="meeting_time" required>
+            <input type="time" id="meeting_time" name="meeting_time" required>
         </p>
     </fieldset>
 
@@ -313,35 +321,42 @@
     <p>
         <input type="checkbox" id="confirmation"
                name="confirmation" value="yes" required>
+
         <label for="confirmation">
             I confirm that the information provided is accurate.
         </label>
     </p>
 
-    <!-- Form version -->
+    <!-- Hidden form version -->
     <input type="hidden" name="form_version" value="2026-2027">
 
+    <!-- Submit and Reset -->
     <button type="submit">Submit Profile</button>
     <button type="reset">Clear Form</button>
+
 </form>
 
-<!-- Review panel: JavaScript controls when it appears -->
-<section id="profileReview" style="display: none;"
-         aria-labelledby="reviewTitle">
+<!-- Week 6: Review Panel -->
+<section id="reviewPanel" class="hidden">
 
-    <h2 id="reviewTitle">Review Your Profile</h2>
+    <h2>Review Your Profile</h2>
 
-    <p>Please check your information before submitting.</p>
+    <p>
+        Please review your information before confirming your submission.
+    </p>
 
     <div id="reviewContent"></div>
 
-    <button type="button" id="editProfile">Edit</button>
+    <button type="button" id="editButton">Edit</button>
 
-    <button type="button" id="confirmProfile">
+    <button type="button" id="confirmButton">
         Confirm &amp; Submit
     </button>
+
 </section>
 
-<script src="{{ url_for('static', filename='profile-review.js') }}"></script>
+<!-- Week 6 JavaScript -->
+<script src="{{ url_for('static', filename='profile-review.js') }}"
+        defer></script>
 
 {% endblock %}
