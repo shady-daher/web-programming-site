@@ -829,3 +829,18 @@ form textarea:focus-visible {
         margin-right: 0;
     }
 }
+
+/* Week 8 - Server-side validation errors */
+form .error {
+    grid-column: 2;
+    color: #f87171;
+    font-size: 0.85rem;
+    font-weight: 600;
+    line-height: 1.4;
+}
+
+@media (max-width: 720px) {
+    form .error {
+        grid-column: 1;
+    }
+}
