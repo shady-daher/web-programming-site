@@ -1,28 +1,47 @@
-{% extends "base.html" %} {% block title %} Quiz {% endblock %} {% block head %}
+{% extends "base.html" %}
+
+{% block title %}JavaScript Quiz{% endblock %}
+
+{% block description %}A 10-question JavaScript quiz on 4G and 5G mobile networks, with score and corrections.{% endblock %}
+
+{% block head %}
 <link rel="stylesheet" href="{{ url_for('static', filename='quiz.css') }}" />
-{% endblock %} {% block content%}
-<main class="container">
+{% endblock %}
+
+{% block content %}
+<!-- Week 12: was a second <main>. base.html already provides <main>,
+     and a page may only have one, so this is now a <div>. -->
+<div class="container">
   <h1>JavaScript Quiz</h1>
-  <section id="quizPanel">
-    <p id="progress"></p>
+
+  <section id="quizPanel" aria-labelledby="questionText">
+    <!-- Week 12: aria-live announces "Question 3 of 10" when it changes -->
+    <p id="progress" aria-live="polite"></p>
     <h2 id="questionText"></h2>
-    <div id="choices"></div>
+
+    <!-- Week 12: groups the answer radios under the question for screen readers -->
+    <div id="choices" role="radiogroup" aria-labelledby="questionText"></div>
+
     <div class="navigation">
-      <button id="firstBtn" onclick="goFirst()">First</button>
-      <button id="previousBtn" onclick="goPrevious()">Previous</button>
-      <button id="nextBtn" onclick="goNext()">Next</button>
-      <button id="lastBtn" onclick="goLast()">Last</button>
+      <button type="button" id="firstBtn" onclick="goFirst()">First</button>
+      <button type="button" id="previousBtn" onclick="goPrevious()">Previous</button>
+      <button type="button" id="nextBtn" onclick="goNext()">Next</button>
+      <button type="button" id="lastBtn" onclick="goLast()">Last</button>
     </div>
-    <button class="submit" onclick="submitQuiz()">Submit Quiz</button>
+
+    <button type="button" class="submit" onclick="submitQuiz()">Submit Quiz</button>
   </section>
+
   <section id="resultsPanel">
-    <h2>Quiz Results</h2>
+    <!-- Week 12: tabindex="-1" so the script can move focus here after submitting -->
+    <h2 id="resultsHeading" tabindex="-1">Quiz Results</h2>
     <p id="scoreText"></p>
     <p id="percentageText"></p>
     <p id="performanceText"></p>
     <h3>Correction</h3>
     <pre id="correction"></pre>
   </section>
-</main>
+</div>
+
 <script src="{{ url_for('static', filename='quiz.js') }}"></script>
 {% endblock %}

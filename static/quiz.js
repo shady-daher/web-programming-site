@@ -379,6 +379,10 @@ function showResults(
 
   document.getElementById("correction").textContent =
     correction;
+
+  // Week 12: move keyboard / screen-reader focus to the results,
+  // otherwise focus stays on the now-hidden Submit button.
+  document.getElementById("resultsHeading").focus();
 }
 
 

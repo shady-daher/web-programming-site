@@ -129,6 +129,52 @@ a:focus-visible {
     outline-offset: 4px;
 }
 
+/* Week 12: one visible keyboard focus ring for every control,
+   so no button or field is ever "invisible" while tabbing. */
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+summary:focus-visible {
+    outline: 3px solid var(--primary);
+    outline-offset: 2px;
+}
+
+/* Week 12: long URLs (e.g. sources on the history pages) wrap
+   instead of running off the side of a phone screen. */
+main a {
+    overflow-wrap: anywhere;
+}
+
+
+/* =========================================================
+   SKIP LINK (Week 12)
+   Hidden above the page until it receives keyboard focus.
+   ========================================================= */
+
+.skip-link {
+    position: absolute;
+    top: -100px;
+    left: 1rem;
+    z-index: 100;
+
+    padding: 0.75rem 1.1rem;
+
+    color: #ffffff;
+    background: var(--primary-dark);
+
+    border-radius: var(--radius-sm);
+
+    font-weight: 700;
+}
+
+.skip-link:focus {
+    top: 1rem;
+    color: #ffffff;
+    outline: 3px solid #ffffff;
+    outline-offset: 2px;
+}
+
 
 /* =========================================================
    HEADER
@@ -284,14 +330,8 @@ body > nav {
 
 
 /*
-   CSS-only active-style behavior.
-
-   Because the HTML cannot be changed, CSS cannot know which
-   Flask route is currently open.
-
-   Therefore the blue indicator follows the link being
-   hovered or focused instead of remaining permanently
-   centered in the navigation.
+   Hover/focus indicator. Since Week 12, base.html also marks
+   the current page with aria-current="page" (styled below).
 */
 
 body > nav a {
@@ -353,6 +393,19 @@ body > nav a:focus-visible {
 
 body > nav a:hover::after,
 body > nav a:focus-visible::after {
+    width: 18px;
+}
+
+/* Week 12: the page you are on. Shown by weight, border and the
+   underline bar, not by colour alone. */
+body > nav a[aria-current="page"] {
+    color: var(--primary-dark);
+    background: #eaf1fd;
+    border-color: #b9cdf3;
+    font-weight: 700;
+}
+
+body > nav a[aria-current="page"]::after {
     width: 18px;
 }
 
@@ -1137,6 +1190,24 @@ body > footer p:first-child::before {
 
     main > section:first-child > ul {
         grid-template-columns: 1fr;
+    }
+}
+
+
+/* =========================================================
+   PROFILE PAGE ON PHONES (Week 12)
+   profile.html (instructor file, not edited) uses a fixed
+   220px label column. On narrow screens, stack label above value.
+   ========================================================= */
+
+@media (max-width: 600px) {
+
+    main .profile dl {
+        grid-template-columns: 1fr;
+    }
+
+    main .profile dd {
+        margin-bottom: 0.6rem;
     }
 }
 

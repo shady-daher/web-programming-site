@@ -1,7 +1,8 @@
-
 {% extends "base.html" %}
 
 {% block title %}Live Quiz{% endblock %}
+
+{% block description %}A live quiz that loads each question from a Flask JSON API with fetch().{% endblock %}
 
 {% block head %}
 <link rel="stylesheet" href="{{ url_for('static', filename='quiz.css') }}" />
@@ -9,35 +10,38 @@
 
 {% block content %}
 
-<main class="container">
+<!-- Week 12: was a second <main>; base.html already provides one. -->
+<div class="container">
   <h1>Live Quiz with Fetch</h1>
 
-  <section id="quizPanel">
+  <section id="quizPanel" aria-labelledby="questionText">
 
-    <!-- Messages for fetching questions -->
-    <p id="loading" hidden>Loading…</p>
-    <p id="error" hidden></p>
+    <!-- Loading / error states.
+         Week 12: role="status" is announced politely ("Loading…"),
+         role="alert" is announced immediately (errors). -->
+    <p id="loading" role="status" hidden>Loading…</p>
+    <p id="error" role="alert" hidden></p>
 
-    <p id="progress"></p>
+    <p id="progress" aria-live="polite"></p>
     <h2 id="questionText"></h2>
 
-    <div id="choices"></div>
+    <div id="choices" role="radiogroup" aria-labelledby="questionText"></div>
 
     <!-- Navigation buttons -->
     <div class="navigation">
-      <button id="firstBtn" onclick="goFirst()">First</button>
-      <button id="previousBtn" onclick="goPrevious()">Previous</button>
-      <button id="nextBtn" onclick="goNext()">Next</button>
-      <button id="lastBtn" onclick="goLast()">Last</button>
+      <button type="button" id="firstBtn" onclick="goFirst()">First</button>
+      <button type="button" id="previousBtn" onclick="goPrevious()">Previous</button>
+      <button type="button" id="nextBtn" onclick="goNext()">Next</button>
+      <button type="button" id="lastBtn" onclick="goLast()">Last</button>
     </div>
 
-    <button class="submit" onclick="submitQuiz()">Submit Quiz</button>
+    <button type="button" class="submit" id="submitBtn" onclick="submitQuiz()">Submit Quiz</button>
 
   </section>
 
-  <!-- Results -->
+  <!-- Results (success state) -->
   <section id="resultsPanel">
-    <h2>Quiz Results</h2>
+    <h2 id="resultsHeading" tabindex="-1">Quiz Results</h2>
 
     <p id="scoreText"></p>
     <p id="percentageText"></p>
@@ -47,7 +51,7 @@
     <pre id="correction"></pre>
   </section>
 
-</main>
+</div>
 
 <script src="{{ url_for('static', filename='live_quiz.js') }}"></script>
 

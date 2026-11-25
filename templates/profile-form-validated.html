@@ -11,15 +11,57 @@
 
 {% macro err(field) %}
     {% if errors.get(field) %}
-        <span class="error">{{ errors[field] }}</span>
+        {# Week 12: id lets the field point to its message (aria-describedby) #}
+        <span class="error" id="{{ field }}-error">{{ errors[field] }}</span>
     {% endif %}
 {% endmacro %}
+
+{# Week 12: marks a field as invalid and links it to its error message,
+   so a screen reader reads "invalid entry, Student ID must be 9 digits". #}
+{% macro invalid(field) -%}
+    {% if errors.get(field) %}aria-invalid="true" aria-describedby="{{ field }}-error"{% endif %}
+{%- endmacro %}
+
+{# Week 12: human-readable field names for the error summary. #}
+{% set field_names = {
+    'student_id': 'Student ID', 'fullname': 'Full Name', 'email': 'USEK Email',
+    'phone': 'Mobile Number', 'birthdate': 'Date of Birth', 'portfolio': 'GitHub',
+    'gin446': 'GIN446 website', 'major': 'Engineering Major', 'gpa': 'GPA',
+    'credits': 'Credits Completed', 'graduation': 'Expected Graduation',
+    'graduation_month': 'Graduation Month', 'internship_completed': 'Internship',
+    'skills': 'Skills', 'language': 'Programming Language', 'software': 'Engineering Software',
+    'project_title': 'Project Title', 'project_area': 'Project Area',
+    'description': 'Project Description', 'team_size': 'Team Size',
+    'project_color': 'Dashboard Colour', 'meeting_date': 'Meeting Date',
+    'meeting_time': 'Meeting Time', 'confirmation': 'Confirmation'} %}
+
+{# The first input of each field, used by the error-summary links. #}
+{% set first_input = {'graduation': 'graduation_spring',
+                      'internship_completed': 'internship_yes',
+                      'skills': 'skill_programming'} %}
 
 <h2>Engineering Student Profile</h2>
 
 <p>
     Complete the form. The server will validate the submitted information.
 </p>
+
+{% if errors %}
+<!-- Week 12: error state. role="alert" makes screen readers announce it
+     as soon as the page loads; each link jumps to the field to fix. -->
+<div class="error-summary" role="alert" aria-labelledby="error-summary-title">
+    <h3 id="error-summary-title">
+        Please fix {{ errors|length }} problem{{ 's' if errors|length != 1 }} before submitting:
+    </h3>
+    <ul>
+        {# Listed in the same order as the form (errors come back unordered). #}
+        {% for field in field_names if errors.get(field) %}
+        {% set message = errors[field] %}
+        <li><a href="#{{ first_input.get(field, field) }}"><strong>{{ field_names.get(field, field) }}:</strong> {{ message }}</a></li>
+        {% endfor %}
+    </ul>
+</div>
+{% endif %}
 
 <form method="post"
       action="{{ url_for('profile_validated') }}"
@@ -31,7 +73,7 @@
 
         <p>
             <label for="student_id">Student ID:</label>
-            <input type="text" id="student_id" name="student_id"
+            <input type="text" id="student_id" {{ invalid("student_id") }} name="student_id"
                    pattern="[0-9]{9}" maxlength="9"
                    value="{{ data.get('student_id', '') }}" required>
             {{ err('student_id') }}
@@ -39,21 +81,21 @@
 
         <p>
             <label for="fullname">Full Name:</label>
-            <input type="text" id="fullname" name="fullname"
+            <input type="text" id="fullname" {{ invalid("fullname") }} name="fullname"
                    value="{{ data.get('fullname', '') }}" required>
             {{ err('fullname') }}
         </p>
 
         <p>
             <label for="email">USEK Email:</label>
-            <input type="email" id="email" name="email"
+            <input type="email" id="email" {{ invalid("email") }} name="email"
                    value="{{ data.get('email', '') }}" required>
             {{ err('email') }}
         </p>
 
         <p>
             <label for="phone">Mobile Number:</label>
-            <input type="tel" id="phone" name="phone"
+            <input type="tel" id="phone" {{ invalid("phone") }} name="phone"
                    placeholder="+961 70 123456"
                    value="{{ data.get('phone', '') }}" required>
             {{ err('phone') }}
@@ -61,21 +103,21 @@
 
         <p>
             <label for="birthdate">Date of Birth:</label>
-            <input type="date" id="birthdate" name="birthdate"
+            <input type="date" id="birthdate" {{ invalid("birthdate") }} name="birthdate"
                    value="{{ data.get('birthdate', '') }}" required>
             {{ err('birthdate') }}
         </p>
 
         <p>
             <label for="portfolio">GitHub:</label>
-            <input type="url" id="portfolio" name="portfolio"
+            <input type="url" id="portfolio" {{ invalid("portfolio") }} name="portfolio"
                    value="{{ data.get('portfolio', '') }}">
             {{ err('portfolio') }}
         </p>
 
         <p>
             <label for="gin446">GIN446 website:</label>
-            <input type="url" id="gin446" name="gin446"
+            <input type="url" id="gin446" {{ invalid("gin446") }} name="gin446"
                    value="{{ data.get('gin446', '') }}">
             {{ err('gin446') }}
         </p>
@@ -90,7 +132,7 @@
             <label for="major">Engineering Major:</label>
             {% set selected_major = data.get('major', '')|lower %}
 
-            <select id="major" name="major" required>
+            <select id="major" {{ invalid("major") }} name="major" required>
                 <option value="">-- Select your major --</option>
 
                 <option value="Computer"
@@ -118,7 +160,7 @@
 
         <p>
             <label for="gpa">Current GPA / 100:</label>
-            <input type="number" id="gpa" name="gpa"
+            <input type="number" id="gpa" {{ invalid("gpa") }} name="gpa"
                    min="40" max="100" step="0.01"
                    value="{{ data.get('gpa', '') }}" required>
             {{ err('gpa') }}
@@ -126,7 +168,7 @@
 
         <p>
             <label for="credits">Credits Completed:</label>
-            <input type="number" id="credits" name="credits"
+            <input type="number" id="credits" {{ invalid("credits") }} name="credits"
                    min="0" max="148" step="1"
                    value="{{ data.get('credits', '') }}" required>
             {{ err('credits') }}
@@ -166,7 +208,7 @@
             <label for="graduation_month">
                 Expected Graduation Month and Year:
             </label>
-            <input type="month" id="graduation_month"
+            <input type="month" id="graduation_month" {{ invalid("graduation_month") }}
                    name="graduation_month"
                    value="{{ data.get('graduation_month', '') }}" required>
             {{ err('graduation_month') }}
@@ -269,7 +311,7 @@
 
         <p>
             <label for="language">Primary Programming Language:</label>
-            <input type="text" id="language" name="language"
+            <input type="text" id="language" {{ invalid("language") }} name="language"
                    list="programming-languages"
                    value="{{ data.get('language', '') }}" required>
 
@@ -290,7 +332,7 @@
         <p>
             <label for="software">Engineering Software Used:</label>
 
-            <select id="software" name="software" multiple size="6" required>
+            <select id="software" {{ invalid("software") }} name="software" multiple size="6" required>
                 <option value="MATLAB"
                     {% if 'MATLAB' in sel_software %}selected{% endif %}>
                     MATLAB
@@ -328,7 +370,7 @@
 
         <p>
             <label for="project_title">Proposed Project Title:</label>
-            <input type="text" id="project_title" name="project_title"
+            <input type="text" id="project_title" {{ invalid("project_title") }} name="project_title"
                    maxlength="120"
                    value="{{ data.get('project_title', '') }}" required>
             {{ err('project_title') }}
@@ -338,7 +380,7 @@
             <label for="project_area">Preferred Project Area:</label>
             {% set selected_area = data.get('project_area', '') %}
 
-            <select id="project_area" name="project_area" required>
+            <select id="project_area" {{ invalid("project_area") }} name="project_area" required>
                 <option value="">-- Select project area --</option>
 
                 <option value="Artificial Intelligence"
@@ -413,14 +455,14 @@
         <p>
             <label for="description">Brief Project Description:</label>
             <br>
-            <textarea id="description" name="description"
+            <textarea id="description" {{ invalid("description") }} name="description"
                       rows="6" maxlength="1000" required>{{ data.get('description', '') }}</textarea>
             {{ err('description') }}
         </p>
 
         <p>
             <label for="team_size">Preferred Team Size:</label>
-            <input type="number" id="team_size" name="team_size"
+            <input type="number" id="team_size" {{ invalid("team_size") }} name="team_size"
                    min="1" max="4" step="1"
                    value="{{ data.get('team_size', '') }}" required>
             {{ err('team_size') }}
@@ -430,21 +472,21 @@
             <label for="project_color">
                 Choose a color for your project dashboard:
             </label>
-            <input type="color" id="project_color" name="project_color"
+            <input type="color" id="project_color" {{ invalid("project_color") }} name="project_color"
                    value="{{ data.get('project_color', '#336699') }}">
             {{ err('project_color') }}
         </p>
 
         <p>
             <label for="meeting_date">Preferred Meeting Date:</label>
-            <input type="date" id="meeting_date" name="meeting_date"
+            <input type="date" id="meeting_date" {{ invalid("meeting_date") }} name="meeting_date"
                    value="{{ data.get('meeting_date', '') }}" required>
             {{ err('meeting_date') }}
         </p>
 
         <p>
             <label for="meeting_time">Preferred Meeting Time:</label>
-            <input type="time" id="meeting_time" name="meeting_time"
+            <input type="time" id="meeting_time" {{ invalid("meeting_time") }} name="meeting_time"
                    value="{{ data.get('meeting_time', '') }}" required>
             {{ err('meeting_time') }}
         </p>
@@ -453,7 +495,7 @@
 
     <!-- Confirmation -->
     <p>
-        <input type="checkbox" id="confirmation" name="confirmation"
+        <input type="checkbox" id="confirmation" {{ invalid("confirmation") }} name="confirmation"
                value="yes"
                {% if data.get('confirmation') == 'yes' %}checked{% endif %}
                required>

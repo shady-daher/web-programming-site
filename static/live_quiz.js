@@ -175,6 +175,10 @@ async function buildCorrection() {
 async function submitQuiz() {
   const loading = document.getElementById("loading");
   const error = document.getElementById("error");
+  const submitBtn = document.getElementById("submitBtn");
+
+  // Week 12: disabled while working, so it cannot be clicked twice.
+  submitBtn.disabled = true;
 
   loading.hidden = false;
   error.hidden = true;
@@ -194,6 +198,7 @@ async function submitQuiz() {
 
   } finally {
     loading.hidden = true;
+    submitBtn.disabled = false;
   }
 }
 
@@ -295,6 +300,10 @@ function showResults(score, percentage, message, correction) {
   document.getElementById("performanceText").textContent = message;
 
   document.getElementById("correction").textContent = correction;
+
+  // Week 12: move keyboard / screen-reader focus to the results,
+  // otherwise focus stays on the now-hidden Submit button.
+  document.getElementById("resultsHeading").focus();
 }
 
 

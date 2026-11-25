@@ -120,8 +120,11 @@ def profile_validated():
                 sel_software=request.form.getlist("software")
             )
 
+        # Week 12 fix: this used to render "profile_validated.html", which does
+        # not exist, so every VALID submission crashed with a 500 error.
+        # The success state now reuses the existing profile page.
         return render_template(
-            "profile_validated.html",
+            "profile.html",
             data=cleaned,
             skills=cleaned.get("skills", []),
             software=cleaned.get("software", [])

@@ -255,6 +255,10 @@ form.addEventListener("submit", function (e) {
         behavior: "smooth",
         block: "start"
     });
+
+    // Week 12: move focus to the panel heading. Otherwise keyboard and
+    // screen-reader users are left on the hidden Submit button.
+    document.getElementById("reviewHeading").focus({ preventScroll: true });
 });
 
 
@@ -268,11 +272,18 @@ editButton.addEventListener("click", function () {
         behavior: "smooth",
         block: "start"
     });
+
+    // Week 12: put focus back on the first field.
+    document.getElementById("student_id").focus({ preventScroll: true });
 });
 
 
 // CONFIRM AND SUBMIT BUTTON
 confirmButton.addEventListener("click", function () {
+    // Week 12: loading state - stop double submits and show progress.
+    confirmButton.disabled = true;
+    confirmButton.textContent = "Submitting…";
+
     // Send the form to Flask without triggering the submit listener again.
     form.submit();
 });

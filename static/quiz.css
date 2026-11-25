@@ -107,7 +107,7 @@ body > footer {
    QUIZ CONTAINER
    ========================================================= */
 
-main.container {
+.container {
     position: relative;
     isolation: isolate;
 
@@ -134,13 +134,13 @@ main.container {
 /* The base stylesheet adds this line to every main element.
    The quiz has its own visual treatment instead. */
 
-main.container::before {
+.container::before {
     display: none;
 }
 
 /* Subtle geometric engineering detail. */
 
-main.container::after {
+.container::after {
     content: "";
 
     position: absolute;
@@ -164,7 +164,7 @@ main.container::after {
    QUIZ TITLE
    ========================================================= */
 
-main.container > h1 {
+.container > h1 {
     position: relative;
 
     margin: 0 0 1.9rem;
@@ -179,7 +179,7 @@ main.container > h1 {
     letter-spacing: -0.035em;
 }
 
-main.container > h1::after {
+.container > h1::after {
     content: "";
 
     display: block;
@@ -379,9 +379,11 @@ main.container > h1::after {
     box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.10);
 }
 
+/* Week 12: a solid outline instead of "outline: none" + a faint
+   18%-opacity glow, which was too pale to see as a focus indicator. */
 .choice input[type="radio"]:focus-visible {
-    outline: none;
-    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.18);
+    outline: 3px solid var(--quiz-primary);
+    outline-offset: 2px;
 }
 
 /* :has() lets the card reflect the selected radio without changing HTML. */
@@ -467,8 +469,10 @@ button:active:not(:disabled) {
     box-shadow: 0 4px 10px rgba(15, 23, 42, 0.07);
 }
 
+/* Week 12: was 20% opacity, which is barely visible (WCAG asks for
+   a focus indicator with at least 3:1 contrast). */
 button:focus-visible {
-    outline: 3px solid rgba(37, 99, 235, 0.20);
+    outline: 3px solid var(--quiz-primary);
     outline-offset: 2px;
 }
 
@@ -791,7 +795,7 @@ button:disabled {
 
 @media (max-width: 760px) {
 
-    main.container {
+    .container {
         width: min(calc(100% - 1.25rem), 900px);
         margin-top: 2rem;
         margin-bottom: 3rem;
@@ -814,13 +818,13 @@ button:disabled {
 
 @media (max-width: 520px) {
 
-    main.container {
+    .container {
         width: calc(100% - 1rem);
         padding: 1.1rem;
         border-radius: 12px;
     }
 
-    main.container > h1 {
+    .container > h1 {
         font-size: 1.75rem;
     }
 

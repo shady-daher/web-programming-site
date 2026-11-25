@@ -7,6 +7,13 @@
 
     <title>{% block title %}My Web Programming Portfolio{% endblock %}</title>
 
+    <!-- Week 12: page summary for search engines (Lighthouse SEO) -->
+    <meta name="description"
+          content="{% block description %}Shady Daher's GIN446 Web Programming portfolio at USEK: weekly pages, forms and quizzes built with Flask.{% endblock %}">
+
+    <!-- Week 12: inline favicon, so the browser stops requesting a missing /favicon.ico (console 404) -->
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230b1628'/%3E%3Cpath d='M16 6l10 10-10 10L6 16z' fill='%232563eb'/%3E%3C/svg%3E">
+
     <link rel="stylesheet"
           href="{{ url_for('static', filename='style.css') }}">
           {% block head %}{% endblock %}
@@ -14,25 +21,36 @@
 
 <body>
 
+    <!-- Week 12: first focusable element, lets keyboard users jump past the header and nav -->
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+
     <header>
         <h1>Web Programming Portfolio — Shady Daher</h1>
         <p>A live site that grows one page or feature every week.</p>
     </header>
 
-    <nav>
-    <a href="{{ url_for('home') }}">Home</a>
-    <a href="{{ url_for('internet_history') }}">Internet History</a>
-    <a href="{{ url_for('web_history') }}">Web History</a>
-    <a href="{{ url_for('internet_history_ai') }}">Internet History AI</a>
-    <a href="{{ url_for('web_history_ai') }}">Web History AI</a>
-    <a href="{{ url_for('submit_profile') }}">Student Profile</a>
-    <a href="{{ url_for('quiz') }}">Java Quiz</a>
-    <a href="{{ url_for('submit_profile_week6') }}">Week 6 Profile Review</a>
-    <a href="{{ url_for('quiz.quiz_page') }}">Week 7 Live Quiz</a>
-    <a href="{{ url_for('profile_validated') }}">Week 8 Server Validation</a>
-</nav>
+    {# Week 12: aria-current marks the page you are on (read by screen readers, styled in style.css) #}
+    {% set nav_links = [
+        ('home', 'Home'),
+        ('internet_history', 'Internet History'),
+        ('web_history', 'Web History'),
+        ('internet_history_ai', 'Internet History AI'),
+        ('web_history_ai', 'Web History AI'),
+        ('submit_profile', 'Student Profile'),
+        ('quiz', 'JavaScript Quiz'),
+        ('submit_profile_week6', 'Week 6 Profile Review'),
+        ('quiz.quiz_page', 'Week 7 Live Quiz'),
+        ('profile_validated', 'Week 8 Server Validation'),
+    ] %}
+    <nav aria-label="Main">
+        {% for endpoint, label in nav_links %}
+        <a href="{{ url_for(endpoint) }}"
+           {% if request.endpoint == endpoint %}aria-current="page"{% endif %}>{{ label }}</a>
+        {% endfor %}
+    </nav>
 
-    <main>
+    <!-- Week 12: id is the skip link's target; tabindex="-1" lets it receive focus -->
+    <main id="main-content" tabindex="-1">
         {% block content %}{% endblock %}
     </main>
 

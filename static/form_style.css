@@ -269,7 +269,9 @@ form textarea {
     border: 1px solid rgba(148, 163, 184, 0.24);
     border-radius: 11px;
 
-    outline: none;
+    /* Week 12: removed "outline: none". This selector is more specific
+       than the :focus-visible rule below, so it was hiding the focus
+       outline on every text field, select and textarea. */
 
     transition:
         border-color 180ms ease,
@@ -507,7 +509,7 @@ form input[type="color"] {
 }
 
 form input[type="color"]:focus {
-    outline: none;
+    /* Week 12: removed "outline: none" so keyboard focus stays visible. */
     border-color: var(--form-blue-bright);
     box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.14);
 }
@@ -843,4 +845,67 @@ form .error {
     form .error {
         grid-column: 1;
     }
+}
+/* ---------------------------------------------------------
+   Week 12 - Error summary and invalid fields
+   --------------------------------------------------------- */
+
+/* Sits above the form on the light page background.
+   Dark red on pale red is about 8:1 contrast; the heading text
+   and the list say what is wrong, so colour is not the only cue. */
+.error-summary {
+    margin: 0 0 1.5rem;
+    padding: 1rem 1.25rem;
+
+    color: #7f1d1d;
+    background: #fef2f2;
+
+    border: 1px solid #fca5a5;
+    border-left: 5px solid #b91c1c;
+    border-radius: 10px;
+}
+
+.error-summary h3 {
+    margin: 0 0 0.5rem;
+    color: #7f1d1d;
+    font-size: 1rem;
+}
+
+.error-summary ul {
+    margin: 0;
+}
+
+.error-summary li::marker {
+    color: #b91c1c;
+}
+
+.error-summary strong {
+    color: inherit;
+}
+
+.error-summary a {
+    color: #991b1b;
+    text-decoration: underline;
+}
+
+.error-summary a:hover {
+    color: #7f1d1d;
+}
+
+/* The field itself also gets a red border (plus its message underneath). */
+form [aria-invalid="true"] {
+    border-color: #f87171 !important;
+}
+
+/* Week 12: disabled state (e.g. "Submitting…" after Confirm).
+   Greyed out, no hover lift, and a not-allowed cursor. */
+form > button:disabled,
+#reviewPanel button:disabled {
+    color: #cbd5e1;
+    background: #334155;
+    border-color: #475569;
+    box-shadow: none;
+    transform: none;
+    cursor: not-allowed;
+    opacity: 0.85;
 }
